@@ -1,0 +1,28 @@
+.header {
+  width: 100%;
+  background-color: #d3fdc8;
+  &__inner {
+    padding: 10px 30px;
+    &__logo {
+      img {
+        width: 190px;
+        height: 80px;
+      }
+    }
+    &__menu {
+      a {
+        &:not(:last-child) {
+          color: #5d2ad6;
+          &:hover,
+          &.--active {
+            color: #e6962e;
+            span {
+              border-bottom: 2px solid #5d2ad6;
+            }
+          }
+        }
+        margin: 0 12px;
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+//font import
+@font-face {
+  font-family: "GT-Walsheim";
+  src: url("../../assets/fonts/GT-Walsheim/GT-Walsheim-Medium.otf");
+}
+
+@font-face {
+  font-family: "GT-Walsheim-Bold";
+  src: url("../../assets/fonts/GT-Walsheim/GT-Walsheim-Bold.otf");
+  font-weight: bold;
+}
+
+//variables
+//font
+$main-font: "GT-Walsheim", helvetica, arial, "sans-serif";
+$font-size: 16px;
+
+//color
+$purple: #6254e8;
+$blue: #395dff;
+$orange: #fca58c;
+$green: #4abe6c;
+$yellow: #ffbc04;
+$white: #fff;
+$lime: #76d25b;
+
+$light-orange: #fff5f0;
+$light-purple: #f0f3ff;
+$light-green: #75e690;
+
+$deep-purple: #4d40cd; // ♪♫
+
+$white: #ffffff;
+$black: #1f1e26;
+
+$grey: #868497;
+$dark-grey: #807e94;
+$light-grey: #d7d9e1;
+$danger: #f06464;
+
+//brand color
+$primary-color: $purple;
+$secondary-color: $orange;
+$primary-light-color: $light-purple;
+$secondary-light-color: $light-orange;
+$danger: $danger;
+
+//shadow
+$shadow: 0 14px 18px rgba(0, 0, 0, 0.1);
+$alternate-shadow: 0 1px 1px rgba(0, 0, 0, 0.03), 0 2px 2px rgba(0, 0, 0, 0.03),
+  0 4px 4px rgba(0, 0, 0, 0.03), 0 8px 8px rgba(0, 0, 0, 0.03),
+  0 16px 16px rgba(0, 0, 0, 0.03);
+
+//space
+$spacing-xs: 4px;
+$spacing-s: 8px;
+$spacing-m: 16px;
+$spacing-l: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;

@@ -1,0 +1,107 @@
+// Form input
+
+.form-box {
+  position: relative;
+
+  input,
+  textarea {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    font-family: $main-font;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid $light-grey;
+    height: 30px;
+    color: $black;
+    outline: none;
+    &::placeholder {
+      color: $dark-grey;
+    }
+
+    &.focus {
+      border-color: $dark-grey;
+    }
+    @media (max-width: 500px) {
+      padding: 8px 16px;
+      font-size: 0.875rem;
+      height: 44px;
+    }
+  }
+
+  label {
+    display: inline-block;
+    font-size: 0.9rem;
+    @media (max-width: 500px) {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+//checkbox
+.form-box {
+  //hide basic checkbox
+  [type="checkbox"]:not(:checked),
+  [type="checkbox"]:checked {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .checkbox {
+    padding-left: 32px; // checkmark width + 16
+    cursor: pointer;
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border: 1px solid $light-grey;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    &:after {
+      content: url(../../assets/icons/check.svg);
+      position: absolute;
+      top: calc(50% + 2px);
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: $white;
+      display: none;
+    }
+  }
+
+  &:hover input ~ .checkmark {
+    border-color: $dark-grey;
+  }
+
+  input:checked ~ .checkmark {
+    background-color: $primary-color;
+    border-color: $primary-color;
+
+    &:after {
+      display: block;
+    }
+  }
+
+  //color modifier
+
+  $checkbox-colors: (
+    ("primary", $primary-color, $white),
+    ("secondary", $secondary-color, $white)
+  ) !default;
+
+  @each $name, $background-color, $color in $checkbox-colors {
+    .checkbox--#{$name} input:checked ~ .checkmark {
+      background-color: $background-color;
+      border-color: $background-color;
+
+      &:after {
+        color: $color;
+      }
+    }
+  }
+}

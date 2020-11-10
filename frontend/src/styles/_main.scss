@@ -1,0 +1,11 @@
+//layout
+@import "./layout/header";
+//global
+@import "./global/general";
+@import "./global/variables";
+//components
+@import "./components/buttons";
+@import "./components/form";
+
+//page
+@import "./pages/login";
