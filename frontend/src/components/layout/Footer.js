@@ -104,7 +104,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="https://www.instagram.com/providetutors">
+                <a href="https://www.instagram.com/tutors.matchingservice/?fbclid=IwAR042Gixk0QaIMG1e2wKGJhiE9XK0iq9CCCvquvtJ--nT_L-agSTMjNM1yM">
                   <span className="icon-instagram"></span>
                 </a>
               </li>

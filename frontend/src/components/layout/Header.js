@@ -11,13 +11,12 @@ function Header({ isDashboard, showHeader }) {
   const isDashboardTutor = location.pathname.includes("/dashboard/tutor");
   const renderMenu = () => {
     if (isDashboardStudent) {
-      console.log("studentinngggg");
       return (
         <>
           <NavLink activeClassName="--active" to="/dashboard/student" exact>
             <span>Home</span>
           </NavLink>
-          <NavLink activeClassName="--active" to="/dashboard/tutor/profile">
+          <NavLink activeClassName="--active" to="/dashboard/student/profile">
             <span>Profile</span>
           </NavLink>
           <DropdownUserMenu
@@ -29,7 +28,6 @@ function Header({ isDashboard, showHeader }) {
       );
     }
     if (isDashboardTutor) {
-      console.log("tutoringggg");
       return (
         <>
           <NavLink activeClassName="--active" to="/dashboard/tutor" exact>

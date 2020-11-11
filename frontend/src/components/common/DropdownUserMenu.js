@@ -64,50 +64,50 @@ const StyledDropdownUserMenu = styled(ButtonDropdown)`
 `;
 
 const DropdownUserMenu = ({
-  isHasDashboardTeacherLink,
-  isHasDashboardParentLink,
-  isParentAndTeacher,
+  isHasDashboardTutorLink,
+  isHasDashboardStudentLink,
+  isStudentAndTutor,
 }) => {
   const location = useLocation();
   const [dropdownOpen, setOpen] = useState(false);
   const [avatar, setAvatar] = useState(defaultAvatar);
 
-  const isInDashboardTeacher = location.pathname.includes("/dashboard/teacher");
-  const isInDashboardParent = location.pathname.includes("/dashboard/parent");
+  const isInDashboardTutor = location.pathname.includes("/dashboard/tutor");
+  const isInDashboardStudent = location.pathname.includes("/dashboard/student");
 
   const toggle = () => setOpen(!dropdownOpen);
 
   const renderNavLinks = () => {
-    if (isParentAndTeacher) {
+    if (isStudentAndTutor) {
       return (
         <>
-          {!isInDashboardParent && (
-            <NavLink to="/dashboard/parent" activeClassName="--active">
+          {!isInDashboardStudent && (
+            <NavLink to="/dashboard/student" activeClassName="--active">
               <User />
               <p>Dashboard Student</p>
             </NavLink>
           )}
-          {!isInDashboardTeacher && (
-            <NavLink to="/dashboard/teacher" activeClassName="--active">
+          {!isInDashboardTutor && (
+            <NavLink to="/dashboard/tutor" activeClassName="--active">
               <User />
-              <p>Dashboard Teacher</p>
+              <p>Dashboard Tutor</p>
             </NavLink>
           )}
         </>
       );
-    } else if (isHasDashboardTeacherLink) {
+    } else if (isHasDashboardTutorLink) {
       return (
         <>
-          <NavLink to="/dashboard/teacher" activeClassName="--active">
+          <NavLink to="/dashboard/tutor" activeClassName="--active">
             <User />
             <p>Dashboard</p>
           </NavLink>
         </>
       );
-    } else if (isHasDashboardParentLink) {
+    } else if (isHasDashboardStudentLink) {
       return (
         <>
-          <NavLink to="/dashboard/parent" activeClassName="--active">
+          <NavLink to="/dashboard/tutor" activeClassName="--active">
             <User />
             <p>Dashboard</p>
           </NavLink>
