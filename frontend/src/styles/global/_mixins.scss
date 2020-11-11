@@ -180,7 +180,6 @@
 }
 
 @mixin form_login {
-  background: $secondary-light-color;
   overflow: hidden;
   flex: 1 0 auto;
   width: 100%;
@@ -193,48 +192,12 @@
   max-width: 380px;
   width: 100%;
   margin: 0 auto;
-  @media (max-width: 600px) {
-    padding: 30px 15px;
-  }
 }
 
 @mixin form_style {
-  background: #ffffff;
+  background: #a3ff91;
   padding: 20px 30px 40px;
   text-align: center;
   box-shadow: 0px 5px 25px rgba(98, 84, 232, 0.2);
   position: relative;
-}
-
-@mixin icon-note {
-  .icon-note-double {
-    font-size: 36px;
-    color: $secondary-color;
-    top: 32px;
-    right: -10px;
-    transform: rotate(-14deg);
-  }
-  .icon-note {
-    color: #08135a;
-    right: -10px;
-    top: 40%;
-  }
-  .icon-note.note-large {
-    color: $primary-color;
-    font-size: 42px;
-    top: 20%;
-    right: -100px;
-    transform: rotate(-17deg);
-  }
-}
-
-@mixin icon-note__style {
-  transform: rotate(13deg);
-  font-size: 30px;
-  position: absolute;
-}
-@mixin icon-note-double_style {
-  font-size: 35px;
-  transform: rotate(-13deg);
-  position: absolute;
 }

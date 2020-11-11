@@ -1,2 +1,3 @@
 import FormBox from "./FormBox";
-export { FormBox };
+import InfoGrade from "./InfoGrade";
+export { FormBox, InfoGrade };

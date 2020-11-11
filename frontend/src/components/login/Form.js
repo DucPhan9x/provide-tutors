@@ -32,7 +32,6 @@ const Form = ({ handleSubmit }) => {
       login: form.email,
       password: form.password,
     };
-
     handleSubmit(formData);
   };
   const handleChange = (event) => {
