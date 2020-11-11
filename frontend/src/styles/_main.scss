@@ -1,11 +1,18 @@
-//layout
-@import "./layout/header";
 //global
-@import "./global/general";
+@import "./global/reset";
 @import "./global/variables";
+@import "./global/design-system";
+@import "./global/general";
+@import "./global/typography";
+@import "./global/utilities";
+@import "./global/mixins";
+@import "./global/icons";
 //components
 @import "./components/buttons";
 @import "./components/form";
-
+@import "./components/underline";
+//layout
+@import "./layout/header";
+@import "./layout/footer";
 //page
 @import "./pages/login";

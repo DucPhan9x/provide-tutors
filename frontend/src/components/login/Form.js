@@ -51,9 +51,6 @@ const Form = ({ handleSubmit }) => {
     <section onSubmit={handleSubmitForm} className="login">
       <div className="login__inner">
         <ReForm className="radius-l login__inner__form">
-          <span className="icon-note-double"></span>
-          <span className="icon-note"></span>
-          <span className="icon-note note-large"></span>
           <div className="login__inner__form__text">
             <p>Log in to your account</p>
             <div className="error">{errorLogin}</div>

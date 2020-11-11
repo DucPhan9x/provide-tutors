@@ -1,0 +1,112 @@
+// colors
+$utilities-colors: (
+  ("primary", $primary-color),
+  ("secondary", $secondary-color),
+  ("white", $white),
+  ("black", $black),
+  ("blue", $blue),
+  ("green", $green),
+  ("orange", $orange),
+  ("purple", $purple),
+  ("lime", $lime)
+) !default;
+
+@each $name, $color in $utilities-colors {
+  .#{$name} {
+    color: $color;
+  }
+
+  .background-#{$name} {
+    background-color: $color;
+  }
+}
+
+// radius
+.radius {
+  border-radius: 16px;
+
+  &-s {
+    border-radius: 8px;
+  }
+
+  &-l {
+    border-radius: 24px;
+  }
+}
+
+// shadow
+.shadow {
+  box-shadow: $shadow;
+}
+
+// border
+.border {
+  border: 1px solid $light-grey;
+}
+
+// margin and padding
+$spacings: (
+  ("-xs", $spacing-xs),
+  ("-s", $spacing-s),
+  ("", $spacing-m),
+  ("-l", $spacing-l),
+  ("-xl", $spacing-xl),
+  ("-xxl", $spacing-xxl)
+);
+$sides: (top, right, bottom, left);
+
+@each $name, $spacing in $spacings {
+  //margin
+  .margin#{$name} {
+    margin: #{$spacing} !important;
+  }
+  .margin-b#{$name} {
+    margin-bottom: #{$spacing} !important;
+  }
+  .margin-t#{$name} {
+    margin-top: #{$spacing} !important;
+  }
+  .margin-l#{$name} {
+    margin-left: #{$spacing} !important;
+  }
+  .margin-r#{$name} {
+    margin-right: #{$spacing} !important;
+  }
+  .margin-hz#{$name} {
+    //horizontal
+    margin-left: #{$spacing} !important;
+    margin-right: #{$spacing} !important;
+  }
+  .margin-vt#{$name} {
+    //vertical
+    margin-top: #{$spacing} !important;
+    margin-bottom: #{$spacing} !important;
+  }
+  //pading
+  .padding#{$name} {
+    padding: #{$spacing} !important;
+  }
+  .padding-hz#{$name} {
+    //horizontal
+    padding-left: #{$spacing} !important;
+    padding-right: #{$spacing} !important;
+  }
+  .padding-vt#{$name} {
+    //vertical
+    padding-top: #{$spacing} !important;
+    padding-bottom: #{$spacing} !important;
+  }
+  //generate each side
+  @each $side in $sides {
+    .margin-#{$side}#{$name} {
+      margin-#{$side}: #{$spacing} !important;
+    }
+    .padding-#{$side}#{$name} {
+      padding-#{$side}: #{$spacing} !important;
+    }
+  }
+}
+
+.margin-auto {
+  margin: auto;
+}

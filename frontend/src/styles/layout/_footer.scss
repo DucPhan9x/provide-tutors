@@ -1,0 +1,54 @@
+.footer {
+  background: white;
+  &__inner {
+    padding: 24px 30px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    &__logo {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      &:hover {
+        cursor: pointer;
+      }
+      img {
+        width: 150px;
+        height: 70px;
+      }
+    }
+    &__links {
+      display: flex;
+      flex-wrap: wrap;
+      &__item {
+        margin: 0 30px;
+        text-align: left;
+        p {
+          text-transform: capitalize;
+        }
+        li {
+          margin: 5px 0;
+        }
+        a {
+          color: $black;
+          text-decoration: none;
+          font-size: 16px;
+          line-height: 20px;
+          transition: 0.3s ease;
+          &:hover,
+          &.--active {
+            color: $primary-color;
+          }
+        }
+      }
+      .follow-us {
+        ul {
+          display: flex;
+          li {
+            margin: 5px 8px 5px 0;
+          }
+        }
+      }
+    }
+  }
+}

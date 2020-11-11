@@ -1,0 +1,37 @@
+//underline
+
+.underline {
+  position: relative;
+  display: inline-block;
+
+  &:before {
+    content: " ";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 80%;
+    max-width: 48px;
+    height: 4px;
+    border-radius: 4px;
+    background-color: $primary-color;
+  }
+
+  &--center:before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+// color modifier
+
+$underline-colors: (
+  ("primary", $primary-color),
+  ("secondary", $secondary-color),
+  ("blue", $blue)
+) !default;
+
+@each $name, $color in $underline-colors {
+  .underline--#{$name}:before {
+    background-color: $color;
+  }
+}
