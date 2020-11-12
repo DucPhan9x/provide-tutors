@@ -1,0 +1,39 @@
+.header {
+  width: 100%;
+  background-color: $white;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  &__inner {
+    padding: 10px 30px;
+    &__logo {
+      img {
+        width: 180px;
+        height: 80px;
+      }
+    }
+    &__menu {
+      a {
+        font-size: 20px;
+        &:not(:last-child) {
+          color: $purple;
+          &:hover,
+          &.--active {
+            color: #e6962e;
+            span {
+              border-bottom: 2px solid $purple;
+            }
+          }
+        }
+        margin: 0 12px;
+      }
+    }
+    .button--login {
+      height: 40px;
+      &:hover {
+        background-color: #ebae5f;
+        color: $black;
+      }
+    }
+  }
+}

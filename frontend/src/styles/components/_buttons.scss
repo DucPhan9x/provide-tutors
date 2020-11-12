@@ -1,0 +1,51 @@
+//button
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 100px;
+  text-align: center;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  border: none;
+  &[disabled] {
+    pointer-events: none;
+    background: #868383;
+  }
+  &--small {
+    min-width: 0;
+    padding: 0 16px;
+    height: 40px;
+    border-radius: 16px;
+    font-size: 0.9rem; // ~ 14px
+  }
+  &--shadow {
+    box-shadow: $shadow;
+  }
+}
+
+//color modifier
+
+$button-colors: (
+  ("primary", $primary-color, $white),
+  ("secondary", $secondary-color, $white),
+  ("primary-light-color", $primary-light-color, $black),
+  ("danger", $danger, $danger)
+) !default;
+
+@each $name, $background-color, $color in $button-colors {
+  .button--#{$name} {
+    color: $color;
+    background-color: $background-color;
+
+    &:hover,
+    &:focus {
+      background-color: darken($background-color, 5%);
+      color: #fff;
+      outline: none;
+    }
+  }
+}

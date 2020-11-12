@@ -1,0 +1,96 @@
+//comments are based on font-size 100% = 16px
+//default
+html {
+  font-size: $font-size; //base value for rem
+}
+
+body {
+  font-family: $main-font;
+  font-size: 1rem;
+  line-height: 1.5rem; // 24px;
+  color: $black;
+  min-height: 100vh;
+}
+
+//titles
+.h1,
+.h2,
+.h3,
+.h4,
+.h5 {
+  font-family: "GT-Walsheim-Bold";
+}
+
+.h1 {
+  font-size: 5rem; // 80px
+  letter-spacing: -0.16rem; // ~ -2.6px;
+  line-height: 4.25rem; // 68px;
+}
+
+.h2 {
+  font-size: 4rem; // 64px
+  letter-spacing: -0.16rem; // ~ -2.6px;
+  line-height: 4rem; // 64px
+}
+
+.h3 {
+  font-size: 2rem; // 32px
+  letter-spacing: -0.08rem; // ~ -1.3px;
+  line-height: 2.25rem; // 36px;
+}
+
+.h4 {
+  font-size: 1.3rem; // ~ 21px
+  line-height: 1.75rem; // 28px;
+}
+
+.h5 {
+  font-size: 1rem; // ~ 21px
+  line-height: 1.1rem; // 28px;
+}
+
+//text
+.text {
+  font-size: 1rem;
+  &--xxxlarge {
+    font-size: 3rem; // 48px;
+    line-height: 3rem; // 48px;
+    font-family: "GT-Walsheim-Bold";
+  }
+
+  &--xxlarge {
+    font-size: 1.5rem; // 24px;
+    line-height: 2.25rem; // 36px;
+  }
+
+  &--xlarge {
+    font-size: 1.3rem; // ~ 21px
+    line-height: 2rem; // 32px
+  }
+
+  &--large {
+    font-size: 1.1rem; // ~ 18px;
+  }
+
+  &--small {
+    font-size: 0.9rem; // ~ 14px
+    line-height: 1rem; // 16px
+  }
+
+  &--xsmall {
+    font-size: 0.75rem; // 12px
+    line-height: 0.9rem; // ~ 14px
+  }
+
+  &--primary {
+    color: $primary-color;
+  }
+
+  &--secondary {
+    color: $secondary-color;
+  }
+}
+
+.bold {
+  font-weight: 700;
+}

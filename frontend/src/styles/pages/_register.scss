@@ -1,0 +1,58 @@
+.register {
+  @include form_login();
+  &__inner {
+    @include form_login_inner();
+    &__form {
+      @include form_style();
+      span {
+        position: absolute;
+      }
+      .button--register {
+        margin-top: 30px;
+      }
+      &__text {
+        p {
+          font-size: 24px;
+          line-height: 18px;
+          margin: 25px 0 40px;
+          font-family: "GT-Walsheim-Bold";
+          @media (max-width: 400px) {
+            font-size: 19px;
+            margin: 20px 0 30px;
+          }
+        }
+      }
+      .form-box {
+        margin-bottom: 20px;
+        input,
+        textarea {
+          width: 90%;
+          height: 20px;
+          &::placeholder {
+            color: $black;
+          }
+        }
+      }
+      button {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      a {
+        font-size: 14px;
+        line-height: 17px;
+      }
+    }
+  }
+  .errorLogin {
+    font-size: 14px;
+    color: #dc3545;
+  }
+  .--text {
+    padding: 20px;
+    text-align: center;
+    line-height: 18px;
+    font-size: 14px;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+}

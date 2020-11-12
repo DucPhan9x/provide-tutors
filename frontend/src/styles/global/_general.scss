@@ -1,0 +1,51 @@
+.flex {
+  display: flex;
+}
+.items-center {
+  align-items: center;
+}
+.contents-center {
+  justify-content: center;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-row {
+  flex-direction: row;
+}
+.space-between {
+  justify-content: space-between;
+}
+.app {
+  transition: 0.25s ease;
+  background-color: #e4fff2;
+  min-height: 100vh;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  &__body {
+    position: relative;
+    width: 100%;
+    display: flex;
+    margin: 0;
+  }
+
+  &__content {
+    padding: 48px 24px;
+    width: 100%;
+    overflow-y: auto;
+    height: 100%;
+    &__inner {
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+}
+
+// reset link style
+a {
+  text-decoration: none;
+}

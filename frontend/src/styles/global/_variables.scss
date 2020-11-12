@@ -1,0 +1,106 @@
+//font import
+@font-face {
+  font-family: "GT-Walsheim";
+  src: url("../../assets/fonts/GT-Walsheim/GT-Walsheim-Medium.otf");
+}
+
+@font-face {
+  font-family: "GT-Walsheim-Bold";
+  src: url("../../assets/fonts/GT-Walsheim/GT-Walsheim-Bold.otf");
+  font-weight: bold;
+}
+
+//variables
+//font
+$main-font: "GT-Walsheim", helvetica, arial, "sans-serif";
+$font-size: 16px;
+
+//color
+$purple: #6254e8;
+$blue: #395dff;
+$orange: #fca58c;
+$green: #4abe6c;
+$yellow: #ffbc04;
+$white: #fff;
+$lime: #76d25b;
+
+$light-orange: #fff5f0;
+$light-purple: #f0f3ff;
+$light-green: #75e690;
+
+$deep-purple: #4d40cd; // ♪♫
+
+$white: #ffffff;
+$black: #1f1e26;
+
+$grey: #868497;
+$dark-grey: #807e94;
+$light-grey: #d7d9e1;
+$danger: #f06464;
+
+//brand color
+$primary-color: $purple;
+$secondary-color: $orange;
+$primary-light-color: $light-purple;
+$secondary-light-color: $light-orange;
+$danger: $danger;
+
+//shadow
+$shadow: 0 14px 18px rgba(0, 0, 0, 0.1);
+$alternate-shadow: 0 1px 1px rgba(0, 0, 0, 0.03), 0 2px 2px rgba(0, 0, 0, 0.03),
+  0 4px 4px rgba(0, 0, 0, 0.03), 0 8px 8px rgba(0, 0, 0, 0.03),
+  0 16px 16px rgba(0, 0, 0, 0.03);
+
+//space
+$spacing-xs: 4px;
+$spacing-s: 8px;
+$spacing-m: 16px;
+$spacing-l: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+
+//icons
+$icon: "icons" !default;
+$icon-font-path: "../../assets/fonts/icons" !default;
+
+$icon-arrow-left: "\e900";
+$icon-arrow-right: "\e901";
+$icon-ban: "\e902";
+$icon-bell: "\e903";
+$icon-calendar: "\e904";
+$icon-camera: "\e905";
+$icon-car: "\e906";
+$icon-chevron-down: "\e907";
+$icon-chevron-left: "\e908";
+$icon-chevron-right: "\e909";
+$icon-chevron-up: "\e90a";
+$icon-download-cloud: "\e90b";
+$icon-facebook: "\e90c";
+$icon-file-pdf: "\e90d";
+$icon-file: "\e90e";
+$icon-flag: "\e90f";
+$icon-instagram: "\e910";
+$icon-lifebuoy: "\e911";
+$icon-link: "\e912";
+$icon-map-pin: "\e913";
+$icon-monitor: "\e914";
+$icon-more: "\e915";
+$icon-note-double: "\e916";
+$icon-note: "\e917";
+$icon-play: "\e918";
+$icon-search: "\e919";
+$icon-settings: "\e91a";
+$icon-share: "\e91b";
+$icon-sound: "\e91c";
+$icon-star: "\e91d";
+$icon-twitter: "\e91e";
+$icon-video: "\e91f";
+$icon-watch: "\e920";
+$icon-x: "\e921";
+$icon-zap: "\e922";
+$icon-bell-2: "\e923";
+$icon-credit-card: "\e924";
+$icon-download: "\e925";
+$icon-plus-circle: "\e926";
+$icon-user: "\e927";
+$icon-users: "\e928";
