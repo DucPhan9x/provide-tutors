@@ -9,15 +9,30 @@ const {
 
 const {
     register,
-    login
+    login,
+    forgotPassword,
+    confirmCode,
+    changePassword
 } = authController;
 
 export const authRouter = Router();
 
 authRouter
-    .route("/api/v1/auth/register")
+    .route("/v1/api/auth/register")
     .post(registerMiddleware, register);
 
 authRouter
-    .route("/api/v1/auth/login")
-    .post(loginMiddleware, login)
+    .route("/v1/api/auth/login")
+    .post(loginMiddleware, login);
+
+authRouter
+    .route("/v1/api/auth/forgot-password")
+    .post(forgotPassword)
+
+authRouter
+    .route("/v1/api/auth/confirm-code")
+    .post(confirmCode)
+
+authRouter
+    .route("/v1/api/auth/change-password")
+    .post(changePassword)

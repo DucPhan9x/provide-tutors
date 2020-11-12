@@ -1,2 +1,9 @@
 import { tokenEncode, verifyToken } from "./token";
-export { tokenEncode, verifyToken };
+import { sendEmail, generate } from "./sendMail";
+
+export {
+    tokenEncode,
+    verifyToken,
+    sendEmail,
+    generate
+};
