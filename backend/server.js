@@ -11,6 +11,7 @@ import {
     errorHandle
 } from "./middlewares";
 
+import { authRouter } from "./routes";
 const main = async() => {
     const server = new HttpServer(port);
     server.registerMiddleware(defaultMiddleware);
@@ -18,7 +19,7 @@ const main = async() => {
 
     dbConnection(mongoURI);
     // api
-
+    server.registerRouter(authRouter);
 
     server.registerMiddleware(errorHandle);
 
