@@ -6,4 +6,8 @@ export const envVariables = {
     mongoURI: process.env.DB_URI || "mongodb://localhost:27017/ttcn",
     jwtSecret: "alkndaksdaskdna!@",
     nodeEnv: process.env.NODE_ENV || "development",
+    gmail: process.env.GMAIL || "noreply.strangerfunny@gmail.com",
+    pass: process.env.PASS || "kaydateamqQ!@#",
+    text: process.env.TEXT || "Code reset password: ",
+    subject: process.env.SUBJECT || "[CODE RESET :]",
 }
