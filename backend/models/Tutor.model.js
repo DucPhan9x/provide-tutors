@@ -1,40 +1,40 @@
 import { Schema, model } from "mongoose";
 
 
-const customerSchema = new Schema({
+const tutorSchema = new Schema({
 
     email: {
         type: String
     },
-    username: {
+    userName: {
         type: String
     },
     password: {
         type: String
     },
-    fullname: {
+    fullName: {
         type: String
+    },
+    birthday: {
+        type: Date
     },
     phone: {
         type: String
-    },
-    dob: {
-        type: Date,
-    },
-    picture: {
-        type: String,
     },
     address: {
         type: String
     },
     gender: {
         type: String,
-        enum: ["male", "female"],
+        enum: ["Male", "Female"],
     },
     role: {
-        type: String,
-        default: "customer"
+        type: Number,
+        default: 1
     },
+    picture: {
+        type: String
+    }
 });
 
-export const Customer = model("customer", customerSchema);
+export const Tutor = model("tutor", tutorSchema);
