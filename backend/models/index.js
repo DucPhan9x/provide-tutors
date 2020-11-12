@@ -1,4 +1,7 @@
-import { User } from "./User.model";
+import { Student } from "./Student.model";
+import { Tutor } from "./Tutor.model";
 
-
-export { User }
+export {
+    Student,
+    Tutor
+}

@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { User } from "../models";
+import { Student, Tutor } from "../models";
 
 import { varConst, HttpError } from "../constants";
 
@@ -9,29 +9,83 @@ const {
     userNameRegex
 } = varConst;
 
-const registerMiddleware = async(req, res, next) => {
-    const { userName, password, role, email } = req.body;
+const loginMiddleware = async(req, res, next) => {
+    const { userName, password } = req.body;
     try {
         if (!userNameRegex.test(userName)) {
-            throw new HttpError("Tên đăng nhập không đúng định dạng", 400);
-        }
-        if (!emailRegexp.test(email)) {
-            throw new HttpError("Email không đúng định dạng", 400);
+            throw new HttpError("Username is not in the correct format", 400);
         }
         if (!passRegex.test(password)) {
-            throw new HttpError("Mật khẩu không thể chứa khoảng trắng, và độ dài nhỏ nhất là 6 tối đa 24", 400);
+            throw new HttpError("The password cannot contain spaces, and the minimum length is 6 up to 24", 400);
         }
-        // const userEmail = await User.
-        if (!user) {
-            throw new HttpError("Tên đăng nhập hoặc mật khẩu không đúng", 401);
-        }
-
-    } catch (error) {
         next();
+    } catch (error) {
+        next(error);
     }
 
 }
 
+const registerMiddleware = async(req, res, next) => {
+
+    try {
+        const {
+            userName,
+            password,
+            role,
+            email
+        } = req.body;
+        if (!userNameRegex.test(userName)) {
+            throw new HttpError("Username is not in the correct format", 400);
+        }
+        if (!emailRegexp.test(email)) {
+            throw new HttpError("Email invalidate", 400);
+        }
+        if (!passRegex.test(password)) {
+            throw new HttpError("The password cannot contain spaces, and the minimum length is 6 up to 24", 400);
+        }
+        if (role != 0 && role != 1) {
+            throw new HttpError("role can only be 0 or 1", 400);
+        }
+        const [usernameS, usernameT, emailS, emailT] = await Promise.all([
+            Student.findOne({ userName }, { userName: 1 }),
+            Tutor.findOne({ userName }, { userName: 1 }),
+            Student.findOne({ email }, { email: 1 }),
+            Tutor.findOne({ email }, { email: 1 })
+        ]);
+        if (usernameS || usernameT) {
+            throw new HttpError("Username available", 400);
+        }
+        if (emailS || emailT) {
+            throw new HttpError("The email has been used by another account", 400);
+        }
+        next();
+    } catch (error) {
+        next(error);
+    }
+
+}
+
+
+const jwtMidleware = (req, res, next) => {
+    try {
+        const token = req.header("auth-token");
+        if (!token || token == "null" || token == "" || token == null || token == undefined) {
+            throw new HttpError("No token, authorization denied", 401);
+        }
+        try {
+            const decodedToken = jwt.verify(token, jwtSecret);
+            req.user = decodedToken;
+            next();
+        } catch (e) {
+            throw new HttpError("Token is invalid", 400);
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
 export const authMiddleware = {
-    registerMiddleware
+    registerMiddleware,
+    loginMiddleware,
+    jwtMidleware
 }
