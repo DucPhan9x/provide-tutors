@@ -1,4 +1,4 @@
-import { Customer } from "./Customer.model";
+import { User } from "./User.model";
 
 
-export { Customer }
+export { User }
