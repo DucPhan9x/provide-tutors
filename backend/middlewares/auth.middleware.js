@@ -68,7 +68,7 @@ const registerMiddleware = async(req, res, next) => {
 
 const jwtMidleware = (req, res, next) => {
     try {
-        const token = req.header("auth-token");
+        const token = req.header("token");
         if (!token || token == "null" || token == "" || token == null || token == undefined) {
             throw new HttpError("No token, authorization denied", 401);
         }
