@@ -1,8 +1,8 @@
-import jwt from "jsonwebtoken";
 import { Student, Tutor } from "../models";
 
 import { varConst, HttpError } from "../constants";
-
+import { verifyToken } from "../helpers";
+import { envVariables } from "../configs";
 const {
     passRegex,
     emailRegexp,
@@ -66,14 +66,16 @@ const registerMiddleware = async(req, res, next) => {
 }
 
 
-const jwtMidleware = (req, res, next) => {
+const jwtMidleware = async(req, res, next) => {
     try {
         const token = req.header("token");
         if (!token || token == "null" || token == "" || token == null || token == undefined) {
             throw new HttpError("No token, authorization denied", 401);
         }
         try {
-            const decodedToken = jwt.verify(token, jwtSecret);
+            console.log(token);
+            const decodedToken = verifyToken(token);
+            console.log(decodedToken);
             req.user = decodedToken;
             next();
         } catch (e) {

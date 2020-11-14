@@ -1,10 +1,39 @@
 import { Tutor, Schedule } from "../models";
-
+import { HttpError } from "../constants";
 
 const addSchedule = async(req, res, next) => {
-    const { id } = req.user;
-    const tutor = await Tutor.findOne({ _id });
-    const
+    try {
+        const { id } = req.user;
+        const { grade, subject, time } = req.body;
+        if (!time) {
+            throw new HttpError("time is empty", 400);
+        }
+        const tutor = await Tutor.findById({ _id: id })
+        const scheduleRegisted = await Schedule.find({ tutorId: id });
+        let time_registed = [];
+        for (let i = 0; i < scheduleRegisted.length; i++) {
+            time_registed = [...time_registed, ...scheduleRegisted[i].time];
+        }
+        for (let i = 0; i < time.length; i++) {
+            if (time_registed.includes(time[i])) {
+                throw new HttpError("Duplicate this time", 400);
+            }
+        }
+        let schedule = {
+            tutorId: id,
+            grade,
+            subject,
+            time,
+            fullName: tutor.fullName
+        }
+        await Schedule.create(schedule);
+        res.status(200).json({
+            status: 200,
+            msg: "success"
+        });
+    } catch (error) {
+        next(error)
+    }
 }
 
 export const tutorController = {

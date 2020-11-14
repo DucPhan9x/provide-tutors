@@ -6,13 +6,13 @@ const scheduleSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "tutor"
     },
-    fullname: {
+    fullName: {
         type: String
     },
     subject: {
         type: String
     },
-    class: {
+    grade: {
         type: Number
     },
     time: [{ type: String }],
