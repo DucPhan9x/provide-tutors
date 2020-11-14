@@ -1,5 +1,8 @@
 import { tokenEncode, verifyToken } from "./token";
-import { sendEmail, generate } from "./sendMail";
+import {
+    sendEmail,
+    generate
+} from "./sendMail";
 
 export {
     tokenEncode,
