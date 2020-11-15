@@ -17,7 +17,8 @@ const tutorSchema = new Schema({
         default: ""
     },
     birthday: {
-        type: Date
+        type: String,
+        default: ""
     },
     phone: {
         type: String,

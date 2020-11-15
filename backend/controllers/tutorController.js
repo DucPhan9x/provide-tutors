@@ -36,6 +36,52 @@ const addSchedule = async(req, res, next) => {
     }
 }
 
+
+const getInfor = async(req, res, next) => {
+    const { id } = req.user;
+    try {
+        const tutor = await Tutor.findById({ _id: id }, { password: 0, __v: 0, review: 0, _id: 0, role: 0 });
+        res.status(200).json({
+            status: 200,
+            tutor
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+const updateInfo = async(req, res, next) => {
+    const { id } = req.user;
+    try {
+        const {
+            phone,
+            birthday,
+            fullName,
+            address,
+            gender
+        } = req.body;
+
+        await Tutor.findOneAndUpdate({ _id: id }, {
+            phone,
+            fullName,
+            address,
+            gender,
+            birthday
+        })
+        res.status(200).json({
+            status: 200,
+            msg: "success"
+        });
+
+    } catch (error) {
+        next(error);
+    }
+
+}
+
 export const tutorController = {
-    addSchedule
+    addSchedule,
+    getInfor,
+    updateInfo
 }

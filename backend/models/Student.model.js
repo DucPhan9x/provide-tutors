@@ -17,7 +17,7 @@ const studentSchema = new Schema({
         default: ""
     },
     birthday: {
-        type: Date
+        type: String
     },
     phone: {
         type: String,
