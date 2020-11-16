@@ -10,4 +10,7 @@ export const envVariables = {
     pass: process.env.PASS || "kaydateamqQ!@#",
     text: process.env.TEXT || "Code reset password: ",
     subject: process.env.SUBJECT || "[CODE RESET :]",
+    cloudName: "tutoring",
+    api_key_cloud: "274767948479987",
+    api_secret_cloud: '288eL9odJfgTrBDzm-839pqPXSQ'
 }

@@ -1,12 +1,18 @@
 import cloudinary from "cloudinary";
 import multer from "multer";
 
+import { envVariables } from "../configs";
 
+const {
+    cloudName,
+    api_key_cloud,
+    api_secret_cloud
+} = envVariables
 
 cloudinary.v2.config({
-    cloud_name: 'tutotring',
-    api_key: '274767948479987',
-    api_secret: '288eL9odJfgTrBDzm-839pqPXSQ'
+    cloud_name: cloudName,
+    api_key: api_key_cloud,
+    api_secret: api_secret_cloud
 });
 export const upload = multer({ dest: 'uploads/' });
 
