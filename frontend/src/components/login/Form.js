@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FormBox } from "../common";
 import { Form as ReForm } from "reactstrap";
-import { isEmpty, isEmail } from "validator";
+import { isEmpty } from "validator";
 
 const Form = ({ handleSubmit }) => {
   const [error, setError] = React.useState({});

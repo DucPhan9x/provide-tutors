@@ -1,14 +1,12 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Form } from "../components/login";
-import { login, updateRememberedPath } from "../redux/actions/login";
+import { login } from "../redux/actions/login";
 import { useHistory } from "react-router-dom";
 import { setAuth } from "../utils/helpers";
 import { ROLE_STUDENT, ROLE_TUTOR } from "../utils/constants";
 
 const LogIn = () => {
   const history = useHistory();
-  const storeLogin = useSelector((store) => store.login);
   const handleLogin = (formData) => {
     login(formData, (data) => {
       setAuth(data.user.token);
