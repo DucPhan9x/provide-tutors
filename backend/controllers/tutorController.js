@@ -1,5 +1,6 @@
 import { Tutor, Schedule } from "../models";
 import { HttpError } from "../constants";
+import { uploadSingle } from "../helpers";
 
 const addSchedule = async(req, res, next) => {
     try {
@@ -51,6 +52,24 @@ const getInfor = async(req, res, next) => {
 }
 
 
+const uploadImageTutor = async(req, res, next) => {
+    try {
+        const { id } = req.user;
+        if (!req.file) {
+            throw new HttpError("No image", 400);
+        }
+        const image = await uploadSingle(req.file.path);
+        console.log(image);
+        await Tutor.findOneAndUpdate({ _id: id }, { picture: image.url });
+        res.status(200).json({
+            status: 200,
+            msg: "success"
+        });
+    } catch (error) {
+        next(error)
+    }
+}
+
 const updateInfo = async(req, res, next) => {
     const { id } = req.user;
     try {
@@ -59,22 +78,21 @@ const updateInfo = async(req, res, next) => {
             birthday,
             fullName,
             address,
-            gender
+            gender,
         } = req.body;
-
         await Tutor.findOneAndUpdate({ _id: id }, {
             phone,
             fullName,
             address,
             gender,
-            birthday
+            birthday,
         })
         res.status(200).json({
             status: 200,
             msg: "success"
         });
-
     } catch (error) {
+        console.log(error);
         next(error);
     }
 
@@ -83,5 +101,6 @@ const updateInfo = async(req, res, next) => {
 export const tutorController = {
     addSchedule,
     getInfor,
-    updateInfo
+    updateInfo,
+    uploadImageTutor
 }

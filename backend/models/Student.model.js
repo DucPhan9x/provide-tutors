@@ -36,7 +36,8 @@ const studentSchema = new Schema({
         default: 0
     },
     picture: {
-        type: String
+        type: String,
+        default: ""
     }
 });
 

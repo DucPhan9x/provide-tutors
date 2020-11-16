@@ -37,7 +37,8 @@ const tutorSchema = new Schema({
         default: 1
     },
     picture: {
-        type: String
+        type: String,
+        default: ""
     },
     review: [{
         studentId: {

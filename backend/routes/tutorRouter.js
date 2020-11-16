@@ -4,9 +4,11 @@ import { tutorController } from "../controllers";
 const {
     addSchedule,
     getInfor,
-    updateInfo
+    updateInfo,
+    uploadImageTutor
 } = tutorController;
 
+import { upload } from "../helpers";
 import { authMiddleware } from "../middlewares";
 const { jwtMidleware } = authMiddleware;
 export const tutorRouter = Router();
@@ -22,3 +24,7 @@ tutorRouter
 tutorRouter
     .route("/v1/api/tutor/update-info")
     .post(jwtMidleware, updateInfo);
+
+tutorRouter
+    .route("/v1/api/tutor/upload-image")
+    .post(jwtMidleware, upload.single("image"), uploadImageTutor);
