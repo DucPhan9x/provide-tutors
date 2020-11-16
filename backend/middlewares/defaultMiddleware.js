@@ -25,4 +25,5 @@ export const defaultMiddleware = (app) => {
     app.use(express.static(path.join(__dirname, 'js')));
 
     morgan && app.use(morgan("dev"));
+
 };

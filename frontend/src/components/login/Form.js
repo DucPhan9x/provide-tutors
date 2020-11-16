@@ -12,9 +12,9 @@ const Form = ({ handleSubmit }) => {
   const validate = () => {
     const errorState = {};
     // check validate
-    if (!isEmail(form.email)) {
-      errorState.email = "Wrong email";
-    }
+    // if (!isEmail(form.email)) {
+    //   errorState.email = "Wrong email";
+    // }
     if (isEmpty(form.password)) {
       errorState.password = "Wrong password";
     }
@@ -29,7 +29,7 @@ const Form = ({ handleSubmit }) => {
     }
 
     const formData = {
-      login: form.email,
+      userName: form.email,
       password: form.password,
     };
     handleSubmit(formData);
