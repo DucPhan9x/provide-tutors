@@ -13,16 +13,19 @@ const studentSchema = new Schema({
         type: String
     },
     fullName: {
-        type: String
+        type: String,
+        default: ""
     },
     birthday: {
-        type: Date
+        type: String
     },
     phone: {
-        type: String
+        type: String,
+        default: ""
     },
     address: {
-        type: String
+        type: String,
+        default: ""
     },
     gender: {
         type: String,
@@ -33,7 +36,8 @@ const studentSchema = new Schema({
         default: 0
     },
     picture: {
-        type: String
+        type: String,
+        default: ""
     }
 });
 

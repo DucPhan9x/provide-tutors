@@ -167,6 +167,7 @@ const changePassword = async(req, res, next) => {
 }
 
 
+
 export const authController = {
     login,
     register,
