@@ -1,0 +1,58 @@
+.feedback {
+  padding: 24px 0;
+  text-align: center;
+  .text__title {
+    position: relative;
+    h2 {
+      position: relative;
+    }
+  }
+  .slide {
+    position: relative;
+    padding: 24px 40px;
+    text-align: center;
+    &:focus {
+      outline: none;
+    }
+    &__content {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 5% 7% 7%;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0px 13px 35px 3px rgba(251, 192, 162, 0.48);
+      position: relative;
+      &:before {
+        content: "";
+        background: $white;
+        border-radius: 24px;
+        @include size(100%);
+        @include position(absolute, 3px null null -90px);
+        transform: rotate(-4deg);
+        z-index: -1;
+        @media screen and (max-width: 700px) {
+          display: none;
+        }
+      }
+      &:after {
+        content: "";
+        background: $white;
+        border-radius: 24px;
+        @include size(100%);
+        @include position(absolute, 3px -90px null null);
+        transform: rotate(4deg);
+        z-index: -1;
+        @media screen and (max-width: 700px) {
+          display: none;
+        }
+      }
+      img {
+        width: 200px;
+        height: 170px;
+        margin: 16px auto 24px;
+        object-fit: cover;
+        border-radius: 24px;
+      }
+    }
+  }
+}
