@@ -13,16 +13,20 @@ const tutorSchema = new Schema({
         type: String
     },
     fullName: {
-        type: String
+        type: String,
+        default: ""
     },
     birthday: {
-        type: Date
+        type: String,
+        default: ""
     },
     phone: {
-        type: String
+        type: String,
+        default: ""
     },
     address: {
-        type: String
+        type: String,
+        default: ""
     },
     gender: {
         type: String,
@@ -33,7 +37,8 @@ const tutorSchema = new Schema({
         default: 1
     },
     picture: {
-        type: String
+        type: String,
+        default: ""
     },
     review: [{
         studentId: {
