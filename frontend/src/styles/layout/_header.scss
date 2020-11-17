@@ -2,10 +2,11 @@
   width: 100%;
   background-color: $white;
   position: sticky;
+  box-shadow: 1px 1px 10px $light-grey;
   top: 0;
   z-index: 999;
   &__inner {
-    padding: 10px 30px;
+    padding: 10px 40px;
     &__logo {
       img {
         width: 180px;

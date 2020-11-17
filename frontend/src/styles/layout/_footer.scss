@@ -1,7 +1,7 @@
 .footer {
   background: white;
   &__inner {
-    padding: 24px 30px;
+    padding: 24px 50px;
     text-align: center;
     display: flex;
     justify-content: space-between;
@@ -21,7 +21,7 @@
       display: flex;
       flex-wrap: wrap;
       &__item {
-        margin: 0 30px;
+        margin: 0 50px;
         text-align: left;
         p {
           text-transform: capitalize;

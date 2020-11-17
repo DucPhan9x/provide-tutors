@@ -15,12 +15,8 @@ function Members() {
             <h2 className="h2">
               Meet <span className="primary">our management team</span>{" "}
             </h2>
-            {/* <div className="flex_row">
-              Member1 Member2 Member3 Member4 Member5
-            </div> */}
             <span>
-              {" "}
-              <img width="100%" src={members}></img>
+              <img width="100%" src={members} alt=""></img>
             </span>
           </div>
         </div>
