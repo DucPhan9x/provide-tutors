@@ -1,4 +1,3 @@
-import { setAuth } from "../../utils/helpers";
 import * as types from "../constants";
 import store from "../store";
 export function login(data, resolve = () => {}) {

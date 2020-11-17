@@ -74,6 +74,7 @@ const DropdownUserMenu = ({
 
   const isInDashboardTutor = location.pathname.includes("/dashboard/tutor");
   const isInDashboardStudent = location.pathname.includes("/dashboard/student");
+  setAvatar(defaultAvatar);
 
   const toggle = () => setOpen(!dropdownOpen);
 

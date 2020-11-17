@@ -11,6 +11,9 @@
 @import "./components/buttons";
 @import "./components/form";
 @import "./components/underline";
+@import "./components/homepage/banner";
+@import "./components//homepage/subject";
+@import "./components//homepage/feedback";
 //layout
 @import "./layout/header";
 @import "./layout/footer";
@@ -19,3 +22,6 @@
 @import "./pages/forgotPassword";
 @import "./pages/resetPassword";
 @import "./pages/register";
+@import "./pages/homepage";
+@import "./pages/ourTutor";
+@import "./pages/aboutUs";

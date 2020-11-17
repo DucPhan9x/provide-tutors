@@ -1,0 +1,12 @@
+.banner {
+  margin-bottom: 40px;
+  &__inner {
+    &__image {
+      img {
+        border-radius: 50%;
+        border: 0.5px solid rgb(17, 233, 204);
+      }
+    }
+  }
+  margin-bottom: 80px;
+}
