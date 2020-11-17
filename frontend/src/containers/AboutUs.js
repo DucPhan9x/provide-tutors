@@ -1,11 +1,6 @@
 import React from "react";
 
-import {
-  Banner,
-  Members,
-  Values,
-  WhyChooseUs,
-} from "../components/about";
+import { Banner, Members, Values, WhyChooseUs } from "../components/about";
 
 const AboutUs = () => {
   return (
