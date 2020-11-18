@@ -1,32 +1,30 @@
 import { Schema, model } from "mongoose";
 
 const scheduleSchema = new Schema({
-
     tutorId: {
         type: Schema.Types.ObjectId,
-        ref: "tutor"
+        ref: "tutor",
     },
     fullName: {
-        type: String
+        type: String,
     },
     subject: {
-        type: String
+        type: String,
     },
     grade: {
-        type: Number
+        type: Number,
     },
     time: [{ type: String }],
-    fee: {
-        type: Number
-    },
-    students: [{
-        type: Schema.Types.ObjectId,
-        ref: "customer"
-    }],
+    students: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "student",
+        },
+    ],
     time_created: {
         type: Date,
-        default: new Date()
-    }
+        default: new Date(),
+    },
 });
 
 export const Schedule = model("schedule", scheduleSchema);
