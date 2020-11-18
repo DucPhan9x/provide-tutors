@@ -116,7 +116,7 @@ function Feedback() {
             <article className="slide">
               <div className="slide__content">
                 <h4 className="h4">About Nguyen Quang Phieu</h4>
-                <p>Music teacher, Quang Nam - Viet Nam</p>
+                <p>Music teacher, Thua Thien Hue - Viet Nam</p>
                 <img src={tempImage} alt="author feedback" />
                 <p>
                   I really appreciate the way she coaches voice exercises, and I

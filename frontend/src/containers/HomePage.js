@@ -3,15 +3,12 @@ import { Banner, Feedback, Subject } from "../components/homepage";
 import tempImage from "../assets/images/homepage_banner.jpg";
 function HomePage(props) {
   const listSubject = [
-    { name: "Math - 08", amountTutor: 2, image: tempImage },
-    { name: "Physical - 07", amountTutor: 0, image: tempImage },
-    { name: "Chemistry - 08", amountTutor: 2, image: tempImage },
-    { name: "History", amountTutor: 2, image: tempImage },
-    { name: "Biology - 09", amountTutor: 2, image: tempImage },
-    { name: "Physical - 07", amountTutor: 0, image: tempImage },
-    { name: "Chemistry - 08", amountTutor: 2, image: tempImage },
-    { name: "History - 12", amountTutor: 2, image: tempImage },
-    { name: "English -10", amountTutor: 2, image: tempImage },
+    { name: "Math", amountTutor: 0, image: tempImage },
+    { name: "Physical", amountTutor: 0, image: tempImage },
+    { name: "Chemistry", amountTutor: 0, image: tempImage },
+    { name: "History", amountTutor: 0, image: tempImage },
+    { name: "Biology", amountTutor: 0, image: tempImage },
+    { name: "English", amountTutor: 0, image: tempImage },
   ];
   return (
     <>
@@ -32,7 +29,6 @@ function HomePage(props) {
           })}
         </div>
       </div>
-
       <Feedback />
     </>
   );
