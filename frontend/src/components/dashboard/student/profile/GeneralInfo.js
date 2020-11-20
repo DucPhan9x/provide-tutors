@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { Form, Label } from "reactstrap";
-import { FormGroup } from "../../../common";
+import { FormGroup, Form, Label, Input } from "reactstrap";
+import { FGroup } from "../../../common";
 import save from "../../../../assets/images/save.svg";
 
 const StyledGeneralInfo = styled.section`
   .form-info {
     padding: 30px 20px 10px;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     .form__item {
       float: left;
@@ -69,6 +70,8 @@ const StyledGeneralInfo = styled.section`
     }
   }
   .wrap-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
     width: 100%;
     overflow: hidden;
   }
@@ -112,54 +115,83 @@ const StyledGeneralInfo = styled.section`
 `;
 
 const GeneralInfo = () => {
+  const student = {
+    fullName: "Vu Thi Bich Thu",
+    phoneNumber: "01213456789",
+    email: "vuthibichthu@gmail.com",
+    address: "Quang Nam",
+  };
   return (
     <StyledGeneralInfo>
-      <Form className="form-info" >
+      <Form className="form-info">
         <div className="form__item">
           <div className="form__item__inner">
-            <Label>First name</Label>
-            <FormGroup
-              
+            <Label>Full name</Label>
+            <FGroup
+              propsInput={{
+                name: "fullName",
+                value: student.fullName,
+              }}
             />
           </div>
         </div>
-        <div className="form__item">
-          <div className="form__item__inner">
-            <Label>Last name</Label>
-            <FormGroup
-              
-            />
-          </div>
-        </div>
+
         <div className="form__item">
           <div className="form__item__inner">
             <Label>Phone number</Label>
-            <FormGroup
-            
+            <FGroup
+              propsInput={{
+                name: "phoneNumber",
+                value: student.phoneNumber,
+              }}
             />
+          </div>
+        </div>
+        <div className="form__item">
+          <div className="form__item__inner">
+            <FormGroup>
+              <Label for="birthday">Birthday</Label>
+              <Input
+                type="date"
+                name="birthday"
+                id="birthday"
+                placeholder="date placeholder"
+              />
+            </FormGroup>
+          </div>
+        </div>
+
+        <div className="form__item">
+          <div className="form__item__inner">
+            <FormGroup>
+              <Label for="gender">Gender</Label>
+              <Input type="select" name="select" id="gender">
+                <option>Female</option>
+                <option>Male</option>
+              </Input>
+            </FormGroup>
           </div>
         </div>
         <div className="form__item">
           <div className="form__item__inner">
             <Label>Email address</Label>
-            <FormGroup
-             
+            <FGroup
+              propsInput={{
+                name: "email",
+                value: student.email,
+                disabled: true,
+              }}
             />
           </div>
         </div>
         <div className="form__item">
           <div className="form__item__inner">
-            <Label>Address 1</Label>
-            <FormGroup
-             
-            />
-          </div>
-        </div>
-        <div className="form__item">
-          <div className="form__item__inner">
-            <Label>Address 2</Label>
-            <FormGroup
-              
+            <Label>Address</Label>
+            <FGroup
+              propsInput={{
+                name: "address",
+                value: student.address,
+              }}
             />
           </div>
         </div>

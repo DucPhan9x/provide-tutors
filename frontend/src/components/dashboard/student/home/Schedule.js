@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { Table } from "reactstrap";
 
 const StyledSchedule = styled.section`
-  font-size: 14px;
   margin: 0 0 auto;
   .schedule__inner {
     display: flex;
@@ -21,6 +21,9 @@ const StyledSchedule = styled.section`
     width: 100%;
     padding: 20px 24px;
     height: 100%;
+    .title{
+    font-size: 24pt;
+    }
     &__header {
       display: flex;
       justify-content: space-between;
@@ -302,25 +305,49 @@ const StyledSchedule = styled.section`
     z-index: 222;
     background: #fff;
   }
+
 `;
 
 const Schedule = () => {
+  const lesson1 = {
+    id: "1",
+    date: "Mon. 22 Nov",
+    time: "7:00 - 9:00",
+    tutorName: "Thu Vu",
+    subject: "English",
+  };
   return (
     <StyledSchedule>
       <div className="container">
         <div className="schedule__inner">
           <div className="class-schedule schedule-item">
             <div className="class-schedule__header">
-              <p className="fw-600">Class schedule</p>
-             
+              <p className="title">Class schedule</p>
             </div>
             <div>
-                <div className="list-lessons__header sticky">
-                  <p>Lessons</p>
-                  <span />
-                </div>
-                <div className="lessons">All lessons</div>
-              </div>
+              <br></br>
+              <div className="lessons">All lessons</div>
+              <Table hover>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Tutor Name</th>
+                    <th>Subject</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">{lesson1.id}</th>
+                    <td>{lesson1.date}</td>
+                    <td>{lesson1.time}</td>
+                    <td>{lesson1.tutorName}</td>
+                    <td>{lesson1.subject}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </div>
           </div>
         </div>
       </div>

@@ -1,0 +1,30 @@
+.DashboardProfileLayout__inner {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+
+    .nav-tabs {
+        .nav-item {
+            .nav-link {
+                color: black;
+
+                &.active {
+                    background: white;
+                    color: #6D6A75;
+                }
+
+                
+            }
+        }
+        
+    }
+
+    .tab-content {
+        width: 870px;
+        height: 345px;
+    }
+
+    .nav_bg {
+        background: #a1cebe;
+    }
+}
