@@ -1,0 +1,108 @@
+.card__teacher {
+  float: left;
+  width: 25%;
+  text-align: center;
+  margin: 16px 0;
+  padding: 0 16px;
+  &__inner {
+    background: #ffffff;
+    margin: 0 auto;
+    transition: 0.5s ease;
+    height: 100%;
+    width: 800px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+    border: 1px solid #fdbf60;
+    &:hover {
+      box-shadow: $shadow;
+    }
+
+    &__avatar {
+      position: relative;
+      margin-bottom: 15px;
+      flex-shrink: 0;
+      min-height: 240px;
+      &__img {
+        width: 350px;
+        border-radius: 24px 24px 0 0;
+        object-fit: cover;
+      }
+      &__subjects {
+        @include position(absolute, 16px null null 16px);
+        display: flex;
+        flex-wrap: wrap;
+        > div {
+          padding: 4px 8px;
+          border-radius: 4px;
+          margin: 0 5px 5px 0;
+        }
+      }
+      &__instruments {
+        padding: 15px;
+      }
+      &__info {
+        @include position(absolute, null null 16px null);
+        @include flex_parent_centered();
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 45px;
+        h4 {
+          line-height: 1.4rem;
+        }
+        &-position {
+          display: flex;
+          align-items: center;
+          > div {
+            display: flex;
+            align-items: center;
+            margin: 0 8px;
+          }
+          .star {
+            .icon-star,
+            p {
+              color: #fdbf60;
+              font-size: 17px;
+              margin: 0 2px 2px 0;
+            }
+          }
+          .icon-map-pin {
+            font-size: 12px;
+            margin: 0 2px 1px 0;
+          }
+        }
+      }
+    }
+    &__block {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      height: 100%;
+    }
+    &__text {
+      &-description {
+        position: relative;
+        padding: 0 20px;
+        margin-bottom: 4%;
+        text-align: left;
+      }
+    }
+    &__footer {
+      display: flex;
+      padding: 0 20px 20px;
+      text-align: left;
+      h4 {
+        margin: 0;
+      }
+      .text--small {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      &__lessons {
+        margin-right: 18px;
+        width: 42%;
+      }
+    }
+  }
+}

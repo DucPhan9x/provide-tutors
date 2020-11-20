@@ -7,14 +7,12 @@ import SingleSelect from "../common/SingleSelect";
 
 const Form = ({ handleSubmit, onChangeRole }) => {
   const [error, setError] = React.useState({});
-  const [roles, setRoles] = React.useState(null);
-  setRoles(null);
   const [form, setForm] = React.useState({
     userName: "",
     email: "",
     password: "",
     confirmPass: "",
-    roles: roles,
+    role: 0,
   });
   const [errorRegister, setErrorRegister] = React.useState();
 

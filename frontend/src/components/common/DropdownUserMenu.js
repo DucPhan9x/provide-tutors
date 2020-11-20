@@ -70,11 +70,9 @@ const DropdownUserMenu = ({
 }) => {
   const location = useLocation();
   const [dropdownOpen, setOpen] = useState(false);
-  const [avatar, setAvatar] = useState(defaultAvatar);
 
   const isInDashboardTutor = location.pathname.includes("/dashboard/tutor");
   const isInDashboardStudent = location.pathname.includes("/dashboard/student");
-  setAvatar(defaultAvatar);
 
   const toggle = () => setOpen(!dropdownOpen);
 
@@ -120,12 +118,16 @@ const DropdownUserMenu = ({
   return (
     <StyledDropdownUserMenu isOpen={dropdownOpen} toggle={toggle}>
       <DropdownToggle>
-        <img src={avatar || defaultAvatar} alt="Avatar" className="avatar" />
+        {/* <img src={avatar || defaultAvatar} alt="Avatar" className="avatar" /> */}
+        <img src={defaultAvatar} alt="Avatar" className="avatar" />
         <ChevronDown />
       </DropdownToggle>
 
       <DropdownMenu>
         {renderNavLinks()}
+        <NavLink to="/dashboard">
+          <p>Dashboard</p>
+        </NavLink>
         <NavLink to="/logout">
           <SignInAlt />
           <p>Logout</p>
