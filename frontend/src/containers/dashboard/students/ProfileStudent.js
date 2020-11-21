@@ -4,7 +4,7 @@ import {
   GeneralInfo,
   Password,
 } from "../../../components/dashboard/student/profile";
-import { ModalUpdatePicture } from "../../../components/common";
+import { Avatar } from "../../../components/common";
 import { openModalMessage } from "../../../redux/actions/modalMessage";
 
 import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
@@ -72,13 +72,6 @@ const ProfileStudent = () => {
           </TabContent>
         </div>
       </DashboardProfileStudentLayout>
-      {openModalUpdatePicture && (
-        <ModalUpdatePicture
-          isOpen={openModalUpdatePicture}
-          handleToggle={handleModalUpdatePicture}
-          handleSubmit={handleUpdateAvatar}
-        />
-      )}
     </div>
   );
 };

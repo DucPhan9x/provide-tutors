@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Edit } from "../common/icons";
 import avataPicture from "../../assets/images/avatar-picture.svg";
+import { Avatar } from "../common";
 
 const StyledDashboardProfileLayout = styled.section`
   margin-bottom: auto;
@@ -164,13 +165,8 @@ const DashboardProfileStudentLayout = ({
       <div className="container">
         <div className="DashboardProfileLayout__inner">
           <div className="card">
-            <div className="avatar" onClick={onOpenModalUpdateAvatar}>
-              <img src={avataPicture} alt="avatar" />
-              <div className="--bg"></div>
-              <div className="avatar__update">
-                <Edit />
-                <p>Update</p>
-              </div>
+            <div className="avatar">
+              <Avatar />
             </div>
             <h4>Thu Vu</h4>
           </div>
