@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Edit } from "../common/icons";
-import avataPicture from "../../assets/images/avatar-picture.svg";
 import { Avatar } from "../common";
 
 const StyledDashboardProfileLayout = styled.section`

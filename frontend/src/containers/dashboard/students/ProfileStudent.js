@@ -4,8 +4,6 @@ import {
   GeneralInfo,
   Password,
 } from "../../../components/dashboard/student/profile";
-import { Avatar } from "../../../components/common";
-import { openModalMessage } from "../../../redux/actions/modalMessage";
 
 import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
@@ -24,14 +22,6 @@ const ProfileStudent = () => {
   const handleModalUpdatePicture = (e) => {
     e.preventDefault();
     setOpenModalUpdatePicture(!openModalUpdatePicture);
-  };
-
-  const handleUpdateAvatar = () => {
-    setOpenModalUpdatePicture(false);
-    openModalMessage({
-      title: "Avatar updated",
-      body: <p>Your avatar picture has been updated successfully.</p>,
-    });
   };
 
   return (
