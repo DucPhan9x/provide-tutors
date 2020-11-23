@@ -11,6 +11,7 @@ import AboutUs from "./containers/AboutUs";
 import { HomeTutor, ProfileTutor } from "./containers/dashboard/tutors";
 import withLayoutDashboard from "./HOCS/withLayoutDashboard";
 import { HomeStudent, ProfileStudent } from "./containers/dashboard/students";
+import { HomeAdmin } from "./containers/dashboard/admin";
 
 function App() {
   return (
@@ -42,6 +43,13 @@ function App() {
           component={withLayoutDashboard(ProfileStudent)}
           exact
         />
+        {/* Dashboard admin */}
+        <Route
+          path="/dashboard/admin"
+          component={withLayoutDashboard(HomeAdmin)}
+          exact
+        />
+
         <Route path="/login" exact component={withLayout(LogIn)} />
         <Route
           path="/forgot-password"

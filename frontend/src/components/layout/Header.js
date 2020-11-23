@@ -7,9 +7,25 @@ import DropdownUserMenu from "../common/DropdownUserMenu";
 function Header({ isDashboard, showHeader }) {
   // const handleClick = () => {};
   const location = useLocation();
+  const isDashboardAdmin = location.pathname.includes("/dashboard/admin");
   const isDashboardStudent = location.pathname.includes("/dashboard/student");
   const isDashboardTutor = location.pathname.includes("/dashboard/tutor");
   const renderMenu = () => {
+    if (isDashboardAdmin) {
+      return (
+        <>
+          <NavLink activeClassName="--active" to="/dashboard/admin" exact>
+            <span>Managerment</span>
+          </NavLink>
+
+          <DropdownUserMenu
+            isHasDashboardTutorLink={!isDashboard && isDashboardTutor}
+            isHasDashboardStudentLink={!isDashboard && isDashboardStudent}
+            isStudentAndTutor={isDashboardStudent && isDashboardTutor}
+          />
+        </>
+      );
+    }
     if (isDashboardStudent) {
       return (
         <>
@@ -44,7 +60,7 @@ function Header({ isDashboard, showHeader }) {
         </>
       );
     }
-    if (!isDashboardStudent && !isDashboardTutor) {
+    if (!isDashboardAdmin && !isDashboardStudent && !isDashboardTutor) {
       return (
         <>
           <NavLink activeClassName="--active" to="/" exact>
