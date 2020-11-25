@@ -1,5 +1,5 @@
 import FormBox from "./FormBox";
-import FormGroup from "./FormGroup";
-import ModalUpdatePicture from "./ModalUpdatePicture";
+import FGroup from "./FGroup";
+import Avatar from "./Avatar";
 import Modal from "./Modal";
-export { FormBox, FormGroup, ModalUpdatePicture, Modal };
+export { FormBox, FGroup, Avatar, Modal };

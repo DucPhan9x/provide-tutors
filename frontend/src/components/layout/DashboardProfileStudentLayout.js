@@ -1,9 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
-import { Edit, UserEdit, Key } from "../common/icons";
-import { UncontrolledTooltip } from "reactstrap";
-import avataPicture from "../../assets/images/avatar-picture.svg";
+import { Avatar } from "../common";
 
 const StyledDashboardProfileLayout = styled.section`
   margin-bottom: auto;
@@ -62,7 +59,7 @@ const StyledDashboardProfileLayout = styled.section`
           display: none;
         }
         &:hover .avatar__update {
-          display: block;
+          display: flex;
         }
       }
       h4 {
@@ -157,64 +154,21 @@ const StyledDashboardProfileLayout = styled.section`
   }
 `;
 
-const DashboardProfileStudentLayout = ({ children }) => {
+const DashboardProfileStudentLayout = ({
+  children,
+  onOpenModalUpdateAvatar,
+}) => {
   return (
     <StyledDashboardProfileLayout>
       <div className="container">
         <div className="DashboardProfileLayout__inner">
           <div className="card">
             <div className="avatar">
-              <img src={avataPicture} alt="avatar" />
-              <div className="--bg"></div>
-              <div className="avatar__update">
-                <Edit />
-                <p>Update</p>
-              </div>
+              <Avatar />
             </div>
             <h4>Thu Vu</h4>
           </div>
-          <div className="profile-userInfo">
-            <div className="menu">
-              <div className="menu__inner">
-                <NavLink
-                  className="menu__userInfo"
-                  activeClassName="--active"
-                  to="/dashboard/student/profile"
-                  exact
-                >
-                  <p>General information</p>
-
-                  <div className="menu__icon" id="UncontrolledTooltip1">
-                    <UserEdit />
-                  </div>
-                  <UncontrolledTooltip
-                    placement="top"
-                    target="UncontrolledTooltip1"
-                  >
-                    General information
-                  </UncontrolledTooltip>
-                </NavLink>
-                <NavLink
-                  className="menu__userInfo"
-                  activeClassName="--active"
-                  to="/dashboard/student/profile/password"
-                  exact
-                >
-                  <p>Password</p>
-                  <div className="menu__icon" id="UncontrolledTooltip2">
-                    <Key />
-                  </div>
-                  <UncontrolledTooltip
-                    placement="top"
-                    target="UncontrolledTooltip2"
-                  >
-                    Password
-                  </UncontrolledTooltip>
-                </NavLink>
-              </div>
-            </div>
-            {children}
-          </div>
+          {children}
         </div>
       </div>
     </StyledDashboardProfileLayout>

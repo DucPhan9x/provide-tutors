@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
 import { ChevronRight, Edit } from "../../../common/icons";
 import { Form, Label } from "reactstrap";
-import { FormGroup } from "../../../common";
+import { FGroup } from "../../../common";
 import save from "../../../../assets/images/save.svg";
 
 const StyledStudent = styled.section`
@@ -311,7 +311,7 @@ const Student = () => {
                 <div className="form__item">
                   <div className="form__item__inner">
                     <Label>First name</Label>
-                    <FormGroup
+                    <FGroup
                     
                     />
                   </div>
@@ -319,7 +319,7 @@ const Student = () => {
                 <div className="form__item">
                   <div className="form__item__inner">
                     <Label>Last name</Label>
-                    <FormGroup
+                    <FGroup
                     
                     />
                   </div>

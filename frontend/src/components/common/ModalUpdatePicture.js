@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ModalHeader, ModalBody, Form } from "reactstrap";
-import Modal  from "./Modal";
+import Modal from "./Modal";
 // import AvatarEditor from "react-avatar-editor";
 // import Dropzone from "react-dropzone";
 import addfile from "../../assets/images/add-file.svg";
@@ -321,24 +321,17 @@ const ModalUpdatePicture = () => {
         <Form>
           <div className="photo">
             <h3>Drag and drop files here</h3>
-            {/* <Dropzone> */}
-              {/* <AvatarEditor /> */}
-              <div className="zoom">
-                <p>Zoom:</p>
-              </div>
-              <p>OR</p>
-              <button id="find">
-                Add a file
-                <span>
-                  <img src={addfile} alt="addfile" />
-                </span>
-              </button>
-              <input className="input_file" />
-              <div className="support-file">
-                Supported files <br />
-                .png, .jpg, .svg
-              </div>
-            {/* </Dropzone> */}
+            <button id="find">
+              Add a file
+              <span>
+                <img src={addfile} alt="addfile" />
+              </span>
+            </button>
+            <input className="input_file" />
+            <div className="support-file">
+              Supported files <br />
+              .png, .jpg, .svg
+            </div>
           </div>
 
           <div>

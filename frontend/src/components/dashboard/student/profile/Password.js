@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Form, Label } from "reactstrap";
-import { FormGroup } from "../../../common";
+import { FGroup } from "../../../common";
 import save from "../../../../assets/images/save.svg";
 
 const StyledPassword = styled.section`
@@ -80,29 +80,23 @@ const StyledPassword = styled.section`
 const Password = () => {
   return (
     <StyledPassword>
-      <Form className="form-info" >
+      <Form className="form-info  flex items-center flex-col">
         <div className="form__item">
           <div className="form__item__inner">
             <Label>Current password</Label>
-            <FormGroup
-             
-            />
+            <FGroup />
           </div>
         </div>
         <div className="form__item">
           <div className="form__item__inner">
             <Label>New password</Label>
-            <FormGroup
-             
-            />
+            <FGroup />
           </div>
         </div>
         <div className="form__item">
           <div className="form__item__inner">
             <Label>New password (confirm)</Label>
-            <FormGroup
-             
-            />
+            <FGroup />
           </div>
         </div>
         <button className="find">
