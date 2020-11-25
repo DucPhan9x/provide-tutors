@@ -1,5 +1,9 @@
 import React from "react";
-import tempImage from "../../assets/images/homepage_banner.jpg";
+import duyan from "../../assets/images/avatar/duyan.jpg";
+import bichthu from "../../assets/images/avatar/bichthu.jpg";
+import trongduc from "../../assets/images/avatar/trongduc.jpg";
+import trungnam from "../../assets/images/avatar/trungnam.jpg";
+import quangphieu from "../../assets/images/avatar/quangphieu.jpg";
 
 function Feedback() {
   return (
@@ -45,13 +49,11 @@ function Feedback() {
               <div className="slide__content">
                 <h4 className="h4">About Phan Trong Duc</h4>
                 <p>Math class 12 teacher, La Hai - Phu Yen - Viet Nam</p>
-                <img src={tempImage} alt="author feedback" />
+                <img src={trongduc} alt="author feedback" />
                 <p>
-                  Jeanne has been a wonderful teacher for my 9 years old
+                  Trong Duc has been a wonderful teacher for my 9 years old
                   daughter! Aside from being very knowledgeable, professional,
-                  and an accomplished musician, she is kind, encouraging,
-                  supportive, and fun! Jeanne challenges my daughter to become a
-                  better pianist while helping her love of music grow.
+                  and an accomplished tutor.
                 </p>
               </div>
             </article>
@@ -62,15 +64,10 @@ function Feedback() {
               <div className="slide__content">
                 <h4 className="h4">About Le Trung Nam</h4>
                 <p>Physical teacher, Ha Tinh - Viet Nam</p>
-                <img src={tempImage} alt="author feedback" />
+                <img src={trungnam} alt="author feedback" />
                 <p>
-                  Brandon has been absolutely pivotal in helping me re-discover
-                  my passion for music as an adult. He communicates his
-                  knowledge and expertise in a manner that is both entertaining
-                  and challenging. For the first time ever, I come home from our
-                  lessons actually wanting to practice and improve, and
-                  attribute much of this to Brandon's genuine passion for music
-                  and talent as a teacher.
+                  Trung Nam has been absolutely pivotal in helping me
+                  re-discover my passion.
                 </p>
               </div>
             </article>
@@ -81,16 +78,10 @@ function Feedback() {
               <div className="slide__content">
                 <h4 className="h4">About Vu Thi Bich Thu</h4>
                 <p>Music teacher, Quang Nam - Viet Nam</p>
-                <img src={tempImage} alt="author feedback" />
+                <img src={bichthu} alt="author feedback" />
                 <p>
-                  I really love taking voice lessons with Asukai! It's a lot of
-                  fun, and I can tell that she listens very well because she
-                  immediately helps me with the areas I struggle with - whenever
-                  I come across them in the music. I really appreciate the way
-                  she coaches voice exercises, and I think they have immensely
-                  helped me get a better tone and sound. Even from the first
-                  lesson, I instantly heard a clear difference in my voice! She
-                  is seriously talented!!
+                  I really love taking voice lessons with Bich Thu! It's a lot
+                  of fun.
                 </p>
               </div>
             </article>
@@ -100,14 +91,10 @@ function Feedback() {
               <div className="slide__content">
                 <h4 className="h4">About Nguyen Thi Duy An</h4>
                 <p>History teacher, Quang Nam - Viet Nam</p>
-                <img src={tempImage} alt="author feedback" />
+                <img src={duyan} alt="author feedback" />
                 <p>
-                  I really love taking voice lessons with Asukai! It's a lot of
-                  fun, and I can tell that she listens very well because she
-                  immediately helps me with the areas I struggle with - whenever
-                  I come across them in the music. Even from the first lesson, I
-                  instantly heard a clear difference in my voice! She is
-                  seriously talented!!
+                  Even from the first lesson, I instantly heard a clear
+                  difference in my voice! Duy An is seriously talented!!
                 </p>
               </div>
             </article>
@@ -117,12 +104,11 @@ function Feedback() {
               <div className="slide__content">
                 <h4 className="h4">About Nguyen Quang Phieu</h4>
                 <p>Music teacher, Thua Thien Hue - Viet Nam</p>
-                <img src={tempImage} alt="author feedback" />
+                <img src={quangphieu} alt="author feedback" />
                 <p>
-                  I really appreciate the way she coaches voice exercises, and I
-                  think they have immensely helped me get a better tone and
-                  sound. Even from the first lesson, I instantly heard a clear
-                  difference in my voice! She is seriously talented!!
+                  I really appreciate the way Quang Phieu coaches voice
+                  exercises, and I think they have immensely helped me get a
+                  better tone and sound.
                 </p>
               </div>
             </article>
