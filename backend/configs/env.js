@@ -12,5 +12,5 @@ export const envVariables = {
     subject: process.env.SUBJECT || "[CODE RESET :]",
     cloudName: "tutoring",
     api_key_cloud: "274767948479987",
-    api_secret_cloud: '288eL9odJfgTrBDzm-839pqPXSQ'
-}
+    api_secret_cloud: "288eL9odJfgTrBDzm-839pqPXSQ",
+};

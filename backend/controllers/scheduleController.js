@@ -1,6 +1,7 @@
 import { HttpError } from "../constants";
 import { Tutor, Student, Schedule } from "../models";
 
+// bo
 const listTutorAndSchedule = async (req, res, next) => {
     try {
         let tutors = await Tutor.find(
@@ -31,6 +32,19 @@ const listTutorAndSchedule = async (req, res, next) => {
     }
 };
 
+const listSchedule = async (req, res, next) => {
+    try {
+        const schedules = await Schedule.find({}, { __v: 0, students: 0 });
+        res.status(200).json({
+            status: 200,
+            schedules,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const scheduleController = {
     listTutorAndSchedule,
+    listSchedule,
 };

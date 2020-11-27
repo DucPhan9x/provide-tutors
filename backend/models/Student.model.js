@@ -1,31 +1,29 @@
 import { Schema, model } from "mongoose";
 
-
 const studentSchema = new Schema({
-
     email: {
-        type: String
+        type: String,
     },
     userName: {
-        type: String
+        type: String,
     },
     password: {
-        type: String
+        type: String,
     },
     fullName: {
         type: String,
-        default: ""
+        default: "",
     },
     birthday: {
-        type: String
+        type: String,
     },
     phone: {
         type: String,
-        default: ""
+        default: "",
     },
     address: {
         type: String,
-        default: ""
+        default: "",
     },
     gender: {
         type: String,
@@ -33,12 +31,12 @@ const studentSchema = new Schema({
     },
     role: {
         type: Number,
-        default: 0
+        default: 0,
     },
     picture: {
         type: String,
-        default: ""
-    }
+        default: "",
+    },
 });
 
 export const Student = model("student", studentSchema);

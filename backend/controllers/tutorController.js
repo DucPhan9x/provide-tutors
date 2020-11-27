@@ -5,11 +5,12 @@ import { uploadSingle } from "../helpers";
 const addSchedule = async (req, res, next) => {
     try {
         const { id } = req.user;
-        const { grade, subject, time } = req.body;
-        if (!time) {
-            throw new HttpError("time is empty", 400);
+        const { grade, subject, time, price } = req.body;
+        if (!time || !grade || !subject || !price) {
+            throw new HttpError("data is empty", 400);
         }
         const tutor = await Tutor.findById({ _id: id });
+        // lay may cai lich hoc dang dang ky
         const scheduleRegisted = await Schedule.find({ tutorId: id });
         let time_registed = [];
         for (let i = 0; i < scheduleRegisted.length; i++) {
@@ -25,7 +26,8 @@ const addSchedule = async (req, res, next) => {
             grade,
             subject,
             time,
-            fullName: tutor.fullName,
+            price,
+            tutorName: tutor.fullName,
         };
         await Schedule.create(schedule);
         res.status(200).json({
@@ -60,6 +62,7 @@ const uploadImageTutor = async (req, res, next) => {
             throw new HttpError("No image", 400);
         }
         const image = await uploadSingle(req.file.path);
+        console.log("done");
         console.log(image);
         await Tutor.findOneAndUpdate({ _id: id }, { picture: image.url });
         res.status(200).json({
