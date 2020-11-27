@@ -52,6 +52,9 @@ function Header({ isDashboard, showHeader }) {
           <NavLink activeClassName="--active" to="/dashboard/tutor/profile">
             <span>Profile</span>
           </NavLink>
+          <NavLink activeClassName="--active" to="/dashboard/tutor/mystudent">
+            <span>My Student</span>
+          </NavLink>
           <DropdownUserMenu
             isHasDashboardTutorLink={!isDashboard && isDashboardTutor}
             isHasDashboardStudentLink={!isDashboard && isDashboardStudent}
