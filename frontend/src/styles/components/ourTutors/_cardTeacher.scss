@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
     max-width: 350px;
-    border: 1px solid #fdbf60;
+    border: 1px solid #6254e8;
     &:hover {
       box-shadow: $shadow;
     }
@@ -30,28 +30,24 @@
         object-fit: cover;
       }
       &__subjects {
-        @include position(absolute, 16px null null 16px);
-        display: flex;
-        flex-wrap: wrap;
-        > div {
-          padding: 4px 8px;
-          border-radius: 4px;
-          margin: 0 5px 5px 0;
-        }
-      }
-      &__instruments {
         padding: 15px;
       }
+      &__instruments {
+        padding: 25px;
+      }
       &__info {
+        
         @include position(absolute, null null 16px null);
         @include flex_parent_centered();
         flex-direction: column;
         width: 100%;
-        margin-bottom: 45px;
+       // margin-bottom: 45px;
         h4 {
+          color:  #e6962e;
           line-height: 1.4rem;
         }
         &-position {
+          padding: 20px;
           display: flex;
           align-items: center;
           > div {

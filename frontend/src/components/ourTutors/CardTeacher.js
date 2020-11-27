@@ -1,13 +1,12 @@
 import React from "react";
+import {Button} from "reactstrap";
 function CardTeacher({
-  name,
-  birthYear,
-  experiences,
-  subjects,
-  rating,
+  subject,
+  grade,
+  time,
+  tutor_name,
   prices,
   image,
-  instruments,
 }) {
   return (
     <div className="card__teacher">
@@ -19,31 +18,21 @@ function CardTeacher({
             alt="avatar"
           />
           <div className="card__teacher__inner__avatar__subjects">
-            {subjects.map((item, index) => {
-              return (
-                <div>
-                  <span>{item}</span>
-                  <span> </span>
-                </div>
-              );
-            })}
+          <p className="text--small">Subject: <span className="primary">{subject}</span> </p>
+            
           </div>
           <div className="card__teacher__inner__avatar__instruments">
-            <span className="primary">{instruments}</span>
+          <p className="text--small">Grade: <span className="primary">{grade}</span> </p>
+            
           </div>
           <div className="card__teacher__inner__avatar__experiences">
-            <span className="secondary">Experiences: {experiences}</span>
+            <p>Time:<span className="primary">{time}</span> </p>
           </div>
-          <div className="card__teacher__inner__avatar__info white">
-            <h4 className="h4">{name}</h4>
-            <span className="primary">{birthYear} years old</span>
+          <div className="card__teacher__inner__avatar__info">
+            <h4 className="h4">{tutor_name}</h4>
+          
             <div className="card__teacher__inner__avatar__info-position">
-              {rating && (
-                <div className="star">
-                  <i className="icon-star" />
-                  <p className="text--small">{Math.round(rating * 10) / 10}</p>
-                </div>
-              )}
+              
             </div>
           </div>
         </div>
@@ -51,8 +40,9 @@ function CardTeacher({
           <div className="card__teacher__inner__text"></div>
           <div className="card__teacher__inner__footer">
             <div className="card__teacher__inner__footer__money">
-              <p className="text--small">Starting at</p>
+
               <h4 className="h4 primary">{prices}</h4>
+              <Button color="success" >Register</Button>
             </div>
           </div>
         </div>

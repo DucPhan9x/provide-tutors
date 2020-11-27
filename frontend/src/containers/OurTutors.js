@@ -4,54 +4,49 @@ import CardTeacher from "../components/ourTutors/CardTeacher";
 const OurTutors = () => {
   const listTutors = [
     {
-      name: "Phan Trong Duc",
-      birthYear: 1999,
-      experiences: "12/12",
-      subjects: ["Math", "Biology"],
-      rating: 2,
+      subject: "Biology",
+      grade: "8",
+      time: "7:00 - 9:00, Wed & 7:00 - 9:00 Sat",
+      tutor_name: "Phan Trong Duc",    
       prices: "200.000VND/lesson",
       image: "https://picsum.photos/200",
-      instruments: "Teacher is very good",
+    
     },
     {
-      name: "Nguyen Thi Duy An",
-      birthYear: 1999,
-      experiences: "12/12",
-      subjects: ["English", "History"],
-      rating: 5,
-      prices: "500.000VND/lesson",
+      subject: "Physics",
+      grade: "8",
+      time: "7:00 - 9:00, Wed & 7:00 - 9:00 Sat",
+      tutor_name: "Le Trung Nam",
+      prices: "200.000VND/lesson",
+      image: "https://picsum.photos/204",
+   
+    },
+    {
+      subject: "English",
+      grade: "8",
+      time: "7:00 - 9:00, Wed & 7:00 - 9:00 Sat",
+      tutor_name: "Nguyen Thi Duy An",
+      prices: "200.000VND/lesson",
+      image: "https://picsum.photos/201",
+    
+    },
+    {
+      subject: "Chemistry",
+      grade: "8",
+      time: "7:00 - 9:00, Wed & 7:00 - 9:00 Sat",
+      tutor_name: "Vu Thi Bich Thu",  
+      prices: "200.000VND/lesson",
       image: "https://picsum.photos/202",
-      instruments: "Teacher is very good",
+    
     },
     {
-      name: "Nguyen Quang Phieu",
-      birthYear: 1999,
-      experiences: "12/12",
-      subjects: ["Chemistry", "Math"],
-      rating: 7,
-      prices: "800.000VND/lesson",
-      image: "https://picsum.photos/210",
-      instruments: "Teacher is very good",
-    },
-    {
-      name: "Vu Thi Bich Thu",
-      birthYear: 1999,
-      experiences: "12/12",
-      subjects: ["English", "Biology"],
-      rating: 2,
-      prices: "600.000VND/lesson",
-      image: "https://picsum.photos/222",
-      instruments: "Teacher is very good",
-    },
-    {
-      name: "Le Trung Nam",
-      birthYear: 1999,
-      experiences: "12/12",
-      subjects: ["Python", "Nodejs"],
-      rating: 2,
-      prices: "1.000.000VND/lesson",
-      image: "https://picsum.photos/300",
-      instruments: "Teacher is very good",
+      subject: "Maths",
+      grade: "8",
+      time: "7:00 - 9:00, Wed & 7:00 - 9:00 Sat",
+      tutor_name: "Nguyen Quang Phieu",
+      prices: "200.000VND/lesson",
+      image: "https://picsum.photos/203",
+    
     },
   ];
   return (
@@ -63,14 +58,13 @@ const OurTutors = () => {
         {listTutors.map((item, index) => {
           return (
             <CardTeacher
-              name={item.name}
-              birthYear={item.birthYear}
-              experiences={item.experiences}
-              subjects={item.subjects}
-              rating={item.rating}
+              subject={item.subject}
+              grade={item.grade}
+              time={item.time}
+              tutor_name={item.tutor_name}
               prices={item.prices}
               image={item.image}
-              instruments={item.instruments}
+    
             />
           );
         })}

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, Table } from "reactstrap";
+import { Table , Button} from "reactstrap";
 
 const StyledSchedule = styled.section`
-  margin: 0 0 auto;
+  margin: 0 100px auto;
   .schedule__inner {
     display: flex;
     justify-content: space-between;
@@ -308,12 +308,12 @@ const StyledSchedule = styled.section`
 
 `;
 
-const Schedule = () => {
+const ConfirmSchedule = () => {
   const lesson1 = {
     id: "1",
-    time: "7:00 - 9:00, Mon &  Wed",
+    time: "7:00 - 9:00,Tue & Thur",
     tutorName: "Thu Vu",
-    subject: "English",
+    subject: "Physics",
     grade: "8",
   };
   return (
@@ -322,7 +322,7 @@ const Schedule = () => {
         <div className="schedule__inner">
           <div className="class-schedule schedule-item">
             <div className="class-schedule__header">
-              <p className="title">Class schedule</p>
+              <p className="title">Confirm class schedule</p>
             </div>
             <div>
               <br></br>
@@ -345,17 +345,7 @@ const Schedule = () => {
                     <td>{lesson1.grade}</td>
                     <td>{lesson1.time}</td>
                     <td>{lesson1.tutorName}</td>
-                   <td><Button color="success">On going</Button></td>
-                  </tr>
-                </tbody>
-                <tbody>
-                  <tr>
-                    <th scope="row">{lesson1.id}</th>
-                    <td>{lesson1.subject}</td>
-                    <td>{lesson1.grade}</td>
-                    <td>{lesson1.time}</td>
-                    <td>{lesson1.tutorName}</td>
-                   <td><Button color="danger">Finished</Button></td>
+                    <td><Button color="warning">Waiting</Button></td>
                   </tr>
                 </tbody>
               </Table>
@@ -367,4 +357,4 @@ const Schedule = () => {
   );
 };
 
-export default Schedule;
+export default ConfirmSchedule;

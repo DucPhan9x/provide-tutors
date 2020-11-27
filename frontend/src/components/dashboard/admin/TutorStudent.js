@@ -15,7 +15,7 @@ const StyledGeneralInfo = styled.section`
 const TutorStudent = () => {
   // const changeStatus = () => {};
   const [btnStatus, setBtnStatus] = useState("false");
-  const [btnText, setBtnText] = useState("Accecpt");
+  const [btnText, setBtnText] = useState("Accept");
   return (
     <StyledGeneralInfo>
       <div className="table-admin">
@@ -43,7 +43,7 @@ const TutorStudent = () => {
                   id="btn1"
                   onClick={() => {
                     setBtnStatus("true");
-                    setBtnText("Accecpted");
+                    setBtnText("Accepted");
                   }}
                 >
                   {btnText}
