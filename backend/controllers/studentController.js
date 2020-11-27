@@ -58,7 +58,6 @@ const chooseSchedule = async (req, res, next) => {
             Contract.find({ studentId }),
         ]);
         const time = schedule.time;
-        console.log(time);
 
         let timeContract = [];
         for (let i = 0; i < contracts.length; i++) {
@@ -101,10 +100,16 @@ const chooseSchedule = async (req, res, next) => {
         //     return ScheduleRegiste.findByIdAndDelete({ _id });
         // });
         // await Promise.all(deleteRegisteSchedule);
-
+        let students = schedule.students;
+        students.push(studentId);
+        await Schedule.findByIdAndUpdate({ _id: scheduleId }, { students });
         await ScheduleRegiste.create({
             scheduleId,
             studentId,
+            tutorId: schedule.tutorId,
+            studentName: student.fullName,
+            grade: schedule.grade,
+            subject: schedule.subject,
             time: schedule.time,
         });
 

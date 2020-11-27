@@ -1,7 +1,14 @@
 import { Router } from "express";
 import { tutorController } from "../controllers";
 
-const { addSchedule, getInfor, updateInfo, uploadImageTutor } = tutorController;
+const {
+    addSchedule,
+    getInfor,
+    updateInfo,
+    uploadImageTutor,
+    listScheduleRegisted,
+    tutorAccept,
+} = tutorController;
 
 import { upload } from "../helpers";
 import { authMiddleware } from "../middlewares";
@@ -17,3 +24,7 @@ tutorRouter.route("/v1/api/tutor/update-info").post(jwtMidleware, updateInfo);
 tutorRouter
     .route("/v1/api/tutor/upload-image")
     .post(jwtMidleware, upload.single("image"), uploadImageTutor);
+
+tutorRouter.route("/v1/api/tutor/list-schedule-registe").get(jwtMidleware, listScheduleRegisted);
+
+tutorRouter.route("/v1/api/tutor/accept/:id").get(jwtMidleware, tutorAccept);

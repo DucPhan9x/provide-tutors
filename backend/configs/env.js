@@ -13,4 +13,5 @@ export const envVariables = {
     cloudName: "tutoring",
     api_key_cloud: "274767948479987",
     api_secret_cloud: "288eL9odJfgTrBDzm-839pqPXSQ",
+    key_admin: "123qwe!@#",
 };

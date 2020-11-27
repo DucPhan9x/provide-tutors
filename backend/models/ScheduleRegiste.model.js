@@ -9,6 +9,19 @@ const scheduleRegisteSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "schedule",
     },
+    tutorId: {
+        type: Schema.Types.ObjectId,
+        ref: "tutor",
+    },
+    studentName: {
+        type: String,
+    },
+    grade: {
+        type: Number,
+    },
+    subject: {
+        type: String,
+    },
     time: [{ type: String }],
     status: {
         type: Number,

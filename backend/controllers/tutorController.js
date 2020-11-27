@@ -1,4 +1,4 @@
-import { Tutor, Schedule } from "../models";
+import { Tutor, Schedule, ScheduleRegiste, Student, Contract, ScheduleAccept } from "../models";
 import { HttpError } from "../constants";
 import { uploadSingle } from "../helpers";
 
@@ -98,9 +98,61 @@ const updateInfo = async (req, res, next) => {
     }
 };
 
+const listScheduleRegisted = async (req, res, next) => {
+    const tutorId = req.user.id;
+    try {
+        const listRegiste = await ScheduleRegiste.find({ tutorId }, { __v: 0 }).sort({ _id: -1 });
+        res.status(200).json({
+            status: 200,
+            listRegiste,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const tutorAccept = async (req, res, next) => {
+    const tutorId = req.user.id;
+    const scheduleRegistedId = req.params.id;
+    try {
+        const contracts = await Contract.find({ tutorId });
+        const scheduleRegiste = await ScheduleRegiste.findById({ _id: scheduleRegistedId });
+        const scheduleAccepts = await ScheduleAccept.find({ tutorId });
+
+        const time = scheduleRegiste.time;
+        let timeAccept = [];
+        for (let i = 0; i < scheduleAccepts.length; i++) {
+            timeAccept = [...timeAccept, ...scheduleAccepts[i].time];
+        }
+        let timeTeach = [];
+        for (let i = 0; i < contracts.length; i++) {
+            timeTeach = [...timeTeach, ...contracts[i].time];
+        }
+        for (let i = 0; i < time.length; i++) {
+            if (timeTeach.includes(time[i]) || timeAccept.includes(time[i])) {
+                throw new HttpError(
+                    "The time has coincided with the teaching schedule or accepted schedule ",
+                    400
+                );
+            }
+        }
+        await ScheduleAccept.create({ tutorId, scheduleId: scheduleRegiste.scheduleId, time });
+        await ScheduleRegiste.findByIdAndUpdate({ _id: scheduleRegistedId }, { status: 1 });
+        res.status(200).json({
+            status: 200,
+            msg: "success",
+        });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+};
+
 export const tutorController = {
     addSchedule,
     getInfor,
     updateInfo,
     uploadImageTutor,
+    listScheduleRegisted,
+    tutorAccept,
 };
