@@ -1,6 +1,10 @@
 import { Schema, model } from "mongoose";
 
-const scheduleSchema = new Schema({
+const contractSchema = new Schema({
+    studentId: {
+        type: Schema.Types.ObjectId,
+        ref: "student",
+    },
     tutorId: {
         type: Schema.Types.ObjectId,
         ref: "tutor",
@@ -8,30 +12,34 @@ const scheduleSchema = new Schema({
     tutorName: {
         type: String,
     },
+    studentName: {
+        type: String,
+    },
     subject: {
+        type: String,
+    },
+    address: {
         type: String,
     },
     grade: {
         type: Number,
     },
-    time: [{ type: String }],
+    time: [
+        {
+            type: String,
+        },
+    ],
     price: {
         type: Number,
     },
     status: {
-        type: Number,
-        default: 0, // 0 : chua duyet,  1 :tutor duyet,
+        type: String,
+        default: "Đang học",
     },
-    students: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "student",
-        },
-    ],
     time_created: {
         type: Date,
         default: new Date(),
     },
 });
 
-export const Schedule = model("schedule", scheduleSchema);
+export const Contract = model("contract", contractSchema);
