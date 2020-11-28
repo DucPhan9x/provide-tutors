@@ -25,7 +25,7 @@
       flex-shrink: 0;
       min-height: 240px;
       &__img {
-        width: 350px;
+        width: 345px;
         border-radius: 24px 24px 0 0;
         object-fit: cover;
       }
@@ -36,14 +36,13 @@
         padding: 25px;
       }
       &__info {
-        
         @include position(absolute, null null 16px null);
         @include flex_parent_centered();
         flex-direction: column;
         width: 100%;
-       // margin-bottom: 45px;
+        // margin-bottom: 45px;
         h4 {
-          color:  #e6962e;
+          color: #e6962e;
           line-height: 1.4rem;
         }
         &-position {

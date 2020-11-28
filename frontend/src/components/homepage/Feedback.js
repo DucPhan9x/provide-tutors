@@ -48,7 +48,7 @@ function Feedback() {
             <article className="slide">
               <div className="slide__content">
                 <h4 className="h4">About Phan Trong Duc</h4>
-                <p>Math class 12 teacher, La Hai - Phu Yen - Viet Nam</p>
+                <p>Math teacher, La Hai - Phu Yen - Viet Nam</p>
                 <img src={trongduc} alt="author feedback" />
                 <p>
                   Trong Duc has been a wonderful teacher for my 9 years old
