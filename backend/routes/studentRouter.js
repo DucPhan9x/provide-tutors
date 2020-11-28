@@ -1,5 +1,16 @@
 import { Router } from "express";
 import { studentController } from "../controllers";
-const {} = studentController;
 
+import { authMiddleware } from "../middlewares";
+const { jwtMidleware } = authMiddleware;
+
+const { getInfo, updateInfo, chooseSchedule, listContract } = studentController;
 export const studentRouter = Router();
+
+studentRouter.route("/v1/api/student/info").get(jwtMidleware, getInfo);
+
+studentRouter.route("/v1/api/student/update-info").post(jwtMidleware, updateInfo);
+
+studentRouter.route("/v1/api/student/choose-schedule").post(jwtMidleware, chooseSchedule);
+
+studentRouter.route("/v1/api/student/learing-schedule").get(jwtMidleware, listContract);
