@@ -5,19 +5,14 @@ import { Tutor, Student, CodeReset } from "../models";
 
 import { HttpError, varConst } from "../constants";
 const { passRegex } = varConst;
-import {
-    tokenEncode,
-    verifyToken,
-    sendEmail,
-    generate
-} from "../helpers";
+import { tokenEncode, verifyToken, sendEmail, generate } from "../helpers";
 
-const login = async(req, res, next) => {
+const login = async (req, res, next) => {
     const { userName, password } = req.body;
     try {
         const [student, tutor] = await Promise.all([
             Student.findOne({ userName }),
-            Tutor.findOne({ userName })
+            Tutor.findOne({ userName }),
         ]);
         console.log(student, tutor);
         if (!student && !tutor) {
@@ -32,8 +27,8 @@ const login = async(req, res, next) => {
             data = {
                 userName: student.userName,
                 id: student._id,
-                role: student.role
-            }
+                role: student.role,
+            };
         }
         if (tutor) {
             const match = await bcypt.compare(password, tutor.password);
@@ -43,8 +38,8 @@ const login = async(req, res, next) => {
             data = {
                 userName: tutor.userName,
                 id: tutor._id,
-                role: tutor.role
-            }
+                role: tutor.role,
+            };
         }
         const token = tokenEncode(data);
 
@@ -54,22 +49,16 @@ const login = async(req, res, next) => {
                 userName: data.userName,
                 role: data.role,
                 id: data.id,
-                token
-            }
+                token,
+            },
         });
     } catch (error) {
         next(error);
     }
+};
 
-}
-
-const register = async(req, res, next) => {
-    const {
-        userName,
-        password,
-        role,
-        email
-    } = req.body;
+const register = async (req, res, next) => {
+    const { userName, password, role, email } = req.body;
     console.log(req.body);
     try {
         const hash = await bcypt.hash(password, 12);
@@ -82,23 +71,23 @@ const register = async(req, res, next) => {
         res.status(200).json({
             status: 200,
             user: {
-                userName
-            }
+                userName,
+            },
         });
     } catch (error) {
         next(error);
     }
-}
+};
 
-const forgotPassword = async(req, res, next) => {
+const forgotPassword = async (req, res, next) => {
     try {
         const { email } = req.body;
         const [student, tutor] = await Promise.all([
             Student.findOne({ email }),
-            Tutor.findOne({ email })
+            Tutor.findOne({ email }),
         ]);
         if (!student && !tutor) {
-            throw new HttpError('Email does not match any account', 401);
+            throw new HttpError("Email does not match any account", 401);
         }
         const code = generate();
         const enCode = await bcypt.hash(code, 12);
@@ -111,14 +100,13 @@ const forgotPassword = async(req, res, next) => {
         sendEmail(email, code);
         res.status(200).json({
             status: 200,
-            msg: 'We sent code to your email',
+            msg: "We sent code to your email",
         });
-
     } catch (error) {
         next(error);
     }
-}
-const confirmCode = async(req, res, next) => {
+};
+const confirmCode = async (req, res, next) => {
     try {
         const { code, email } = req.body;
         const codeReset = await CodeReset.findOne({ email });
@@ -128,17 +116,21 @@ const confirmCode = async(req, res, next) => {
         }
         res.status(200).json({
             status: 200,
-            msg: 'Confirm code',
+            msg: "Confirm code",
         });
     } catch (error) {
         next(error);
     }
-}
-const changePassword = async(req, res, next) => {
-    const { email, code, password } = req.body;
+};
+const changePassword = async (req, res, next) => {
+    let { email, code, password } = req.body;
+    password = password.trim();
     try {
         if (!passRegex.test(password)) {
-            throw new HttpError("The password cannot contain spaces, and the minimum length is 6 up to 24", 400);
+            throw new HttpError(
+                "The password cannot contain spaces, and the minimum length is 6 up to 24",
+                400
+            );
         }
         const codeReset = await CodeReset.findOne({ email });
         const match = await bcypt.compare(code, codeReset.enCode);
@@ -148,7 +140,7 @@ const changePassword = async(req, res, next) => {
         const hash = await bcypt.hash(password, 12);
         const [student, tutor] = await Promise.all([
             Student.findOne({ email }),
-            Tutor.findOne({ email })
+            Tutor.findOne({ email }),
         ]);
         if (student) {
             await Student.findOneAndUpdate({ email }, { password: hash });
@@ -159,19 +151,59 @@ const changePassword = async(req, res, next) => {
         await CodeReset.findOneAndRemove({ email });
         res.status(200).json({
             status: 200,
-            msg: 'Changed password',
+            msg: "Changed password",
+        });
+    } catch (error) {}
+};
+
+const changeNewPassword = async (req, res, next) => {
+    const { id, role } = req.user;
+    let { password, newPassword } = req.body;
+    password = password.trim();
+    newPassword = newPassword.trim();
+    try {
+        if (!password || !newPassword) {
+            throw new HttpError("password or new password is empty", 401);
+        }
+        if (!passRegex.test(newPassword)) {
+            throw new HttpError(
+                "The password cannot contain spaces, and the minimum length is 6 up to 24",
+                400
+            );
+        }
+        let user;
+        if (role === 0) {
+            user = await Student.findById({ _id: id }, { password: 1 });
+            const match = await bcypt.compare(password, user.password);
+            if (!match) {
+                throw new HttpError("old password incorrect");
+            }
+            const hash = await bcypt.hash(newPassword, 12);
+            await Student.findByIdAndUpdate({ _id: id }, { password: hash });
+        }
+        if (role === 1) {
+            user = await Tutor.findById({ _id: id }, { password: 1 });
+            const match = await bcypt.compare(password, user.password);
+            if (!match) {
+                throw new HttpError("old password incorrect", 400);
+            }
+            const hash = await bcypt.hash(newPassword, 12);
+            await Tutor.findByIdAndUpdate({ _id: id }, { password: hash });
+        }
+        res.status(200).json({
+            status: 200,
+            msg: "Password has upadated",
         });
     } catch (error) {
-
+        next(error);
     }
-}
-
-
+};
 
 export const authController = {
     login,
     register,
     forgotPassword,
     confirmCode,
-    changePassword
-}
+    changePassword,
+    changeNewPassword,
+};
