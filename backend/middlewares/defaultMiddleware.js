@@ -28,5 +28,8 @@ export const defaultMiddleware = (app) => {
     app.get("/", function (req, res) {
         res.send("hi");
     });
+    app.get("/api", function (req, res) {
+        res.send("hihi");
+    });
     morgan && app.use(morgan("dev"));
 };
