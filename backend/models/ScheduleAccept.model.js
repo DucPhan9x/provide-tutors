@@ -9,6 +9,10 @@ const scheduleAcceptSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "tutor",
     },
+    studentId: {
+        type: Schema.Types.ObjectId,
+        ref: "student",
+    },
     time: [{ type: String }],
 });
 

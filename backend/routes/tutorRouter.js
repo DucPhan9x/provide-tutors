@@ -8,6 +8,7 @@ const {
     uploadImageTutor,
     listScheduleRegisted,
     tutorAccept,
+    teachSchedule,
 } = tutorController;
 
 import { upload } from "../helpers";
@@ -28,3 +29,5 @@ tutorRouter
 tutorRouter.route("/v1/api/tutor/list-schedule-registe").get(jwtMidleware, listScheduleRegisted);
 
 tutorRouter.route("/v1/api/tutor/accept/:id").get(jwtMidleware, tutorAccept);
+
+tutorRouter.route("/v1/api/tutor/teaching-schedule").get(jwtMidleware, teachSchedule);

@@ -136,7 +136,12 @@ const tutorAccept = async (req, res, next) => {
                 );
             }
         }
-        await ScheduleAccept.create({ tutorId, scheduleId: scheduleRegiste.scheduleId, time });
+        await ScheduleAccept.create({
+            tutorId,
+            scheduleId: scheduleRegiste.scheduleId,
+            studentId: scheduleRegiste.studentId,
+            time,
+        });
         await ScheduleRegiste.findByIdAndUpdate({ _id: scheduleRegistedId }, { status: 1 });
         res.status(200).json({
             status: 200,
@@ -148,6 +153,19 @@ const tutorAccept = async (req, res, next) => {
     }
 };
 
+const teachSchedule = async (req, res, next) => {
+    const { id } = req.user;
+    try {
+        const teachSchedules = await Contract.find({ tutorId: id }, { __v: 0, time_created: 0 });
+        res.status(200).json({
+            status: 200,
+            teachSchedules,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const tutorController = {
     addSchedule,
     getInfor,
@@ -155,4 +173,5 @@ export const tutorController = {
     uploadImageTutor,
     listScheduleRegisted,
     tutorAccept,
+    teachSchedule,
 };

@@ -44,6 +44,7 @@ const updateInfo = async (req, res, next) => {
 
 const chooseSchedule = async (req, res, next) => {
     const studentId = req.user.id;
+    console.log(studentId);
     const scheduleId = req.body.scheduleId;
 
     try {
@@ -80,28 +81,9 @@ const chooseSchedule = async (req, res, next) => {
                 }
             }
         }
-        // const [created, de, scheduleRegiste] = await Promise.all([
-        //     Contract.create({
-        //         studentId,
-        //         tutorId: schedule.tutorId,
-        //         tutorName: schedule.tutorName,
-        //         studentName: student.fullName,
-        //         subject: schedule.subject,
-        //         grade: schedule.grade,
-        //         price: schedule.price,
-        //         time: schedule.time,
-        //         address: student.address,
-        //     }),
-        //     Schedule.findByIdAndRemove({ _id: scheduleId }),
-        //     ScheduleRegiste.find({ scheduleId }),
-        // ]);
-        // const deleteRegisteSchedule = scheduleRegiste.map((item) => {
-        //     let _id = item._id;
-        //     return ScheduleRegiste.findByIdAndDelete({ _id });
-        // });
-        // await Promise.all(deleteRegisteSchedule);
         let students = schedule.students;
         students.push(studentId);
+        console.log(student);
         await Schedule.findByIdAndUpdate({ _id: scheduleId }, { students });
         await ScheduleRegiste.create({
             scheduleId,
@@ -123,8 +105,25 @@ const chooseSchedule = async (req, res, next) => {
     }
 };
 
+const listContract = async (req, res, next) => {
+    const { id } = req.user;
+    try {
+        const contracts = await Contract.find(
+            { studentId: id },
+            { __v: 0, time_created: 0, studentId: 0 }
+        );
+        res.status(200).json({
+            status: 200,
+            contracts,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const studentController = {
     getInfo,
     updateInfo,
     chooseSchedule,
+    listContract,
 };

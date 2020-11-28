@@ -123,7 +123,8 @@ const confirmCode = async (req, res, next) => {
     }
 };
 const changePassword = async (req, res, next) => {
-    const { email, code, password } = req.body;
+    let { email, code, password } = req.body;
+    password = password.trim();
     try {
         if (!passRegex.test(password)) {
             throw new HttpError(
@@ -155,10 +156,54 @@ const changePassword = async (req, res, next) => {
     } catch (error) {}
 };
 
+const changeNewPassword = async (req, res, next) => {
+    const { id, role } = req.user;
+    let { password, newPassword } = req.body;
+    password = password.trim();
+    newPassword = newPassword.trim();
+    try {
+        if (!password || !newPassword) {
+            throw new HttpError("password or new password is empty", 401);
+        }
+        if (!passRegex.test(newPassword)) {
+            throw new HttpError(
+                "The password cannot contain spaces, and the minimum length is 6 up to 24",
+                400
+            );
+        }
+        let user;
+        if (role === 0) {
+            user = await Student.findById({ _id: id }, { password: 1 });
+            const match = await bcypt.compare(password, user.password);
+            if (!match) {
+                throw new HttpError("old password incorrect");
+            }
+            const hash = await bcypt.hash(newPassword, 12);
+            await Student.findByIdAndUpdate({ _id: id }, { password: hash });
+        }
+        if (role === 1) {
+            user = await Tutor.findById({ _id: id }, { password: 1 });
+            const match = await bcypt.compare(password, user.password);
+            if (!match) {
+                throw new HttpError("old password incorrect", 400);
+            }
+            const hash = await bcypt.hash(newPassword, 12);
+            await Tutor.findByIdAndUpdate({ _id: id }, { password: hash });
+        }
+        res.status(200).json({
+            status: 200,
+            msg: "Password has upadated",
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const authController = {
     login,
     register,
     forgotPassword,
     confirmCode,
     changePassword,
+    changeNewPassword,
 };
