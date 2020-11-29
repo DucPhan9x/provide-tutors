@@ -346,25 +346,79 @@ const StyledGeneralInfo = styled.section`
 `;
 
 const ConfirmSchedule = () => {
-  const lesson1 = {
-    id: "1",
-    time: "7:00 - 9:00,Tue & Thur",
-    studentname: "Thu Vu",
-    subject: "Physics",
-    grade: "8",
-  };
+  const [show, setShow] = useState(false);
 
-  const student = {
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const studentInf = {
     fullName: "Vu Thi Bich Thu",
     birthday: "01/01/2011",
     gender: "Female",
     address: "Quang Nam",
   };
 
-  const [show, setShow] = useState(false);
+  const arrStudents = [
+    {
+      id: "1",
+      time: "7:00 - 9:00, Tue & Thur",
+      name: "Thu Vu",
+      subject: "Physics",
+      grade: "8",
+      inf: {
+        fullName: "Vu Thi Bich Thu",
+        birthday: "01/01/2011",
+        gender: "Female",
+        address: "Quang Nam",
+      },
+    },
+    {
+      id: "2",
+      time: "13:00 - 15:00, Mon & Fri",
+      name: "Duy An",
+      subject: "English",
+      grade: "9",
+      inf: {
+        fullName: "Phan Trong Duc",
+        birthday: "03/03/2033",
+        gender: "Male",
+        address: "Quang Nam",
+      },
+    },
+    {
+      id: "3",
+      time: "20:00 - 21:00, Wed & Sun",
+      name: "Trung Nam",
+      subject: "Biology",
+      grade: "7",
+      inf: {
+        fullName: "Nguyen Thi Duy An",
+        birthday: "01/01/2011",
+        gender: "Female",
+        address: "Quang Nam",
+      },
+    },
+  ];
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const arrStudentsInfo = [
+  //   {
+  //     fullName: "Vu Thi Bich Thu",
+  //     birthday: "01/01/2011",
+  //     gender: "Female",
+  //     address: "Quang Nam",
+  //   },
+  //   {
+  //     fullName: "Phan Trong Duc",
+  //     birthday: "03/03/2033",
+  //     gender: "Male",
+  //     address: "Quang Nam",
+  //   },
+  //   {
+  //     fullName: "Nguyen Thi Duy An",
+  //     birthday: "01/01/2011",
+  //     gender: "Female",
+  //     address: "Quang Nam",
+  //   },
+  // ];
 
   return (
     <StyledSchedule>
@@ -372,44 +426,65 @@ const ConfirmSchedule = () => {
         <div className="schedule__inner">
           <div className="class-schedule schedule-item">
             <div className="class-schedule__header">
-              <p className="title">Confirm class schedule</p>
+              <p className="title">My student registered</p>
             </div>
             <div>
               <br></br>
-              <div className="lessons">All lessons</div>
+              <div className="lessons">All students</div>
               <Table hover>
-                <thead>
+                <thead style={{ color: "purple", fontWeight: "bold" }}>
                   <tr>
                     <th>#</th>
                     <th>Student</th>
                     <th>Subject</th>
                     <th>Grade</th>
                     <th>Time</th>
-                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">{lesson1.id}</th>
-                    <td>
-                      <Button color="info" onClick={handleShow}>
-                        {lesson1.studentname}
-                      </Button>
-                    </td>
-                    <td>{lesson1.subject}</td>
-                    <td>{lesson1.grade}</td>
-                    <td>{lesson1.time}</td>
-                    <td>
-                      <Button color="warning">Waiting</Button>
-                    </td>
-                  </tr>
+                  {arrStudents.map((item, index) => {
+                    return (
+                      <tr>
+                        <th scope="row">{index + 1}</th>
+                        <td>
+                          <Button
+                            color="info"
+                            style={{ width: "100%", outline: "none" }}
+                            onClick={handleShow}
+                            data={item.inf}
+                          >
+                            {item.name}
+                          </Button>
+                        </td>
+                        <td>{item.subject}</td>
+                        <td>{item.grade}</td>
+                        <td>{item.time}</td>
+                        <td>
+                          <Button color="warning" style={{ outline: "none" }}>
+                            UnAccept
+                          </Button>
+                          <Button
+                            color="warning"
+                            style={{
+                              outline: "none",
+                              background: "red",
+                              marginLeft: 10,
+                            }}
+                          >
+                            Remove
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </Table>
             </div>
           </div>
         </div>
       </div>
-      <div show={show} onHide={handleClose}></div>
+      <div show={show} onHide={handleClose} data={studentInf}></div>
       <Modal className="fade_popup centered " show={show} onHide={handleClose}>
         <ModalTitle className="lb">INFORMATION</ModalTitle>
         <ModalBody>
@@ -422,7 +497,7 @@ const ConfirmSchedule = () => {
                   <FGroup
                     propsInput={{
                       name: "fullName",
-                      value: student.fullName,
+                      value: studentInf.fullName,
                     }}
                   />
                 </div>
@@ -434,7 +509,7 @@ const ConfirmSchedule = () => {
                   <FGroup
                     propsInput={{
                       name: "gender",
-                      value: student.gender,
+                      value: studentInf.gender,
                     }}
                   />
                 </div>
@@ -445,7 +520,7 @@ const ConfirmSchedule = () => {
                   <FGroup
                     propsInput={{
                       name: "birthday",
-                      value: student.birthday,
+                      value: studentInf.birthday,
                     }}
                   />
                 </div>
@@ -457,7 +532,7 @@ const ConfirmSchedule = () => {
                   <FGroup
                     propsInput={{
                       name: "address",
-                      value: student.address,
+                      value: studentInf.address,
                     }}
                   />
                 </div>

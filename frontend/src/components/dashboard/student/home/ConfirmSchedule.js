@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Table , Button} from "reactstrap";
+import { Table, Button } from "reactstrap";
 
 const StyledSchedule = styled.section`
   margin: 0 100px auto;
@@ -309,26 +309,28 @@ const StyledSchedule = styled.section`
 `;
 
 const ConfirmSchedule = () => {
-  const lesson1 = {
-    id: "1",
-    time: "7:00 - 9:00,Tue & Thur",
-    tutorName: "Thu Vu",
-    subject: "Physics",
-    grade: "8",
-  };
+  const arrSchedules = [
+    {
+      id: "1",
+      time: "7:00 - 9:00,Tue & Thur",
+      tutorName: "Thu Vu",
+      subject: "Physics",
+      grade: "8",
+    },
+  ];
   return (
     <StyledSchedule>
       <div className="container">
         <div className="schedule__inner">
           <div className="class-schedule schedule-item">
             <div className="class-schedule__header">
-              <p className="title">Confirm class schedule</p>
+              <p className="title">Register schedules</p>
             </div>
             <div>
               <br></br>
-              <div className="lessons">All lessons</div>
+              <div className="lessons">All schedules</div>
               <Table hover>
-                <thead>
+                <thead style={{ color: "blue", fontWeight: "bold" }}>
                   <tr>
                     <th>#</th>
                     <th>Subject</th>
@@ -336,17 +338,37 @@ const ConfirmSchedule = () => {
                     <th>Time</th>
                     <th>Tutor Name</th>
                     <th>Status</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">{lesson1.id}</th>
-                    <td>{lesson1.subject}</td>
-                    <td>{lesson1.grade}</td>
-                    <td>{lesson1.time}</td>
-                    <td>{lesson1.tutorName}</td>
-                    <td><Button color="warning">Waiting</Button></td>
-                  </tr>
+                  {arrSchedules.map((item, index) => {
+                    return (
+                      <tr>
+                        <th scope="row">{index}</th>
+                        <td>{item.subject}</td>
+                        <td>{item.grade}</td>
+                        <td>{item.time}</td>
+                        <td>{item.tutorName}</td>
+                        <td>
+                          <Button disabled={true} color="warning">
+                            Waiting
+                          </Button>
+                        </td>
+                        <td>
+                          <Button
+                            style={{
+                              color: "wheat",
+                              background: "red",
+                              marginLeft: 10,
+                            }}
+                          >
+                            Remove
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </Table>
             </div>

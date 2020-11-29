@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Table } from "reactstrap";
+import { Button, Table } from "reactstrap";
 
 const StyledSchedule = styled.section`
   margin: 0 0 auto;
@@ -309,51 +309,74 @@ const StyledSchedule = styled.section`
 `;
 
 const Schedule = () => {
-  const lesson1 = {
-    id: "1",
-    time: "7:00 - 9:00, Mon &  Wed",
-    price: "500.000VND",
-    subject: "English",
-    grade: "8",
-  };
+  const arrStudents = [
+    {
+      id: "1",
+      time: "7:00 - 9:00, Tue & Thur",
+      name: "Thu Vu",
+      subject: "Physics",
+      grade: "8",
+    },
+    {
+      id: "2",
+      time: "13:00 - 15:00, Mon & Fri",
+      name: "Duy An",
+      subject: "English",
+      grade: "9",
+    },
+    {
+      id: "3",
+      time: "20:00 - 21:00, Wed & Sun",
+      name: "Trung Nam",
+      subject: "Biology",
+      grade: "7",
+    },
+  ];
   return (
     <StyledSchedule>
       <div className="container">
         <div className="schedule__inner">
           <div className="class-schedule schedule-item">
             <div className="class-schedule__header">
-              <p className="title">My class schedule</p>
+              <p className="title">My student official</p>
             </div>
             <div>
               <br></br>
-              <div className="lessons">All lessons</div>
+              <div className="lessons">All students</div>
               <Table hover>
-                <thead>
+                <thead style={{ color: "blue", fontWeight: "bold" }}>
                   <tr>
                     <th>#</th>
+                    <th>Student</th>
                     <th>Subject</th>
                     <th>Grade</th>
                     <th>Time</th>
-                    <th>Price</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">{lesson1.id}</th>
-                    <td>{lesson1.subject}</td>
-                    <td>{lesson1.grade}</td>
-                    <td>{lesson1.time}</td>
-                    <td>{lesson1.price}</td>
-                  </tr>
-                </tbody>
-                <tbody>
-                  <tr>
-                    <th scope="row">{lesson1.id}</th>
-                    <td>{lesson1.subject}</td>
-                    <td>{lesson1.grade}</td>
-                    <td>{lesson1.time}</td>
-                    <td>{lesson1.price}</td>
-                  </tr>
+                  {arrStudents.map((item, index) => {
+                    return (
+                      <tr>
+                        <th scope="row">{index + 1}</th>
+                        <td>{item.name}</td>
+                        <td>{item.subject}</td>
+                        <td>{item.grade}</td>
+                        <td>{item.time}</td>
+                        <td>
+                          <Button
+                            style={{
+                              outline: "none",
+                              background: "red",
+                              color: "white",
+                            }}
+                          >
+                            Remove
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </Table>
             </div>
