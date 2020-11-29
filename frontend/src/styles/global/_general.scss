@@ -1,31 +1,40 @@
 .flex {
   display: flex;
 }
+
 .items-center {
   align-items: center;
 }
+
 .contents-center {
   justify-content: center;
 }
+
 .flex-col {
   flex-direction: column;
 }
+
 .flex-row {
   flex-direction: row;
 }
+
 .flex-wrap {
   flex-wrap: wrap;
 }
+
 .space-between {
   justify-content: space-between;
 }
+
 .text-center {
   text-align: center;
 }
+
 .app {
   transition: 0.25s ease;
   background-color: #e4fff2;
   min-height: 100vh;
+
   &:after {
     content: "";
     display: table;
@@ -44,6 +53,7 @@
     width: 100%;
     overflow-y: auto;
     height: 100%;
+
     &__inner {
       width: 100%;
       margin: 0 auto;
@@ -54,4 +64,38 @@
 // reset link style
 a {
   text-decoration: none !important;
+}
+
+.fade_popup {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.5);
+  // height: 100vh;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+}
+
+.fade {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.centered {
+  height: 100vh;
+  /* Magic here */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lb {
+  margin-top: 10px;
+  font-size: 22px;
+  display: flex;
+  justify-content: center;
+  color: #089453;
+}
+
+.modal-dialog {
+  margin-top: 20%;
 }

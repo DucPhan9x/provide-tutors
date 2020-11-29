@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Table , Button} from "reactstrap";
+import { Table, Button, Form, Label } from "reactstrap";
+import { FGroup } from "../../../common";
+
+import Modal from "react-bootstrap/Modal";
+import ModalTitle from "react-bootstrap/ModalTitle";
+import ModalBody from "react-bootstrap/ModalBody";
+import ModalFooter from "react-bootstrap/ModalFooter";
 
 const StyledSchedule = styled.section`
+
   margin: 0 100px auto;
   .schedule__inner {
     display: flex;
@@ -299,12 +306,42 @@ const StyledSchedule = styled.section`
       }
     }
    
-  .sticky {
-    position: sticky;
-    top: -10px;
-    z-index: 222;
-    background: #fff;
-  }
+
+
+`;
+
+const StyledGeneralInfo = styled.section`
+
+  .form-info {
+   
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .form__item {
+      float: left;
+      width: 50%;
+      text-align: left;
+      margin-bottom: 10px;
+      margin-top: 10px;
+
+    }
+    label {
+      margin-left: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .form-group {
+      margin: 0 10px 20px 10px;
+      input {
+        min-height: 36px;
+        border-radius: 4px;
+        font-size: 12px;
+        padding: 8px;
+      }
+    }
+   
+
 
 `;
 
@@ -316,6 +353,19 @@ const ConfirmSchedule = () => {
     subject: "Physics",
     grade: "8",
   };
+
+  const student = {
+    fullName: "Vu Thi Bich Thu",
+    birthday: "01/01/2011",
+    gender: "Female",
+    address: "Quang Nam",
+  };
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <StyledSchedule>
       <div className="container">
@@ -341,11 +391,17 @@ const ConfirmSchedule = () => {
                 <tbody>
                   <tr>
                     <th scope="row">{lesson1.id}</th>
-                    <td>{lesson1.studentname}</td>
+                    <td>
+                      <Button color="info" onClick={handleShow}>
+                        {lesson1.studentname}
+                      </Button>
+                    </td>
                     <td>{lesson1.subject}</td>
                     <td>{lesson1.grade}</td>
-                    <td>{lesson1.time}</td>    
-                    <td><Button color="warning">Waiting</Button></td>
+                    <td>{lesson1.time}</td>
+                    <td>
+                      <Button color="warning">Waiting</Button>
+                    </td>
                   </tr>
                 </tbody>
               </Table>
@@ -353,6 +409,68 @@ const ConfirmSchedule = () => {
           </div>
         </div>
       </div>
+      <div show={show} onHide={handleClose}></div>
+      <Modal className="fade_popup centered " show={show} onHide={handleClose}>
+        <ModalTitle className="lb">INFORMATION</ModalTitle>
+        <ModalBody>
+          {" "}
+          <StyledGeneralInfo>
+            <Form className="form-info">
+              <div className="form__item">
+                <div className="form__item__inner">
+                  <Label>Full name</Label>
+                  <FGroup
+                    propsInput={{
+                      name: "fullName",
+                      value: student.fullName,
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="form__item">
+                <div className="form__item__inner">
+                  <Label>Gender</Label>
+                  <FGroup
+                    propsInput={{
+                      name: "gender",
+                      value: student.gender,
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="form__item">
+                <div className="form__item__inner">
+                  <Label>Birthday</Label>
+                  <FGroup
+                    propsInput={{
+                      name: "birthday",
+                      value: student.birthday,
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="form__item">
+                <div className="form__item__inner">
+                  <Label>Address</Label>
+                  <FGroup
+                    propsInput={{
+                      name: "address",
+                      value: student.address,
+                    }}
+                  />
+                </div>
+              </div>
+            </Form>
+          </StyledGeneralInfo>
+        </ModalBody>
+        <ModalFooter>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </ModalFooter>
+      </Modal>
     </StyledSchedule>
   );
 };

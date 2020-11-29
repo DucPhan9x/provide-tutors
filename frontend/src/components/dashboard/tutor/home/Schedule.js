@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, Table } from "reactstrap";
+import { Table } from "reactstrap";
 
 const StyledSchedule = styled.section`
   margin: 0 0 auto;
@@ -335,7 +335,6 @@ const Schedule = () => {
                     <th>Grade</th>
                     <th>Time</th>
                     <th>Price</th>
-                   
                   </tr>
                 </thead>
                 <tbody>
@@ -345,7 +344,6 @@ const Schedule = () => {
                     <td>{lesson1.grade}</td>
                     <td>{lesson1.time}</td>
                     <td>{lesson1.price}</td>
-                   
                   </tr>
                 </tbody>
                 <tbody>
@@ -355,7 +353,6 @@ const Schedule = () => {
                     <td>{lesson1.grade}</td>
                     <td>{lesson1.time}</td>
                     <td>{lesson1.price}</td>
-                   
                   </tr>
                 </tbody>
               </Table>
