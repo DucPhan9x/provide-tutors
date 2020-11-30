@@ -13,36 +13,12 @@ function Feedback() {
           Feedbacks of <span className="text--primary">students</span>
         </h2>
       </div>
-      <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li
-            data-target="#myCarousel"
-            data-slide-to="0"
-            class="active"
-            style={{ background: "blue", fontSize: 60 }}
-          ></li>
-          <li
-            data-target="#myCarousel"
-            data-slide-to="1"
-            style={{ background: "blue", fontSize: 60 }}
-          ></li>
-          <li
-            data-target="#myCarousel"
-            data-slide-to="2"
-            style={{ background: "blue", fontSize: 60 }}
-          ></li>
-          <li
-            data-target="#myCarousel"
-            data-slide-to="3"
-            style={{ background: "blue", fontSize: 60 }}
-          ></li>
-          <li
-            data-target="#myCarousel"
-            data-slide-to="4"
-            style={{ background: "blue", fontSize: 60 }}
-          ></li>
-        </ol>
-
+      <div
+        id="myCarousel"
+        class="carousel slide"
+        data-ride="carousel"
+        style={{ marginLeft: 20 }}
+      >
         <div class="carousel-inner">
           <div class="item active">
             <article className="slide">

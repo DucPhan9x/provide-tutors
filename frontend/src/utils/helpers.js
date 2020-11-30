@@ -1,8 +1,8 @@
 export const getAuth = () => {
-  const auth = localStorage.getItem("token");
+  const auth = localStorage.getItem("auth");
   return typeof auth === "string" ? JSON.parse(auth) : {};
 };
 
-export const setAuth = (token) => {
-  localStorage.setItem("token", token);
+export const setAuth = (auth) => {
+  localStorage.setItem("auth", JSON.stringify(auth));
 };

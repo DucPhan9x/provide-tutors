@@ -12,11 +12,11 @@ const Form = ({ handleSubmit }) => {
   const validate = () => {
     const errorState = {};
     // check validate
-    // if (!isEmail(form.email)) {
-    //   errorState.email = "Wrong email";
-    // }
+    if (isEmpty(form.userName)) {
+      errorState.userName = "Please enter user name";
+    }
     if (isEmpty(form.password)) {
-      errorState.password = "Wrong password";
+      errorState.password = "Please enter password";
     }
     return errorState;
   };
@@ -29,7 +29,7 @@ const Form = ({ handleSubmit }) => {
     }
 
     const formData = {
-      userName: form.email,
+      userName: form.userName,
       password: form.password,
     };
     handleSubmit(formData);
@@ -57,14 +57,14 @@ const Form = ({ handleSubmit }) => {
 
           <FormBox
             propsInput={{
-              name: "email",
-              placeholder: "Email",
+              name: "userName",
+              placeholder: "User Name",
               onChange: handleChange,
               onFocus: handleFocus,
-              value: form.email,
+              value: form.userName,
               disabled: false,
             }}
-            error={error.email}
+            error={error.userName}
           />
 
           <FormBox

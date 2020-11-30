@@ -128,7 +128,7 @@ const DropdownUserMenu = ({
         <NavLink to="/dashboard">
           <p>Dashboard</p>
         </NavLink>
-        <NavLink to="/logout">
+        <NavLink to="/logout" onClick={() => localStorage.clear()}>
           <SignInAlt />
           <p>Logout</p>
         </NavLink>
