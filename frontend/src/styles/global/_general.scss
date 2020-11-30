@@ -33,6 +33,7 @@
 .j-center {
   justify-content: center;
 }
+
 .app {
   transition: 0.25s ease;
   background-color: #e4fff2;
@@ -91,6 +92,15 @@ a {
   align-items: center;
 }
 
+.centered_addpopup {
+  margin-top: 0;
+  // height: 100vh;
+  /* Magic here */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .lb {
   margin-top: 10px;
   font-size: 22px;
@@ -100,5 +110,5 @@ a {
 }
 
 .modal-dialog {
-  margin-top: 20%;
+  margin-top: 10%;
 }

@@ -340,9 +340,6 @@ const StyledGeneralInfo = styled.section`
         padding: 8px;
       }
     }
-   
-
-
 `;
 
 const ConfirmSchedule = () => {
@@ -484,8 +481,12 @@ const ConfirmSchedule = () => {
           </div>
         </div>
       </div>
-      <div show={show} onHide={handleClose} data={studentInf}></div>
-      <Modal className="fade_popup centered " show={show} onHide={handleClose}>
+      <Modal
+        className="fade_popup centered "
+        show={show}
+        onHide={handleClose}
+        data={studentInf}
+      >
         <ModalTitle className="lb">INFORMATION</ModalTitle>
         <ModalBody>
           {" "}
