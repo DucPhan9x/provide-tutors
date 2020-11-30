@@ -1,5 +1,4 @@
 import Schedule from "./Schedule";
 import ConfirmSchedule from "./ConfirmSchedule";
-export {
-  Schedule, ConfirmSchedule, 
-};
+import StudentInfoPopup from "../../tutor/mystudent/StudentInfoPopup";
+export { Schedule, ConfirmSchedule, StudentInfoPopup };

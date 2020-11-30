@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import "./TutorCardPopup.css";
 
-import { Col, Row, Table, Button, Label, Input } from "reactstrap";
+import { Button } from "reactstrap";
 
 const StyledPopup = styled.section`
   .popup {

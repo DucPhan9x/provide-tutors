@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Table, Button } from "reactstrap";
+import { Table, Button, Form, Label } from "reactstrap";
+import { FGroup } from "../../../common";
+
+import Modal from "react-bootstrap/Modal";
+import ModalTitle from "react-bootstrap/ModalTitle";
+import ModalBody from "react-bootstrap/ModalBody";
+import ModalFooter from "react-bootstrap/ModalFooter";
 
 const StyledSchedule = styled.section`
+
   margin: 0 100px auto;
   .schedule__inner {
     display: flex;
@@ -299,16 +306,54 @@ const StyledSchedule = styled.section`
       }
     }
    
-  .sticky {
-    position: sticky;
-    top: -10px;
-    z-index: 222;
-    background: #fff;
-  }
+
 
 `;
 
+const StyledGeneralInfo = styled.section`
+
+  .form-info {
+   
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .form__item {
+      float: left;
+      width: 50%;
+      text-align: left;
+      margin-bottom: 10px;
+      margin-top: 10px;
+
+    }
+    label {
+      margin-left: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .form-group {
+      margin: 0 10px 20px 10px;
+      input {
+        min-height: 36px;
+        border-radius: 4px;
+        font-size: 12px;
+        padding: 8px;
+      }
+    }
+`;
+
 const ConfirmSchedule = () => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const studentInf = {
+    fullName: "Vu Thi Bich Thu",
+    birthday: "01/01/2011",
+    gender: "Female",
+    address: "Quang Nam",
+  };
+
   const arrStudents = [
     {
       id: "1",
@@ -316,6 +361,12 @@ const ConfirmSchedule = () => {
       name: "Thu Vu",
       subject: "Physics",
       grade: "8",
+      inf: {
+        fullName: "Vu Thi Bich Thu",
+        birthday: "01/01/2011",
+        gender: "Female",
+        address: "Quang Nam",
+      },
     },
     {
       id: "2",
@@ -323,6 +374,12 @@ const ConfirmSchedule = () => {
       name: "Duy An",
       subject: "English",
       grade: "9",
+      inf: {
+        fullName: "Phan Trong Duc",
+        birthday: "03/03/2033",
+        gender: "Male",
+        address: "Quang Nam",
+      },
     },
     {
       id: "3",
@@ -330,8 +387,36 @@ const ConfirmSchedule = () => {
       name: "Trung Nam",
       subject: "Biology",
       grade: "7",
+      inf: {
+        fullName: "Nguyen Thi Duy An",
+        birthday: "01/01/2011",
+        gender: "Female",
+        address: "Quang Nam",
+      },
     },
   ];
+
+  // const arrStudentsInfo = [
+  //   {
+  //     fullName: "Vu Thi Bich Thu",
+  //     birthday: "01/01/2011",
+  //     gender: "Female",
+  //     address: "Quang Nam",
+  //   },
+  //   {
+  //     fullName: "Phan Trong Duc",
+  //     birthday: "03/03/2033",
+  //     gender: "Male",
+  //     address: "Quang Nam",
+  //   },
+  //   {
+  //     fullName: "Nguyen Thi Duy An",
+  //     birthday: "01/01/2011",
+  //     gender: "Female",
+  //     address: "Quang Nam",
+  //   },
+  // ];
+
   return (
     <StyledSchedule>
       <div className="container">
@@ -359,7 +444,16 @@ const ConfirmSchedule = () => {
                     return (
                       <tr>
                         <th scope="row">{index + 1}</th>
-                        <td>{item.name}</td>
+                        <td>
+                          <Button
+                            color="info"
+                            style={{ width: "100%", outline: "none" }}
+                            onClick={handleShow}
+                            data={item.inf}
+                          >
+                            {item.name}
+                          </Button>
+                        </td>
                         <td>{item.subject}</td>
                         <td>{item.grade}</td>
                         <td>{item.time}</td>
@@ -387,6 +481,72 @@ const ConfirmSchedule = () => {
           </div>
         </div>
       </div>
+      <Modal
+        className="fade_popup centered "
+        show={show}
+        onHide={handleClose}
+        data={studentInf}
+      >
+        <ModalTitle className="lb">INFORMATION</ModalTitle>
+        <ModalBody>
+          {" "}
+          <StyledGeneralInfo>
+            <Form className="form-info">
+              <div className="form__item">
+                <div className="form__item__inner">
+                  <Label>Full name</Label>
+                  <FGroup
+                    propsInput={{
+                      name: "fullName",
+                      value: studentInf.fullName,
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="form__item">
+                <div className="form__item__inner">
+                  <Label>Gender</Label>
+                  <FGroup
+                    propsInput={{
+                      name: "gender",
+                      value: studentInf.gender,
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="form__item">
+                <div className="form__item__inner">
+                  <Label>Birthday</Label>
+                  <FGroup
+                    propsInput={{
+                      name: "birthday",
+                      value: studentInf.birthday,
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="form__item">
+                <div className="form__item__inner">
+                  <Label>Address</Label>
+                  <FGroup
+                    propsInput={{
+                      name: "address",
+                      value: studentInf.address,
+                    }}
+                  />
+                </div>
+              </div>
+            </Form>
+          </StyledGeneralInfo>
+        </ModalBody>
+        <ModalFooter>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </ModalFooter>
+      </Modal>
     </StyledSchedule>
   );
 };
