@@ -12,9 +12,9 @@ const LogIn = () => {
       if (data.status === 200) {
         setAuth(data.user);
         if (data.user.role === ROLE_TUTOR) {
-          history.push("/dashboard/tutor");
+          history.push("/tutor");
         } else if (data.user.role === ROLE_STUDENT) {
-          history.push("/dashboard/student");
+          history.push("/student");
         } else {
           history.push("/");
         }

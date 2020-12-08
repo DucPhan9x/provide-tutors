@@ -7,10 +7,9 @@ const OurTutors = () => {
       subject: "Biology",
       grade: "8",
       time: "7:00 - 9:00, Wed & 7:00 - 9:00 Sat",
-      tutor_name: "Phan Trong Duc",    
+      tutor_name: "Phan Trong Duc",
       prices: "200.000VND/lesson",
       image: "https://picsum.photos/200",
-    
     },
     {
       subject: "Physics",
@@ -19,7 +18,6 @@ const OurTutors = () => {
       tutor_name: "Le Trung Nam",
       prices: "200.000VND/lesson",
       image: "https://picsum.photos/204",
-   
     },
     {
       subject: "English",
@@ -28,16 +26,14 @@ const OurTutors = () => {
       tutor_name: "Nguyen Thi Duy An",
       prices: "200.000VND/lesson",
       image: "https://picsum.photos/201",
-    
     },
     {
       subject: "Chemistry",
       grade: "8",
       time: "7:00 - 9:00, Wed & 7:00 - 9:00 Sat",
-      tutor_name: "Vu Thi Bich Thu",  
+      tutor_name: "Vu Thi Bich Thu",
       prices: "200.000VND/lesson",
       image: "https://picsum.photos/202",
-    
     },
     {
       subject: "Maths",
@@ -46,13 +42,12 @@ const OurTutors = () => {
       tutor_name: "Nguyen Quang Phieu",
       prices: "200.000VND/lesson",
       image: "https://picsum.photos/203",
-    
     },
   ];
   return (
     <div className="our-tutors">
       <h2 className="h2 text-center">
-        Our <span className="primary">tutors</span>
+        The <span className="primary">tutors available</span>
       </h2>
       <div className="flex flex-wrap">
         {listTutors.map((item, index) => {
@@ -64,7 +59,6 @@ const OurTutors = () => {
               tutor_name={item.tutor_name}
               prices={item.prices}
               image={item.image}
-    
             />
           );
         })}

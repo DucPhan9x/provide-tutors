@@ -8,53 +8,67 @@ import ResetPassword from "./containers/ResetPassword";
 import Register from "./containers/Register";
 import OurTutors from "./containers/OurTutors";
 import AboutUs from "./containers/AboutUs";
-import { HomeTutor, ProfileTutor, MyStudent } from "./containers/dashboard/tutors";
+import {
+  HomeTutor,
+  ProfileTutor,
+  MyStudent,
+} from "./containers/dashboard/tutors";
 import withLayoutDashboard from "./HOCS/withLayoutDashboard";
 import { HomeStudent, ProfileStudent } from "./containers/dashboard/students";
 import { HomeAdmin } from "./containers/dashboard/admin";
+import { getAuth } from "./utils/helpers";
 
 function App() {
+  const auth = getAuth();
   return (
     <Router>
       <Switch>
-        {/* Dashboard tutor */}
-        <Route
-          path="/dashboard/tutor"
-          // component={withAuth(withLayoutDashboard(HomeTutor), [
-          component={withLayoutDashboard(HomeTutor)}
-          exact
-        />
-        <Route
-          path="/dashboard/tutor/profile"
-          // component={withAuth(withLayoutDashboard(HomeTutor), [
-          component={withLayoutDashboard(ProfileTutor)}
-          exact
-        />
-        <Route
-          path="/dashboard/tutor/mystudent"
-          // component={withAuth(withLayoutDashboard(HomeTutor), [
-          component={withLayoutDashboard(MyStudent)}
-          exact
-        />
-        {/* Dashboard student */}
-        <Route
-          path="/dashboard/student"
-          // component={withAuth(withLayoutDashboard(HomeTutor), [
-          component={withLayoutDashboard(HomeStudent)}
-          exact
-        />
-        <Route
-          path="/dashboard/student/profile"
-          // component={withAuth(withLayoutDashboard(HomeTutor), [
-          component={withLayoutDashboard(ProfileStudent)}
-          exact
-        />
-        {/* Dashboard admin */}
-        <Route
-          path="/dashboard/admin"
-          component={withLayoutDashboard(HomeAdmin)}
-          exact
-        />
+        {/*   Tutor */}
+        {auth && auth.role === 1 && (
+          <Route
+            path="/tutor"
+            component={withLayoutDashboard(HomeTutor)}
+            exact
+          />
+        )}
+        {auth && auth.role === 1 && (
+          <Route
+            path="tutor/profile"
+            component={withLayoutDashboard(ProfileTutor)}
+            exact
+          />
+        )}
+        {auth && auth.role === 1 && (
+          <Route
+            path="/tutor/mystudent"
+            component={withLayoutDashboard(MyStudent)}
+            exact
+          />
+        )}
+        {/* Student */}
+        {auth && auth.role === 0 && (
+          <Route
+            path="/student"
+            component={withLayoutDashboard(HomeStudent)}
+            exact
+          />
+        )}
+        {auth && auth.role === 0 && (
+          <Route
+            path="/student/profile"
+            component={withLayoutDashboard(ProfileStudent)}
+            exact
+          />
+        )}
+
+        {/* admin */}
+        {auth && auth.role === 2 && (
+          <Route
+            path="/admin"
+            component={withLayoutDashboard(HomeAdmin)}
+            exact
+          />
+        )}
 
         <Route path="/login" exact component={withLayout(LogIn)} />
         <Route

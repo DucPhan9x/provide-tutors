@@ -5,7 +5,7 @@ import { isEmpty, isEmail } from "validator";
 import { OPTIONS_ROLE } from "../../utils/constants";
 import SingleSelect from "../common/SingleSelect";
 
-const Form = ({ handleSubmit, onChangeRole }) => {
+const Form = ({ handleSubmit }) => {
   const [error, setError] = React.useState({});
   const [form, setForm] = React.useState({
     userName: "",
@@ -15,6 +15,9 @@ const Form = ({ handleSubmit, onChangeRole }) => {
     role: 0,
   });
   const [errorRegister, setErrorRegister] = React.useState();
+  const onChangeRole = (data) => {
+    data.label === "Student" ? setForm({ role: 0 }) : setForm({ role: 1 });
+  };
 
   const validate = () => {
     const errorState = {};
@@ -38,15 +41,16 @@ const Form = ({ handleSubmit, onChangeRole }) => {
   };
   const handleSubmitForm = (event) => {
     event.preventDefault();
-    const errorState = validate();
-
-    if (Object.keys(errorState).length > 0) {
-      return setError(errorState);
-    }
-
+    // const errorState = validate();
+    // if (Object.keys(errorState).length > 0) {
+    //   return setError(errorState);
+    // }
     const formData = {
-      login: form.email,
+      userName: form.userName,
+      email: form.email,
       password: form.password,
+      confirmPass: form.confirmPass,
+      role: form.role,
     };
     handleSubmit(formData);
   };
@@ -122,6 +126,7 @@ const Form = ({ handleSubmit, onChangeRole }) => {
             placeholder="Type user"
             onChange={onChangeRole}
             // value={} value duoc luu tru o redux de goi lai
+            // value={form.role === 0 ? "Student" : "Tutor"}
             options={OPTIONS_ROLE}
             isDisabled={false}
           />

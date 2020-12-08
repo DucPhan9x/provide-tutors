@@ -20,7 +20,7 @@ function HomePage(props) {
       <Banner />
       <div className="subject-list">
         <h2 className="h2">
-          Our <span className="text--primary">subjects current</span>
+          The <span className="text--primary">subjects available</span>
         </h2>
         <div className="subject-list__items flex">
           {listSubject.map((item, index) => {
