@@ -17,9 +17,14 @@ import withLayoutDashboard from "./HOCS/withLayoutDashboard";
 import { HomeStudent, ProfileStudent } from "./containers/dashboard/students";
 import { HomeAdmin } from "./containers/dashboard/admin";
 import { getAuth } from "./utils/helpers";
+import { useSelector } from "react-redux";
+import Articles from "./containers/Articles";
+import ContactUs from "./containers/ContactUs";
+import Faq from "./containers/Faq";
 
 function App() {
-  const auth = getAuth();
+  const storeLogin = useSelector((store) => store.login);
+  const auth = storeLogin.data.user || getAuth();
   return (
     <Router>
       <Switch>
@@ -33,7 +38,7 @@ function App() {
         )}
         {auth && auth.role === 1 && (
           <Route
-            path="tutor/profile"
+            path="/tutor/profile"
             component={withLayoutDashboard(ProfileTutor)}
             exact
           />
@@ -62,13 +67,9 @@ function App() {
         )}
 
         {/* admin */}
-        {auth && auth.role === 2 && (
-          <Route
-            path="/admin"
-            component={withLayoutDashboard(HomeAdmin)}
-            exact
-          />
-        )}
+        {/* {auth && auth.role === 2 && ( */}
+        <Route path="/admin" component={withLayoutDashboard(HomeAdmin)} exact />
+        {/* )} */}
 
         <Route path="/login" exact component={withLayout(LogIn)} />
         <Route
@@ -84,6 +85,9 @@ function App() {
         <Route path="/our-tutors" exact component={withLayout(OurTutors)} />
         <Route path="/about-us" exact component={withLayout(AboutUs)} />
         <Route path="/register" exact component={withLayout(Register)} />
+        <Route path="/faq" exact component={withLayout(Faq)} />
+        <Route path="/contact-us" exact component={withLayout(ContactUs)} />
+        <Route path="/articles" exact component={withLayout(Articles)} />
         {/* Homepage */}
         <Route path="/" component={withLayout(HomePage)} />
       </Switch>

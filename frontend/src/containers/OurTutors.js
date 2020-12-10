@@ -1,7 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import CardTeacher from "../components/ourTutors/CardTeacher";
+import { getAuth } from "../utils/helpers";
 
 const OurTutors = () => {
+  const storeLogin = useSelector((store) => store.login);
+  const auth = storeLogin.data.user || getAuth();
   const listTutors = [
     {
       subject: "Biology",
@@ -53,12 +57,14 @@ const OurTutors = () => {
         {listTutors.map((item, index) => {
           return (
             <CardTeacher
+              key={index}
               subject={item.subject}
               grade={item.grade}
               time={item.time}
               tutor_name={item.tutor_name}
               prices={item.prices}
               image={item.image}
+              auth={auth}
             />
           );
         })}

@@ -12,45 +12,46 @@ const Form = ({ handleSubmit }) => {
     email: "",
     password: "",
     confirmPass: "",
-    role: 0,
+    role: null,
   });
+  const [role, setRole] = React.useState(null);
   const [errorRegister, setErrorRegister] = React.useState();
   const onChangeRole = (data) => {
-    data.label === "Student" ? setForm({ role: 0 }) : setForm({ role: 1 });
+    data.label === "Student" ? setRole("0") : setRole("1");
   };
 
   const validate = () => {
     const errorState = {};
     // check validate
     if (isEmpty(form.userName)) {
-      errorState.email = "Wrong user name";
+      errorState.userName = "Invalid user name";
     }
     if (!isEmail(form.email)) {
-      errorState.email = "Wrong email";
+      errorState.email = "Invalid email";
     }
     if (isEmpty(form.password)) {
-      errorState.password = "Wrong password";
+      errorState.password = "Invalid password";
     }
     if (isEmpty(form.confirmPass) || form.password !== form.confirmPass) {
-      errorState.password = "Wrong confirm password";
+      errorState.confirmPass = "Invalid confirm password";
     }
-    if (isEmpty(form.roles)) {
-      errorState.email = "Wrong role";
+    if (!role) {
+      errorState.role = "Please select role";
     }
     return errorState;
   };
   const handleSubmitForm = (event) => {
     event.preventDefault();
-    // const errorState = validate();
-    // if (Object.keys(errorState).length > 0) {
-    //   return setError(errorState);
-    // }
+    const errorState = validate();
+    if (Object.keys(errorState).length > 0) {
+      return setError(errorState);
+    }
     const formData = {
       userName: form.userName,
       email: form.email,
       password: form.password,
       confirmPass: form.confirmPass,
-      role: form.role,
+      role: role,
     };
     handleSubmit(formData);
   };
@@ -96,7 +97,6 @@ const Form = ({ handleSubmit }) => {
             }}
             error={error.email}
           />
-
           <FormBox
             propsInput={{
               type: "password",
@@ -125,11 +125,13 @@ const Form = ({ handleSubmit }) => {
             name="role"
             placeholder="Type user"
             onChange={onChangeRole}
-            // value={} value duoc luu tru o redux de goi lai
-            // value={form.role === 0 ? "Student" : "Tutor"}
+            // value={form.role}
             options={OPTIONS_ROLE}
             isDisabled={false}
           />
+          <span style={{ color: "red", fontSize: 13, paddingLeft: 95 }}>
+            {error.role}
+          </span>
           <button
             disabled={false}
             className="button button--secondary button--register"

@@ -337,7 +337,6 @@ const ConfirmSchedule = () => {
                     <th>Grade</th>
                     <th>Time</th>
                     <th>Tutor Name</th>
-                    <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -350,11 +349,6 @@ const ConfirmSchedule = () => {
                         <td>{item.grade}</td>
                         <td>{item.time}</td>
                         <td>{item.tutorName}</td>
-                        <td>
-                          <Button disabled={true} color="warning">
-                            Waiting
-                          </Button>
-                        </td>
                         <td>
                           <Button
                             style={{

@@ -344,15 +344,7 @@ const StyledGeneralInfo = styled.section`
 
 const ConfirmSchedule = () => {
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const studentInf = {
-    fullName: "Vu Thi Bich Thu",
-    birthday: "01/01/2011",
-    gender: "Female",
-    address: "Quang Nam",
-  };
+  const [studentSelected, setStudentSelected] = useState(null);
 
   const arrStudents = [
     {
@@ -371,7 +363,7 @@ const ConfirmSchedule = () => {
     {
       id: "2",
       time: "13:00 - 15:00, Mon & Fri",
-      name: "Duy An",
+      name: "Trong Duc",
       subject: "English",
       grade: "9",
       inf: {
@@ -388,34 +380,13 @@ const ConfirmSchedule = () => {
       subject: "Biology",
       grade: "7",
       inf: {
-        fullName: "Nguyen Thi Duy An",
+        fullName: "Nguyen Trung Nam",
         birthday: "01/01/2011",
         gender: "Female",
         address: "Quang Nam",
       },
     },
   ];
-
-  // const arrStudentsInfo = [
-  //   {
-  //     fullName: "Vu Thi Bich Thu",
-  //     birthday: "01/01/2011",
-  //     gender: "Female",
-  //     address: "Quang Nam",
-  //   },
-  //   {
-  //     fullName: "Phan Trong Duc",
-  //     birthday: "03/03/2033",
-  //     gender: "Male",
-  //     address: "Quang Nam",
-  //   },
-  //   {
-  //     fullName: "Nguyen Thi Duy An",
-  //     birthday: "01/01/2011",
-  //     gender: "Female",
-  //     address: "Quang Nam",
-  //   },
-  // ];
 
   return (
     <StyledSchedule>
@@ -445,21 +416,30 @@ const ConfirmSchedule = () => {
                       <tr>
                         <th scope="row">{index + 1}</th>
                         <td>
-                          <Button
-                            color="info"
-                            style={{ width: "100%", outline: "none" }}
-                            onClick={handleShow}
-                            data={item.inf}
-                          >
+                          <div>
                             {item.name}
-                          </Button>
+                            <Button
+                              color="info"
+                              style={{
+                                width: "50%",
+                                outline: "none",
+                                margin: 20,
+                              }}
+                              onClick={() => {
+                                setShow(true);
+                                setStudentSelected(item.inf);
+                              }}
+                            >
+                              See detail
+                            </Button>
+                          </div>
                         </td>
                         <td>{item.subject}</td>
                         <td>{item.grade}</td>
                         <td>{item.time}</td>
                         <td>
                           <Button color="warning" style={{ outline: "none" }}>
-                            UnAccept
+                            Accept
                           </Button>
                           <Button
                             color="warning"
@@ -484,8 +464,8 @@ const ConfirmSchedule = () => {
       <Modal
         className="fade_popup centered "
         show={show}
-        onHide={handleClose}
-        data={studentInf}
+        onHide={() => setShow(false)}
+        data={studentSelected}
       >
         <ModalTitle className="lb">INFORMATION</ModalTitle>
         <ModalBody>
@@ -498,7 +478,8 @@ const ConfirmSchedule = () => {
                   <FGroup
                     propsInput={{
                       name: "fullName",
-                      value: studentInf.fullName,
+                      value: studentSelected && studentSelected.fullName,
+                      disabled: true,
                     }}
                   />
                 </div>
@@ -510,7 +491,8 @@ const ConfirmSchedule = () => {
                   <FGroup
                     propsInput={{
                       name: "gender",
-                      value: studentInf.gender,
+                      value: studentSelected && studentSelected.gender,
+                      disabled: true,
                     }}
                   />
                 </div>
@@ -521,7 +503,8 @@ const ConfirmSchedule = () => {
                   <FGroup
                     propsInput={{
                       name: "birthday",
-                      value: studentInf.birthday,
+                      value: studentSelected && studentSelected.birthday,
+                      disabled: true,
                     }}
                   />
                 </div>
@@ -533,7 +516,8 @@ const ConfirmSchedule = () => {
                   <FGroup
                     propsInput={{
                       name: "address",
-                      value: studentInf.address,
+                      value: studentSelected && studentSelected.address,
+                      disabled: true,
                     }}
                   />
                 </div>
@@ -542,7 +526,7 @@ const ConfirmSchedule = () => {
           </StyledGeneralInfo>
         </ModalBody>
         <ModalFooter>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={() => setShow(false)}>
             Close
           </Button>
         </ModalFooter>

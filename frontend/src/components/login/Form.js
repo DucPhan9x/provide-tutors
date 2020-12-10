@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { FormBox } from "../common";
 import { Form as ReForm } from "reactstrap";
 import { isEmpty } from "validator";
+import { useSelector } from "react-redux";
 
 const Form = ({ handleSubmit }) => {
   const [error, setError] = React.useState({});
   const [form, setForm] = React.useState({ email: "", password: "" });
   const [errorLogin, setErrorLogin] = React.useState();
-
+  const storeLogin = useSelector((store) => store.login);
+  const loading = storeLogin.loading;
   const validate = () => {
     const errorState = {};
     // check validate
@@ -23,7 +25,6 @@ const Form = ({ handleSubmit }) => {
   const handleSubmitForm = (event) => {
     event.preventDefault();
     const errorState = validate();
-
     if (Object.keys(errorState).length > 0) {
       return setError(errorState);
     }
@@ -79,7 +80,7 @@ const Form = ({ handleSubmit }) => {
             }}
             error={error.password}
           />
-          <button disabled={false} className="button button--secondary">
+          <button disabled={loading} className="button button--secondary">
             Login
           </button>
           <div className="flex space-between">

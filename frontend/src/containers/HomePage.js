@@ -24,13 +24,7 @@ function HomePage(props) {
         </h2>
         <div className="subject-list__items flex">
           {listSubject.map((item, index) => {
-            return (
-              <Subject
-                name={item.name}
-                amountTutor={item.amountTutor}
-                image={item.image}
-              />
-            );
+            return <Subject image={item.image} key={index} />;
           })}
         </div>
       </div>
