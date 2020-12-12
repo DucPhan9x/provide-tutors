@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { Table, Button, Form, Label, Input, FormGroup } from "reactstrap";
-import { DateCircle } from "../../../common";
+import { addSchedule } from "../../../../redux/actions/addSchedule";
+
+import { Table, Button, Form, Label, Input } from "reactstrap";
 
 import Modal from "react-bootstrap/Modal";
 import ModalTitle from "react-bootstrap/ModalTitle";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalFooter from "react-bootstrap/ModalFooter";
+import { event } from "react-ga";
 
 const StyledSchedule = styled.section`
   margin: 0 0 auto;
@@ -75,7 +77,7 @@ const StyledAddPopup = styled.section`
       text-align: left;
       margin-bottom: 10px;
       margin-top: 10px;
-
+      padding-right: 10px;
     }
     label {
       margin-left: 10px;
@@ -107,39 +109,142 @@ const Schedule = () => {
 
   const [subject, setSubject] = useState("");
   const [grade, setGrade] = useState("");
-  // const [day, setDay] = useState("");
+  const [day, setDay] = useState("");
   const [time, setTime] = useState("");
 
-  const [listDays, setListDays] = useState([
+  const subjectOptions = [
     {
-      day: "Mon",
-      isChecked: false,
+      label: "Maths",
+      value: "Maths",
     },
     {
-      day: "Tue",
-      isChecked: false,
+      label: "Literature",
+      value: "Literature",
     },
     {
-      day: "Wed",
-      isChecked: false,
+      label: "English",
+      value: "English",
     },
     {
-      day: "Thu",
-      isChecked: false,
+      label: "Physics",
+      value: "Physics",
     },
     {
-      day: "Fri",
-      isChecked: false,
+      label: "Chemistry",
+      value: "Chemistry",
     },
     {
-      day: "Sat",
-      isChecked: false,
+      label: "Biology",
+      value: "Biology",
+    },
+  ];
+  const gradeOptions = [
+    {
+      label: "1",
+      value: "1",
     },
     {
-      day: "Sun",
-      isChecked: false,
+      label: "2",
+      value: "2",
     },
-  ]);
+    {
+      label: "3",
+      value: "3",
+    },
+    {
+      label: "4",
+      value: "4",
+    },
+    {
+      label: "5",
+      value: "5",
+    },
+    {
+      label: "6",
+      value: "6",
+    },
+    {
+      label: "7",
+      value: "7",
+    },
+    {
+      label: "8",
+      value: "8",
+    },
+    {
+      label: "9",
+      value: "9",
+    },
+    {
+      label: "10",
+      value: "10",
+    },
+    {
+      label: "11",
+      value: "11",
+    },
+    {
+      label: "12",
+      value: "12",
+    },
+  ];
+
+  const dayOptions = [
+    {
+      label: "Mon",
+      value: "Mon",
+    },
+    {
+      label: "Tue",
+      value: "Tue",
+    },
+    {
+      label: "Wed",
+      value: "Wed",
+    },
+    {
+      label: "Thu",
+      value: "Thu",
+    },
+    {
+      label: "Fri",
+      value: "Fri",
+    },
+    {
+      label: "Sat",
+      value: "Sat",
+    },
+    {
+      label: "Sun",
+      value: "Sun",
+    },
+  ];
+  const timeOptions = [
+    {
+      label: "7:00 - 9:00",
+      value: "7:00 - 9:00",
+    },
+    {
+      label: "9:00 - 11:00",
+      value: "9:00 - 11:00",
+    },
+    {
+      label: "13:00 - 15:00",
+      value: "13:00 - 15:00",
+    },
+    {
+      label: "15:00 - 17:00",
+      value: "15:00 - 17:00",
+    },
+    {
+      label: "17:00 - 19:00",
+      value: "17:00 - 19:00",
+    },
+    {
+      label: "19:00 - 21:00",
+      value: "19:00 - 21:00",
+    },
+  ];
 
   const arrLessons = [
     {
@@ -158,14 +263,13 @@ const Schedule = () => {
     },
   ];
 
-  const changeStatusDay = (index) => {
-    const updateListDay = { ...listDays[index] };
-    updateListDay.isChecked = !listDays[index].isChecked;
-
-    const updateListDays = [...listDays];
-    updateListDays[index] = updateListDay;
-    setListDays(updateListDays);
-  };
+  const [timeday, setTimeDay] = useState([
+    {
+      id: "",
+      day: "",
+      time: "",
+    },
+  ]);
 
   const getSubject = (subject) => {
     setSubject(subject);
@@ -175,11 +279,13 @@ const Schedule = () => {
     setGrade(grade);
   };
 
-  // const getDay = (day) => {
-  //   setDay(day);
-  // };
+  const getDay = (day) => {
+    setDay(day);
+    setTimeDay({ ...timeday, day: event.target.value });
+  };
   const getTime = (time) => {
     setTime(time);
+    setTimeDay({ ...timeday, time: event.target.value });
   };
 
   const handleSubmit = (event) => {
@@ -188,11 +294,20 @@ const Schedule = () => {
     const scheduleInformation = {
       subject,
       grade,
-      // day,
+      day,
       time,
     };
 
+    //api return
+    // const scheduleInformation = {
+    //   grade: 10,
+    //   subject: "toan",
+    //   time: ["7-9h, thu 3", "7-9h, thu 7"],
+    // };
+
     console.log(scheduleInformation);
+
+    addSchedule(scheduleInformation, () => {});
   };
   return (
     <StyledSchedule>
@@ -256,12 +371,9 @@ const Schedule = () => {
                       onChange={(event) => getSubject(event.target.value)}
                     >
                       <option>Select a subject</option>
-                      <option>Maths</option>
-                      <option>Literature</option>
-                      <option>English</option>
-                      <option>Chemistry</option>
-                      <option>Physics</option>
-                      <option>Biology</option>
+                      {subjectOptions.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                      ))}
                     </Input>
                   </div>
                 </div>
@@ -274,54 +386,70 @@ const Schedule = () => {
                       onChange={(event) => getGrade(event.target.value)}
                     >
                       <option>Select grade</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                      <option>7</option>
-                      <option>8</option>
-                      <option>9</option>
-                      <option>10</option>
-                      <option>11</option>
-                      <option>12</option>
+                      {gradeOptions.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                      ))}
                     </Input>
                   </div>
                 </div>
-                <FormGroup>
-                  {" "}
-                  <Label>
-                    <b>Day</b>
-                  </Label>{" "}
-                  <div className="list-days">
-                    {listDays.map((item, index) => (
-                      <DateCircle
-                        key={index}
-                        name={item.day}
-                        isChecked={item.isChecked}
-                        onClick={() => changeStatusDay(index)}
-                      ></DateCircle>
-                    ))}
+
+                <div className="form__item">
+                  <div className="form__item__inner">
+                    <Label>Day</Label>
+                    <Input
+                      type="select"
+                      name="selectSubject"
+                      onChange={(event) => getDay(event.target.value)}
+                    >
+                      <option>Select day</option>
+                      {dayOptions.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                      ))}
+                    </Input>
                   </div>
-                </FormGroup>
-                <FormGroup>
-                  <Label>Time</Label>
-                  <Input
-                    type="select"
-                    name="selectTime"
-                    onChange={(event) => getTime(event.target.value)}
-                  >
-                    <option>Select time</option>
-                    <option>7:00 - 9:00</option>
-                    <option>9:00 - 11:00</option>
-                    <option>13:00 - 15:00</option>
-                    <option>15:00 - 17:00</option>
-                    <option>17:00 - 19:00</option>
-                    <option>19:00 - 21:00</option>
-                  </Input>
-                </FormGroup>
+                </div>
+                <div className="form__item">
+                  <div className="form__item__inner">
+                    <Label>Time</Label>
+                    <Input
+                      type="select"
+                      name="selectGrade"
+                      onChange={(event) => getTime(event.target.value)}
+                    >
+                      <option>Select time</option>
+                      {timeOptions.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                      ))}
+                    </Input>
+                  </div>
+                </div>
               </Form>
+              <Table hover>
+                <thead style={{ color: "purple", fontWeight: "bold" }}>
+                  <tr>
+                    <th>#</th>
+                    <th>Day</th>
+                    <th>Time</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {timeday.length > 0 &&
+                    timeday.map((item) => {
+                      return (
+                        <tr>
+                          <th scope="row">{item.id}</th>
+                          <td>{item.day}</td>
+                          <td>{item.time}</td>
+                          <td>
+                            <Button close />
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  {}
+                </tbody>
+              </Table>
             </StyledAddPopup>
           </ModalBody>
 

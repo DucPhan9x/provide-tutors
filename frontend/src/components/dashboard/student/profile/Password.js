@@ -100,7 +100,7 @@ const Password = () => {
           </div>
         </div>
         <button className="find">
-          Save my changes
+          Save
           <span>
             <img src={save} alt="save" />
           </span>
