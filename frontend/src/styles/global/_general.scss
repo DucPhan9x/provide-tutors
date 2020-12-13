@@ -112,3 +112,17 @@ a {
 .modal-dialog {
   margin-top: 10%;
 }
+
+.member {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  text-align: center;
+  background: #e4fff2;
+
+  .member-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+  }
+}

@@ -115,12 +115,6 @@ const StyledGeneralInfo = styled.section`
 `;
 
 const GeneralInfo = () => {
-  const student = {
-    fullName: "Vu Thi Bich Thu",
-    phoneNumber: "01213456789",
-    email: "vuthibichthu@gmail.com",
-    address: "Quang Nam",
-  };
   const [form, setForm] = React.useState({
     fullName: "",
     phoneNumber: "",
@@ -171,12 +165,12 @@ const GeneralInfo = () => {
           <div className="form__item__inner">
             <Label>Phone number</Label>
             <FGroup
-             propsInput={{
-              name: "phoneNumber",
-              value: form.phoneNumber,
-              onChange: handleChange,
-              disabled: false,
-            }}
+              propsInput={{
+                name: "phoneNumber",
+                value: form.phoneNumber,
+                onChange: handleChange,
+                disabled: false,
+              }}
             />
           </div>
         </div>
@@ -218,11 +212,11 @@ const GeneralInfo = () => {
           <div className="form__item__inner">
             <Label>Email address</Label>
             <FGroup
-             propsInput={{
-              name: "email",
-              value: form.email,
-              disabled: true,
-            }}
+              propsInput={{
+                name: "email",
+                value: form.email,
+                disabled: true,
+              }}
             />
           </div>
         </div>
@@ -232,7 +226,7 @@ const GeneralInfo = () => {
             <FGroup
               propsInput={{
                 name: "address",
-                 value: form.address,
+                value: form.address,
                 onChange: handleChange,
                 disabled: false,
               }}
