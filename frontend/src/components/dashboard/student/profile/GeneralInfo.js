@@ -121,16 +121,47 @@ const GeneralInfo = () => {
     email: "vuthibichthu@gmail.com",
     address: "Quang Nam",
   };
+  const [form, setForm] = React.useState({
+    fullName: "",
+    phoneNumber: "",
+    gender: "",
+    birthday: "",
+    email: "vuthibichthu@gmail.com",
+    address: "",
+  });
+
+  const handleSubmitForm = (event) => {
+    event.preventDefault();
+
+    const formData = {
+      fullName: form.fullName,
+      phoneNumber: form.phoneNumber,
+      gender: form.gender,
+      birthday: form.birthday,
+      email: form.email,
+      address: form.address,
+    };
+    console.log(formData);
+  };
+  const handleChange = (event) => {
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
+
+  const handleChangeGender = (event) => {
+    setForm({ ...form, gender: event.target.value });
+  };
   return (
     <StyledGeneralInfo>
-      <Form className="form-info">
+      <Form className="form-info" onSubmit={handleSubmitForm}>
         <div className="form__item">
           <div className="form__item__inner">
             <Label>Full name</Label>
             <FGroup
               propsInput={{
                 name: "fullName",
-                value: student.fullName,
+                value: form.fullName,
+                onChange: handleChange,
+                disabled: false,
               }}
             />
           </div>
@@ -140,10 +171,12 @@ const GeneralInfo = () => {
           <div className="form__item__inner">
             <Label>Phone number</Label>
             <FGroup
-              propsInput={{
-                name: "phoneNumber",
-                value: student.phoneNumber,
-              }}
+             propsInput={{
+              name: "phoneNumber",
+              value: form.phoneNumber,
+              onChange: handleChange,
+              disabled: false,
+            }}
             />
           </div>
         </div>
@@ -156,6 +189,9 @@ const GeneralInfo = () => {
                 name="birthday"
                 id="birthday"
                 placeholder="date placeholder"
+                value={form.birthday}
+                onChange={handleChange}
+                disabled={false}
               />
             </FormGroup>
           </div>
@@ -165,9 +201,15 @@ const GeneralInfo = () => {
           <div className="form__item__inner">
             <FormGroup>
               <Label for="gender">Gender</Label>
-              <Input type="select" name="select" id="gender">
-                <option>Female</option>
-                <option>Male</option>
+              <Input
+                type="select"
+                name="select"
+                id="gender"
+                onChange={handleChangeGender}
+              >
+                <option value="None">Select gender</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
               </Input>
             </FormGroup>
           </div>
@@ -176,11 +218,11 @@ const GeneralInfo = () => {
           <div className="form__item__inner">
             <Label>Email address</Label>
             <FGroup
-              propsInput={{
-                name: "email",
-                value: student.email,
-                disabled: true,
-              }}
+             propsInput={{
+              name: "email",
+              value: form.email,
+              disabled: true,
+            }}
             />
           </div>
         </div>
@@ -190,7 +232,9 @@ const GeneralInfo = () => {
             <FGroup
               propsInput={{
                 name: "address",
-                value: student.address,
+                 value: form.address,
+                onChange: handleChange,
+                disabled: false,
               }}
             />
           </div>
