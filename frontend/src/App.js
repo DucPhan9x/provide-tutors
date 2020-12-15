@@ -23,6 +23,7 @@ import ContactUs from "./containers/ContactUs";
 import Faq from "./containers/Faq";
 import ConfirmPassword from "./containers/ConfirmPassword";
 import ChangePassword from "./containers/ChangePassword";
+import LogInAdmin from "./containers/LogInAdmin";
 
 function App() {
   const storeLogin = useSelector((store) => store.login);
@@ -69,9 +70,11 @@ function App() {
         )}
 
         {/* admin */}
-        {/* {auth && auth.role === 2 && ( */}
-        <Route path="/admin" component={withLayoutDashboard(HomeAdmin)} exact />
-        {/* )} */}
+        <Route path="/admin" component={LogInAdmin} exact />
+        {/* login successfully */}
+        {auth && auth.token && auth.role === "admin" && (
+          <Route path="/admin/dashboard" component={HomeAdmin} exact />
+        )}
 
         <Route path="/login" exact component={withLayout(LogIn)} />
         <Route

@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import CardTeacher from "../components/ourTutors/CardTeacher";
+import { getSchedule } from "../redux/actions/schedules";
 import { getAuth } from "../utils/helpers";
 
 const OurTutors = () => {
   const storeLogin = useSelector((store) => store.login);
   const auth = storeLogin.data.user || getAuth();
+  useEffect(() => {
+    getSchedule();
+  }, []);
   const listTutors = [
     {
       subject: "Biology",
@@ -48,6 +52,8 @@ const OurTutors = () => {
       image: "https://picsum.photos/203",
     },
   ];
+  const schedules = useSelector((store) => store.schedules.data);
+  console.log(schedules);
   return (
     <div className="our-tutors">
       <h2 className="h2 text-center">
