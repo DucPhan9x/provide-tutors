@@ -21,6 +21,8 @@ import { useSelector } from "react-redux";
 import Articles from "./containers/Articles";
 import ContactUs from "./containers/ContactUs";
 import Faq from "./containers/Faq";
+import ConfirmPassword from "./containers/ConfirmPassword";
+import ChangePassword from "./containers/ChangePassword";
 
 function App() {
   const storeLogin = useSelector((store) => store.login);
@@ -81,6 +83,16 @@ function App() {
           path="/reset-password"
           exact
           component={withLayout(ResetPassword)}
+        />
+        <Route
+          path="/confirm-password"
+          exact
+          component={withLayout(ConfirmPassword)}
+        />
+        <Route
+          path="/change-password"
+          exact
+          component={withLayout(ChangePassword)}
         />
         <Route path="/our-tutors" exact component={withLayout(OurTutors)} />
         <Route path="/about-us" exact component={withLayout(AboutUs)} />

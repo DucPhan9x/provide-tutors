@@ -1,15 +1,12 @@
 import React from "react";
 import { FormBox } from "../common";
 import { Form as ReForm } from "reactstrap";
-import { isEmpty } from "validator";
 import { useSelector } from "react-redux";
 
-const Form = ({ handleSubmit }) => {
+const Form = ({ handleSubmit, email }) => {
   const [error, setError] = React.useState({});
-  const [form, setForm] = React.useState({
-    password: "",
-    newPassword: "",
-  });
+  const [form, setForm] = React.useState({ email: "", code: "" });
+  const [errorForgotPassword, setErrorForgotPassword] = React.useState();
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
@@ -20,23 +17,19 @@ const Form = ({ handleSubmit }) => {
     }
 
     const formData = {
-      password: form.password,
-      newPassword: form.newPassword,
+      email: email,
+      code: form.code,
     };
 
     handleSubmit(formData);
   };
-  const storeResetPassword = useSelector((store) => store.resetPassword);
-  const loading = storeResetPassword.loading;
+  const loading = useSelector((store) => store.confirmPassword.loading);
 
   const validate = () => {
     const errorState = {};
     // check validate
-    if (isEmpty(form.password)) {
-      errorState.password = "Password is required";
-    }
-    if (isEmpty(form.newPassword)) {
-      errorState.newPassword = "New password is required";
+    if (!form.code) {
+      errorState.code = "Empty code";
     }
     return errorState;
   };
@@ -50,41 +43,41 @@ const Form = ({ handleSubmit }) => {
       ...error,
       [event.target.name]: "",
     });
+    setErrorForgotPassword("");
   };
 
   return (
-    <section onSubmit={handleSubmitForm} className="reset-password">
-      <div className="reset-password__inner">
-        <ReForm className="radius-l reset-password__inner__form">
-          <div className="reset-password__inner__form__text">
-            <p className="fw-600">Reset your password</p>
+    <section onSubmit={handleSubmitForm} className="forgot-password">
+      <div className="forgot-password__inner">
+        <ReForm className="radius-l forgot-password__inner__form">
+          <div className="forgot-password__inner__form__text">
+            <h3>Confirm forgot password?</h3>
+            <p>Please enter your authentication code!</p>
           </div>
+          <div className="error_forgot-password">{errorForgotPassword}</div>
           <FormBox
             propsInput={{
-              type: "password",
-              name: "password",
-              placeholder: "Password",
+              name: "email",
+              placeholder: "Email",
               onChange: handleChange,
               onFocus: handleFocus,
-              value: form.password,
-              disabled: false,
+              value: email,
+              disabled: true,
             }}
-            error={error.password}
           />
           <FormBox
             propsInput={{
-              type: "password",
-              name: "newPassword",
-              placeholder: "New password",
+              name: "code",
+              placeholder: "Authentication code",
               onChange: handleChange,
               onFocus: handleFocus,
-              value: form.newPassword,
+              value: form.code,
               disabled: false,
             }}
-            error={error.newPassword}
+            error={error.code}
           />
           <button disabled={loading} className="button button--secondary">
-            Reset password
+            Confirm
           </button>
         </ReForm>
       </div>

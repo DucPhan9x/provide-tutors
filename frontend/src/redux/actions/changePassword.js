@@ -1,10 +1,10 @@
 import * as types from "../constants";
 import store from "../store";
-export function register(data, resolve = () => {}) {
+export function changePassword(data, resolve = () => {}) {
   store.dispatch({
-    type: types.REGISTER_API,
+    type: types.CHANGEPASSWORD_API,
   });
-  return fetch("http://localhost:5000/v1/api/auth/register", {
+  return fetch("http://localhost:5000/v1/api/auth/change-password", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -17,13 +17,13 @@ export function register(data, resolve = () => {}) {
       resolve(data);
       store.dispatch({
         payload: data,
-        type: types.REGISTER_API_SUCCEED,
+        type: types.CHANGEPASSWORD_API_SUCCEED,
       });
     })
     .catch((error) => {
       store.dispatch({
         payload: error,
-        type: types.REGISTER_API_FAIL,
+        type: types.CHANGEPASSWORD_API_FAIL,
       });
     });
 }

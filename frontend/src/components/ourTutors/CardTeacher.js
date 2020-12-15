@@ -50,7 +50,7 @@ function CardTeacher({
               <Button
                 color="success"
                 onClick={() => {
-                  !(auth && auth.token) && history.push("/login");
+                  if (!auth.token) history.push("/login");
                 }}
               >
                 Register

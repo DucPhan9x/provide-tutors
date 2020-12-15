@@ -4,6 +4,7 @@ import { Form as ReForm } from "reactstrap";
 import { isEmpty, isEmail } from "validator";
 import { OPTIONS_ROLE } from "../../utils/constants";
 import SingleSelect from "../common/SingleSelect";
+import { useSelector } from "react-redux";
 
 const Form = ({ handleSubmit }) => {
   const [error, setError] = React.useState({});
@@ -19,6 +20,7 @@ const Form = ({ handleSubmit }) => {
   const onChangeRole = (data) => {
     data.label === "Student" ? setRole("0") : setRole("1");
   };
+  const loading = useSelector((store) => store.register.loading);
 
   const validate = () => {
     const errorState = {};
@@ -129,11 +131,14 @@ const Form = ({ handleSubmit }) => {
             options={OPTIONS_ROLE}
             isDisabled={false}
           />
-          <span style={{ color: "red", fontSize: 13, paddingLeft: 95 }}>
-            {error.role}
-          </span>
+          {!role && (
+            <span style={{ color: "red", fontSize: 13, paddingLeft: 95 }}>
+              {error.role}
+            </span>
+          )}
+
           <button
-            disabled={false}
+            disabled={loading}
             className="button button--secondary button--register"
           >
             Register
