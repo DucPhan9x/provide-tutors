@@ -4,12 +4,12 @@ import styled from "styled-components";
 import { addSchedule } from "../../../../redux/actions/addSchedule";
 
 import { Table, Button, Form, Label, Input } from "reactstrap";
-
 import Modal from "react-bootstrap/Modal";
 import ModalTitle from "react-bootstrap/ModalTitle";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalFooter from "react-bootstrap/ModalFooter";
-import { event } from "react-ga";
+import { useSelector } from "react-redux";
+import { getAuth } from "../../../../utils/helpers";
 
 const StyledSchedule = styled.section`
   margin: 0 0 auto;
@@ -70,7 +70,26 @@ const StyledAddPopup = styled.section`
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
- 
+    .price-input{
+      width:100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      .money-input{
+        display: block;
+        margin-left: 20px;
+        width: 30%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+    }
     .form__item {
       float: left;
       width: 50%;
@@ -109,8 +128,11 @@ const Schedule = () => {
 
   const [subject, setSubject] = useState("");
   const [grade, setGrade] = useState("");
+  const [price, setPrice] = useState("");
   const [day, setDay] = useState("");
   const [time, setTime] = useState("");
+
+  const loading = useSelector((store) => store.addSchedule.loading);
 
   const subjectOptions = [
     {
@@ -263,13 +285,7 @@ const Schedule = () => {
     },
   ];
 
-  const [timeday, setTimeDay] = useState([
-    {
-      id: "",
-      day: "",
-      time: "",
-    },
-  ]);
+  const [timeday, setTimeDay] = useState([]);
 
   const getSubject = (subject) => {
     setSubject(subject);
@@ -278,36 +294,48 @@ const Schedule = () => {
   const getGrade = (grade) => {
     setGrade(grade);
   };
+  const getPrice = (price) => {
+    setPrice(price);
+  };
 
   const getDay = (day) => {
     setDay(day);
-    setTimeDay({ ...timeday, day: event.target.value });
+    console.log(day);
   };
   const getTime = (time) => {
     setTime(time);
-    setTimeDay({ ...timeday, time: event.target.value });
+    console.log(time);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    let time = [];
+    timeday.forEach((item) => {
+      time.push(item.selectedDay + ", " + item.selectedTime);
+    });
+
     const scheduleInformation = {
       subject,
       grade,
-      day,
       time,
+      price,
     };
-
-    //api return
-    // const scheduleInformation = {
-    //   grade: 10,
-    //   subject: "toan",
-    //   time: ["7-9h, thu 3", "7-9h, thu 7"],
-    // };
-
     console.log(scheduleInformation);
+    console.log(getAuth().token);
+    addSchedule(scheduleInformation, (data) => {
+      if (data.status === 200) {
+        setShow(false);
+        alert(data.msg);
+      } else {
+        alert(data.msg);
+      }
+    });
+  };
 
-    addSchedule(scheduleInformation, () => {});
+  const handleAddTimeDay = (time, day) => {
+    let newTimeDay = { selectedTime: time, selectedDay: day };
+    setTimeDay((timeday) => [...timeday, newTimeDay]);
   };
   return (
     <StyledSchedule>
@@ -392,7 +420,20 @@ const Schedule = () => {
                     </Input>
                   </div>
                 </div>
-
+                <div className="price-input">
+                  <label for="quantity">Price (Money/Lesson): </label>
+                  <input
+                    className="money-input"
+                    type="number"
+                    id="quantity"
+                    name="quantity"
+                    min="50000"
+                    max="200000"
+                    step="50000"
+                    placeholder="Price (VNĐ)"
+                    onChange={(event) => getPrice(event.target.value)}
+                  ></input>
+                </div>
                 <div className="form__item">
                   <div className="form__item__inner">
                     <Label>Day</Label>
@@ -423,7 +464,14 @@ const Schedule = () => {
                     </Input>
                   </div>
                 </div>
+                <Button
+                  color="secondary"
+                  onClick={() => handleAddTimeDay(day, time)}
+                >
+                  Add day & time
+                </Button>
               </Form>
+
               <Table hover>
                 <thead style={{ color: "purple", fontWeight: "bold" }}>
                   <tr>
@@ -439,8 +487,8 @@ const Schedule = () => {
                       return (
                         <tr>
                           <th scope="row">{item.id}</th>
-                          <td>{item.day}</td>
-                          <td>{item.time}</td>
+                          <td>{item.selectedDay}</td>
+                          <td>{item.selectedTime}</td>
                           <td>
                             <Button close />
                           </td>
@@ -454,7 +502,7 @@ const Schedule = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button color="primary" onClick={handleSubmit}>
+            <Button color="primary" disabled={loading} onClick={handleSubmit}>
               Add
             </Button>
             <Button variant="secondary" onClick={handleClose}>

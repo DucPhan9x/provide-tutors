@@ -7,6 +7,7 @@ import forgotPassword from "./forgotPassword";
 import confirmPassword from "./confirmPassword";
 import changePassword from "./changePassword";
 import schedules from "./schedules";
+import addSchedule from "./addSchedule";
 
 export default combineReducers({
   login,
@@ -17,4 +18,5 @@ export default combineReducers({
   changePassword,
   schedules,
   loginAdmin,
+  addSchedule
 });
