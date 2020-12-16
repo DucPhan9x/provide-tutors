@@ -1,19 +1,42 @@
 import React from "react";
-import { InfoGrade } from "../components/common";
-import { Recommend } from "../components/homepage";
-const HomePage = () => {
-  const listGrade = [{ name: "grade01" }, { name: "grade02" }];
+import { Banner, Feedback, Subject } from "../components/homepage";
+import Maths from "../assets/images/subject/Maths.png";
+import Literature from "../assets/images/subject/Literature.png";
+import English from "../assets/images/subject/English.png";
+import Physics from "../assets/images/subject/Physics.png";
+import Chemistry from "../assets/images/subject/Chemistry.png";
+import Biology from "../assets/images/subject/Biology.png";
+function HomePage(props) {
+  const listSubject = [
+    { name: "Maths", amountTutor: 0, image: Maths },
+    { name: "Physics", amountTutor: 0, image: Physics },
+    { name: "Chemistry", amountTutor: 0, image: Chemistry },
+    { name: "Literature", amountTutor: 0, image: Literature },
+    { name: "Biology", amountTutor: 0, image: Biology },
+    { name: "English", amountTutor: 0, image: English },
+  ];
   return (
-    <section>
-      <h2>Home page</h2>
-      <p>Classes</p>
-      <div className="flex">
-        {listGrade.map((item, index) => (
-          <InfoGrade name={item.name} />
-        ))}
+    <>
+      <Banner />
+      <div className="subject-list">
+        <h2 className="h2">
+          Our <span className="text--primary">subjects current</span>
+        </h2>
+        <div className="subject-list__items flex">
+          {listSubject.map((item, index) => {
+            return (
+              <Subject
+                name={item.name}
+                amountTutor={item.amountTutor}
+                image={item.image}
+              />
+            );
+          })}
+        </div>
       </div>
-      <Recommend />
-    </section>
+      <Feedback />
+    </>
   );
-};
+}
+
 export default HomePage;
