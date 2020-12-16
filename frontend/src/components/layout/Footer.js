@@ -21,18 +21,13 @@ const Footer = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink activeClassName="--active" to="/about">
-                  About
+                <NavLink activeClassName="--active" to="/about-us">
+                  About us
                 </NavLink>
               </li>
               <li>
-                <NavLink activeClassName="--active" to="/how-it-works">
-                  How it works
-                </NavLink>
-              </li>
-              <li>
-                <NavLink activeClassName="--active" to="/teachers">
-                  Our teachers
+                <NavLink activeClassName="--active" to="/our-tutors">
+                  Our tutors
                 </NavLink>
               </li>
             </ul>
@@ -59,42 +54,13 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="footer__inner__links__item">
-            <p className="text--xlarge underline underline--blue margin-b">
-              teach with us
-            </p>
-            <ul>
-              <li>
-                <NavLink activeClassName="--active" to="/teach-with-us">
-                  Teach on ProvideTutor
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-          <div className="footer__inner__links__item">
-            <p className="text--xlarge underline underline--secondary margin-b">
-              legal
-            </p>
-            <ul>
-              <li>
-                <NavLink activeClassName="--active" to="/terms">
-                  Terms
-                </NavLink>
-              </li>
-              <li>
-                <NavLink activeClassName="--active" to="/privacy">
-                  Privacy
-                </NavLink>
-              </li>
-            </ul>
-          </div>
           <div className="footer__inner__links__item follow-us">
             <p className="text--xlarge underline underline--primary margin-b">
               Follow us
             </p>
             <ul>
               <li>
-                <a href="https://twitter.com/providetutors">
+                <a href="https://twitter.com/PhanTrongDuc5">
                   <span className="icon-twitter"></span>
                 </a>
               </li>

@@ -8,9 +8,10 @@ import ResetPassword from "./containers/ResetPassword";
 import Register from "./containers/Register";
 import OurTutors from "./containers/OurTutors";
 import AboutUs from "./containers/AboutUs";
-import { HomeTutor, ProfileTutor } from "./containers/dashboard/tutors";
+import { HomeTutor, ProfileTutor, MyStudent } from "./containers/dashboard/tutors";
 import withLayoutDashboard from "./HOCS/withLayoutDashboard";
 import { HomeStudent, ProfileStudent } from "./containers/dashboard/students";
+import { HomeAdmin } from "./containers/dashboard/admin";
 
 function App() {
   return (
@@ -29,6 +30,12 @@ function App() {
           component={withLayoutDashboard(ProfileTutor)}
           exact
         />
+        <Route
+          path="/dashboard/tutor/mystudent"
+          // component={withAuth(withLayoutDashboard(HomeTutor), [
+          component={withLayoutDashboard(MyStudent)}
+          exact
+        />
         {/* Dashboard student */}
         <Route
           path="/dashboard/student"
@@ -42,6 +49,13 @@ function App() {
           component={withLayoutDashboard(ProfileStudent)}
           exact
         />
+        {/* Dashboard admin */}
+        <Route
+          path="/dashboard/admin"
+          component={withLayoutDashboard(HomeAdmin)}
+          exact
+        />
+
         <Route path="/login" exact component={withLayout(LogIn)} />
         <Route
           path="/forgot-password"

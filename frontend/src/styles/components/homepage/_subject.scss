@@ -1,0 +1,20 @@
+.subject {
+  background: $white;
+  position: relative;
+  border-radius: 24px;
+  border: 1px solid #9ed0ff;
+  img {
+    width: 320px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 24px;
+  }
+  &--text {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: left;
+    padding: 24px;
+  }
+}
