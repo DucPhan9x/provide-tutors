@@ -59,7 +59,6 @@ const login = async (req, res, next) => {
 
 const register = async (req, res, next) => {
     const { userName, password, role, email, fullName, male, phone, birthday, address } = req.body;
-    console.log(req.body);
     try {
         const hash = await bcypt.hash(password, 12);
         if (role == 0) {
