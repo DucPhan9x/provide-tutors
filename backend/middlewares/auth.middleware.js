@@ -3,7 +3,7 @@ import { Student, Tutor } from "../models";
 import { varConst, HttpError } from "../constants";
 import { verifyToken } from "../helpers";
 import { envVariables } from "../configs";
-const { passRegex, emailRegexp, userNameRegex } = varConst;
+const { passRegex, emailRegexp, userNameRegex, phoneRegex } = varConst;
 
 const loginMiddleware = async (req, res, next) => {
     const { userName, password } = req.body;
@@ -25,14 +25,39 @@ const loginMiddleware = async (req, res, next) => {
 
 const registerMiddleware = async (req, res, next) => {
     try {
-        const { userName, password, role, email } = req.body;
+        const {
+            userName,
+            password,
+            role,
+            email,
+            phone,
+            male,
+            fullName,
+            birthday,
+            address,
+        } = req.body;
+        if (!male) {
+            throw new HttpError("Male is empty", 400);
+        }
+        if (!fullName) {
+            throw new HttpError("fullname is empty", 400);
+        }
+        if (!phone || !phoneRegex.test(phone)) {
+            throw new HttpError("Phone is not in the correct format", 400);
+        }
+        if (!birthday) {
+            throw new HttpError("Birthday is empty", 400);
+        }
+        if (!address) {
+            throw new HttpError("Address is empty", 400);
+        }
         if (!userNameRegex.test(userName)) {
             throw new HttpError("Username is not in the correct format", 400);
         }
         if (!emailRegexp.test(email)) {
             throw new HttpError("Email invalidate", 400);
         }
-        if (!passRegex.test(password)) {
+        if (!password || !passRegex.test(password)) {
             throw new HttpError(
                 "The password cannot contain spaces, and the minimum length is 6 up to 24",
                 400
