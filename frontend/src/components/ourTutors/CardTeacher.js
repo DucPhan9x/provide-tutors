@@ -1,17 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
-function CardTeacher({
-  subject,
-  grade,
-  time,
-  tutor_name,
-  prices,
-  image,
-  auth,
-}) {
+function CardTeacher({ subject, grade, time, tutorName, prices, image, auth }) {
   const history = useHistory();
+  const [timeDate, setTimeDate] = useState("");
+  useEffect(() => {
+    if (!time) {
+      return;
+    }
+    setTimeDate(time.join(" and "));
+  }, [time]);
   return (
     <div className="card__teacher">
       <div className="card__teacher__inner radius-l">
@@ -33,11 +32,11 @@ function CardTeacher({
           </div>
           <div className="card__teacher__inner__avatar__experiences">
             <p>
-              Time:<span className="primary">{time}</span>{" "}
+              Time:<span className="primary">{timeDate}</span>{" "}
             </p>
           </div>
           <div className="card__teacher__inner__avatar__info">
-            <h4 className="h4">{tutor_name}</h4>
+            <h4 className="h4">Tutor name: {tutorName}</h4>
 
             <div className="card__teacher__inner__avatar__info-position"></div>
           </div>
@@ -46,7 +45,7 @@ function CardTeacher({
           <div className="card__teacher__inner__text"></div>
           <div className="card__teacher__inner__footer">
             <div className="card__teacher__inner__footer__money">
-              <h4 className="h4 primary">{prices}</h4>
+              <h4 className="h4 primary">{prices}VND /Lesson</h4>
               <Button
                 color="success"
                 onClick={() => {

@@ -18,5 +18,5 @@ export default combineReducers({
   changePassword,
   schedules,
   loginAdmin,
-  addSchedule
+  addSchedule,
 });

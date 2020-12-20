@@ -65,7 +65,6 @@
   }
 }
 
-// reset link style
 a {
   text-decoration: none !important;
 }
@@ -73,10 +72,6 @@ a {
 .fade_popup {
   opacity: 1;
   background: rgba(0, 0, 0, 0.5);
-  // height: 100vh;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
 }
 
 .fade {
@@ -86,7 +81,6 @@ a {
 
 .centered {
   height: 100vh;
-  /* Magic here */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,8 +88,6 @@ a {
 
 .centered_addpopup {
   margin-top: 0;
-  // height: 100vh;
-  /* Magic here */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,4 +117,7 @@ a {
     height: 150px;
     border-radius: 100%;
   }
+}
+.ewslVP.ewslVP {
+  color: red;
 }

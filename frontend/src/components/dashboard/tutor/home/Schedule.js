@@ -9,7 +9,6 @@ import ModalTitle from "react-bootstrap/ModalTitle";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalFooter from "react-bootstrap/ModalFooter";
 import { useSelector } from "react-redux";
-import { getAuth } from "../../../../utils/helpers";
 
 const StyledSchedule = styled.section`
   margin: 0 0 auto;
@@ -321,8 +320,6 @@ const Schedule = () => {
       time,
       price,
     };
-    console.log(scheduleInformation);
-    console.log(getAuth().token);
     addSchedule(scheduleInformation, (data) => {
       if (data.status === 200) {
         setShow(false);

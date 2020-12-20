@@ -5,13 +5,12 @@ export function addSchedule(data, resolve = () => {}) {
   store.dispatch({
     type: types.ADD_SCHEDULE_API,
   });
-  return fetch("http://localhost:5000/v1/api/tutor/add-schelule", {
+  return fetch("http://localhost:5000/v1/api/tutor/add-schedule", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      // Authorization: `Bearer ${getAuth().token}`,
-      token: getAuth().token
+      token: getAuth().token,
     },
     body: JSON.stringify(data),
   })

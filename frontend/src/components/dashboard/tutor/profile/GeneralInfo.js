@@ -115,10 +115,6 @@ const StyledGeneralInfo = styled.section`
 `;
 
 const GeneralInfo = () => {
-  // const storeTutorProfile = {
-  //   email: "vtbt@gmail.com",
-  // };
-
   const [form, setForm] = React.useState({
     fullName: "",
     phoneNumber: "",

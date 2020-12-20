@@ -2,10 +2,16 @@ import React from "react";
 import { FormBox } from "../common";
 import { Form as ReForm } from "reactstrap";
 import { useSelector } from "react-redux";
+import { isEmpty } from "validator";
 
 const Form = ({ handleSubmit, email, code }) => {
   const [error, setError] = React.useState({});
-  const [form, setForm] = React.useState({ email: "", code: "", password: "" });
+  const [form, setForm] = React.useState({
+    email: "",
+    code: "",
+    password: "",
+    confirmPass: "",
+  });
   const [errorForgotPassword, setErrorForgotPassword] = React.useState();
 
   const handleSubmitForm = (event) => {
@@ -28,8 +34,11 @@ const Form = ({ handleSubmit, email, code }) => {
 
   const validate = () => {
     const errorState = {};
-    if (!form.password) {
+    if (isEmpty(form.password)) {
       errorState.password = "Empty password";
+    }
+    if (isEmpty(form.confirmPass) || form.password !== form.confirmPass) {
+      errorState.confirmPass = "Invalid confirm password";
     }
     return errorState;
   };
@@ -86,6 +95,18 @@ const Form = ({ handleSubmit, email, code }) => {
               disabled: false,
             }}
             error={error.password}
+          />
+          <FormBox
+            propsInput={{
+              type: "password",
+              name: "confirmPass",
+              placeholder: "Confirm password",
+              onChange: handleChange,
+              onFocus: handleFocus,
+              value: form.confirmPass,
+              disabled: false,
+            }}
+            error={error.confirmPass}
           />
           <button disabled={loading} className="button button--secondary">
             Confirm

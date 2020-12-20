@@ -1,4 +1,3 @@
-import { getAuth } from "../../utils/helpers";
 import * as types from "../constants";
 import store from "../store";
 export function getSchedule(data, resolve = () => {}) {
@@ -10,7 +9,6 @@ export function getSchedule(data, resolve = () => {}) {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${getAuth().token}`,
     },
     body: JSON.stringify(data),
   })
