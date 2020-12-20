@@ -63,7 +63,7 @@ const StyledDropdownUserMenu = styled(ButtonDropdown)`
   }
 `;
 
-const DropdownUserMenu = () => {
+const DropdownUserMenu = ({ auth }) => {
   const [dropdownOpen, setOpen] = useState(false);
   const toggle = () => setOpen(!dropdownOpen);
   return (
@@ -76,7 +76,7 @@ const DropdownUserMenu = () => {
 
       <DropdownMenu>
         <NavLink
-          to="/login"
+          to={auth && auth.role === "admin" ? "/login" : "/admin"}
           onClick={() => {
             localStorage.clear();
           }}

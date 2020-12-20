@@ -73,7 +73,11 @@ function App() {
         <Route path="/admin" component={LogInAdmin} exact />
         {/* login successfully */}
         {auth && auth.token && auth.role === "admin" && (
-          <Route path="/admin/dashboard" component={HomeAdmin} exact />
+          <Route
+            path="/admin/dashboard"
+            component={withLayoutDashboard(HomeAdmin)}
+            exact
+          />
         )}
 
         <Route path="/login" exact component={withLayout(LogIn)} />

@@ -7,14 +7,14 @@ import DropdownUserMenu from "../common/DropdownUserMenu";
 
 function Header() {
   const auth = getAuth();
-  const isAdmin = auth && auth.role === 2;
+  const isAdmin = auth && auth.role === "admin";
   const isStudent = auth && auth.role === 0;
   const isTutor = auth && auth.role === 1;
   const renderMenu = () => {
     if (isAdmin) {
       return (
         <>
-          <NavLink activeClassName="--active" to="/admin" exact>
+          <NavLink activeClassName="--active" to="/admin/dashboard" exact>
             <span>Management</span>
           </NavLink>
           <DropdownUserMenu />
@@ -46,7 +46,7 @@ function Header() {
               <NavLink activeClassName="--active" to="/tutor/mystudent">
                 <span>My Student</span>
               </NavLink>
-              <DropdownUserMenu />
+              <DropdownUserMenu auth={auth} />
             </>
           );
         }
@@ -56,19 +56,29 @@ function Header() {
   return (
     <div className="header">
       <div className="header__inner flex items-center space-between">
-        <NavLink to="/" className="header__inner__logo">
-          <img src={logo} alt="Logo" />
-        </NavLink>
+        {auth && auth.role !== "admin" && (
+          <NavLink to="/" className="header__inner__logo">
+            <img src={logo} alt="Logo" />
+          </NavLink>
+        )}
+
         <div className="header__inner__menu flex items-center">
-          <NavLink activeClassName="--active" to="/" exact>
-            <span>Home page</span>
-          </NavLink>
-          <NavLink activeClassName="--active" to="/our-tutors">
-            <span>Tutors available</span>
-          </NavLink>
-          <NavLink activeClassName="--active" to="/about-us">
-            <span>About</span>
-          </NavLink>
+          {auth && auth.role !== "admin" && (
+            <NavLink activeClassName="--active" to="/" exact>
+              <span>Home page</span>
+            </NavLink>
+          )}
+          {auth && auth.role !== "admin" && (
+            <NavLink activeClassName="--active" to="/our-tutors">
+              <span>Tutors available</span>
+            </NavLink>
+          )}
+          {auth && auth.role !== "admin" && (
+            <NavLink activeClassName="--active" to="/about-us">
+              <span>About</span>
+            </NavLink>
+          )}
+
           {auth && auth.token ? (
             renderMenu()
           ) : (
