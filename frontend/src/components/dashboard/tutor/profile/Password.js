@@ -4,6 +4,8 @@ import { Form, Label } from "reactstrap";
 import { FGroup } from "../../../common";
 import save from "../../../../assets/images/save.svg";
 
+import { changePassword } from "../../../../redux/actions/changePassword";
+
 const StyledPassword = styled.section`
   .form-info {
     padding: 30px 20px 10px;
@@ -88,11 +90,21 @@ const Password = () => {
     event.preventDefault();
 
     const formData = {
-      current_password: form.currentPassword,
-      new_password: form.newPassword,
+      password: form.currentPassword,
+      newPassword: form.newPassword,
     };
     console.log(formData);
+
+    changePassword(formData, (data) => {
+      console.log("Hi")
+      if (data.status === 200) {
+        alert(data.msg);
+      } else {
+        alert(data.msg);
+      }
+    });
   };
+
   const handleChange = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };

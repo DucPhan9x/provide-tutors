@@ -1,12 +1,12 @@
 import { getAuth } from "../../utils/helpers";
 import * as types from "../constants";
 import store from "../store";
-export function changePassword(data, resolve = () => {}) {
+export function getTutorInfo(data, resolve = () => {}) {
   store.dispatch({
-    type: types.CHANGEPASSWORD_API,
+    type: types.GET_TUTORINFO_API,
   });
-  return fetch("http://localhost:5000/v1/api/auth/change-new-password", {
-    method: "POST",
+  return fetch("http://localhost:5000/v1/api/tutor/info", {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
@@ -19,13 +19,13 @@ export function changePassword(data, resolve = () => {}) {
       resolve(data);
       store.dispatch({
         payload: data,
-        type: types.CHANGEPASSWORD_API_SUCCEED,
+        type: types.GET_TUTORINFO_API_SUCCEED,
       });
     })
     .catch((error) => {
       store.dispatch({
         payload: error,
-        type: types.CHANGEPASSWORD_API_FAIL,
+        type: types.GET_TUTORINFO_API_FAIL,
       });
     });
 }
