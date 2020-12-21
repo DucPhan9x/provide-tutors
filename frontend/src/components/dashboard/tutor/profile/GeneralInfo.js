@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { FormGroup, Form, Label, Input } from "reactstrap";
 import { FGroup } from "../../../common";
 import save from "../../../../assets/images/save.svg";
+
+import { getTutorInfo } from "../../../../redux/actions/getTutorInfo";
+import { getAuth } from "../../../../utils/helpers";
 
 const StyledGeneralInfo = styled.section`
   .form-info {
@@ -115,6 +119,12 @@ const StyledGeneralInfo = styled.section`
 `;
 
 const GeneralInfo = () => {
+  const storeLogin = useSelector((store) => store.login);
+  const auth = storeLogin.data.user || getAuth();
+  useEffect(() => {
+    getTutorInfo();
+  }, []);
+
   const [form, setForm] = React.useState({
     fullName: "",
     phoneNumber: "",
