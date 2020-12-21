@@ -139,7 +139,7 @@ const listRegister = async (req, res, next) => {
 
 const delRegister = async (req, res, next) => {
     const { _id } = req.params;
-    console.log(_id);
+    const { id } = req.user;
     try {
         if (!_id) {
             throw new HttpError("schedule register does not exist", 400);
@@ -147,6 +147,17 @@ const delRegister = async (req, res, next) => {
         if (!mongo.Types.ObjectId.isValid(_id)) {
             throw new HttpError("id schedule register does not exist", 400);
         }
+        const scheduleRegister = await ScheduleRegiste.findById({ _id });
+        const scheduleId = scheduleRegister.scheduleId;
+        const schedule = await Schedule.findById({ _id: scheduleId });
+        const students = schedule.students;
+        let newstudents = [];
+        for (let i = 0; i < students.length; i++) {
+            if (JSON.stringify(students[i]) != JSON.stringify(id)) {
+                newstudents.push(students[i]);
+            }
+        }
+        await Schedule.findByIdAndUpdate({ _id: scheduleId }, { students: newstudents });
         await ScheduleRegiste.findByIdAndRemove({ _id });
         res.status(200).json({
             status: 200,
