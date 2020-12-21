@@ -5,6 +5,10 @@ const scheduleAcceptSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "schedule",
     },
+    scheduleRegisterId: {
+        type: Schema.Types.ObjectId,
+        ref: "scheduleregiste",
+    },
     tutorId: {
         type: Schema.Types.ObjectId,
         ref: "tutor",

@@ -44,7 +44,10 @@ const listSchedule = async (req, res, next) => {
     }
 };
 
+const search = async (req, res, next) => {};
+
 export const scheduleController = {
     listTutorAndSchedule,
     listSchedule,
+    search,
 };

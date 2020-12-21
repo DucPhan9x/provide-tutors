@@ -4,7 +4,15 @@ import { studentController } from "../controllers";
 import { authMiddleware } from "../middlewares";
 const { jwtMidleware } = authMiddleware;
 
-const { getInfo, updateInfo, chooseSchedule, listContract } = studentController;
+const {
+    getInfo,
+    updateInfo,
+    chooseSchedule,
+    listContract,
+    listRegister,
+    delRegister,
+} = studentController;
+
 export const studentRouter = Router();
 
 studentRouter.route("/v1/api/student/info").get(jwtMidleware, getInfo);
@@ -14,3 +22,7 @@ studentRouter.route("/v1/api/student/update-info").post(jwtMidleware, updateInfo
 studentRouter.route("/v1/api/student/choose-schedule").post(jwtMidleware, chooseSchedule);
 
 studentRouter.route("/v1/api/student/learing-schedule").get(jwtMidleware, listContract);
+
+studentRouter.route("/v1/api/student/list-register").get(jwtMidleware, listRegister);
+
+studentRouter.route("/v1/api/student/del-register/:_id").get(jwtMidleware, delRegister);

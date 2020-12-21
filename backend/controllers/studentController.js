@@ -1,5 +1,6 @@
 import { Student, ScheduleRegiste, Schedule, Contract } from "../models";
 import { HttpError } from "../constants";
+import mongo from "mongoose";
 
 const getInfo = async (req, res, next) => {
     const { id } = req.user;
@@ -44,7 +45,6 @@ const updateInfo = async (req, res, next) => {
 
 const chooseSchedule = async (req, res, next) => {
     const studentId = req.user.id;
-    console.log(studentId);
     const scheduleId = req.body.scheduleId;
 
     try {
@@ -83,13 +83,13 @@ const chooseSchedule = async (req, res, next) => {
         }
         let students = schedule.students;
         students.push(studentId);
-        console.log(student);
         await Schedule.findByIdAndUpdate({ _id: scheduleId }, { students });
         await ScheduleRegiste.create({
             scheduleId,
             studentId,
             tutorId: schedule.tutorId,
             studentName: student.fullName,
+            tutorName: schedule.tutorName,
             grade: schedule.grade,
             subject: schedule.subject,
             time: schedule.time,
@@ -121,9 +121,47 @@ const listContract = async (req, res, next) => {
     }
 };
 
+const listRegister = async (req, res, next) => {
+    const { id } = req.user;
+    try {
+        const listRegister = await ScheduleRegiste.find(
+            { studentId: id },
+            { studentName: 0, __v: 0, studentId: 0, scheduleId: 0, tutorId: 0 }
+        );
+        res.status(200).json({
+            status: 200,
+            listRegister,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const delRegister = async (req, res, next) => {
+    const { _id } = req.params;
+    console.log(_id);
+    try {
+        if (!_id) {
+            throw new HttpError("schedule register does not exist", 400);
+        }
+        if (!mongo.Types.ObjectId.isValid(_id)) {
+            throw new HttpError("id schedule register does not exist", 400);
+        }
+        await ScheduleRegiste.findByIdAndRemove({ _id });
+        res.status(200).json({
+            status: 200,
+            msg: "Success",
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const studentController = {
     getInfo,
     updateInfo,
     chooseSchedule,
     listContract,
+    listRegister,
+    delRegister,
 };

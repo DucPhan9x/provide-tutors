@@ -14,7 +14,6 @@ const login = async (req, res, next) => {
             Student.findOne({ userName }),
             Tutor.findOne({ userName }),
         ]);
-        console.log(student, tutor);
         if (!student && !tutor) {
             throw new HttpError("Username does not exist", 401);
         }
@@ -141,6 +140,9 @@ const confirmCode = async (req, res, next) => {
 };
 const changePassword = async (req, res, next) => {
     let { email, code, password } = req.body;
+    if (!email || !code || !password) {
+        throw new HttpError("data password incorrect");
+    }
     password = password.trim();
     try {
         if (!passRegex.test(password)) {
@@ -176,6 +178,9 @@ const changePassword = async (req, res, next) => {
 const changeNewPassword = async (req, res, next) => {
     const { id, role } = req.user;
     let { password, newPassword } = req.body;
+    if (!password || !newPassword) {
+        throw new HttpError("old password or password is empty");
+    }
     password = password.trim();
     newPassword = newPassword.trim();
     try {

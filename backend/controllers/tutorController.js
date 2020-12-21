@@ -9,6 +9,15 @@ const addSchedule = async (req, res, next) => {
         if (!time || !grade || !subject || !price) {
             throw new HttpError("data is empty", 400);
         }
+        if (typeof price != "number") {
+            throw new HttpError("price must be number", 401);
+        }
+        if (typeof grade != "number") {
+            throw new HttpError("grade must be number", 401);
+        }
+        if (!Array.isArray(time) || time.length == 0) {
+            throw new HttpError("time is empty", 400);
+        }
         const tutor = await Tutor.findById({ _id: id });
         // lay may cai lich hoc dang dang ky
         const scheduleRegisted = await Schedule.find({ tutorId: id });
@@ -101,7 +110,9 @@ const updateInfo = async (req, res, next) => {
 const listScheduleRegisted = async (req, res, next) => {
     const tutorId = req.user.id;
     try {
-        const listRegiste = await ScheduleRegiste.find({ tutorId }, { __v: 0 }).sort({ _id: -1 });
+        const listRegiste = await ScheduleRegiste.find({ tutorId }, { __v: 0, tutorName: 0 }).sort({
+            _id: -1,
+        });
         res.status(200).json({
             status: 200,
             listRegiste,
@@ -117,6 +128,9 @@ const tutorAccept = async (req, res, next) => {
     try {
         const contracts = await Contract.find({ tutorId });
         const scheduleRegiste = await ScheduleRegiste.findById({ _id: scheduleRegistedId });
+        if (!scheduleRegiste) {
+            throw new HttpError("schedule does not exist", 400);
+        }
         const scheduleAccepts = await ScheduleAccept.find({ tutorId });
 
         const time = scheduleRegiste.time;
@@ -139,6 +153,7 @@ const tutorAccept = async (req, res, next) => {
         await ScheduleAccept.create({
             tutorId,
             scheduleId: scheduleRegiste.scheduleId,
+            scheduleRegisterId: scheduleRegistedId,
             studentId: scheduleRegiste.studentId,
             time,
         });
