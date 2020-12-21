@@ -138,8 +138,23 @@ const adminReject = async (req, res, next) => {
         }
         const scheduleAccept = await ScheduleAccept.findOne({ scheduleRegisterId: _id });
         const scheduleRegisterId = scheduleReject.scheduleRegisterId;
+        const studentId = scheduleReject.studentId;
         await ScheduleAccept.findByIdAndRemove({ _id: scheduleAccept._id }); // xoa cai can admin duyet
         await ScheduleRegiste.findOneAndRemove({ scheduleRegisterId }); // xoa cai can tutor duyet
+
+        // xoa studentID trong schedule
+        const schedule = await Schedule.findOne({ _id: scheduleReject.scheduleId });
+        let students = schedule.students;
+        let newstudents = [];
+        for (let i = 0; i < students.length; i++) {
+            if (JSON.stringify(students[i]) != JSON.stringify(studentId)) {
+                newstudents.push(students[i]);
+            }
+        }
+        await Schedule.findByIdAndUpdate(
+            { _id: scheduleReject.scheduleId },
+            { students: newstudents }
+        );
         res.status(200).json({
             status: 200,
             msg: "success",
