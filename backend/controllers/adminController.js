@@ -2,6 +2,7 @@ import { HttpError } from "../constants";
 import { envVariables } from "../configs";
 import bcrypt from "bcryptjs";
 import { tokenEncode, verifyToken, sendEmailAccept } from "../helpers";
+import mongo from "mongoose";
 
 import {
     Admin,
@@ -116,7 +117,44 @@ const adminAccept = async (req, res, next) => {
             msg: "success",
         });
     } catch (error) {
-        console.log(error);
+        next(error);
+    }
+};
+
+const adminReject = async (req, res, next) => {
+    const { _id } = req.params;
+    try {
+        if (!_id || !mongo.Types.ObjectId.isValid(_id)) {
+            throw new HttpError("schedule does not exist", 401);
+        }
+        const scheduleReject = await ScheduleRegiste.findById({ _id });
+        if (!scheduleReject) {
+            throw new HttpError("registed schedule does not exist", 400);
+        }
+        const scheduleAccept = await ScheduleAccept.findOne({ scheduleRegisterId: _id });
+        const scheduleRegisterId = scheduleReject.scheduleRegisterId;
+        const studentId = scheduleReject.studentId;
+        await ScheduleAccept.findByIdAndRemove({ _id: scheduleAccept._id }); // xoa cai can admin duyet
+        await ScheduleRegiste.findOneAndRemove({ scheduleRegisterId }); // xoa cai can tutor duyet
+
+        // xoa studentID trong schedule
+        const schedule = await Schedule.findOne({ _id: scheduleReject.scheduleId });
+        let students = schedule.students;
+        let newstudents = [];
+        for (let i = 0; i < students.length; i++) {
+            if (JSON.stringify(students[i]) != JSON.stringify(studentId)) {
+                newstudents.push(students[i]);
+            }
+        }
+        await Schedule.findByIdAndUpdate(
+            { _id: scheduleReject.scheduleId },
+            { students: newstudents }
+        );
+        res.status(200).json({
+            status: 200,
+            msg: "success",
+        });
+    } catch (error) {
         next(error);
     }
 };
@@ -126,4 +164,5 @@ export const adminController = {
     login,
     listRequest,
     adminAccept,
+    adminReject,
 };
