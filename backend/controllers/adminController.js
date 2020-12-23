@@ -159,7 +159,12 @@ const adminReject = async (req, res, next) => {
     }
 };
 
-const listTutor = async (req, res, next) => {};
+const listTutor = async (req, res, next) => {
+    try {
+    } catch (error) {
+        next(error);
+    }
+};
 
 const removeTutor = async (req, res, next) => {};
 
