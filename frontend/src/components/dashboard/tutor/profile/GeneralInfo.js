@@ -6,7 +6,6 @@ import { FGroup } from "../../../common";
 import save from "../../../../assets/images/save.svg";
 
 import { getTutorInfo } from "../../../../redux/actions/getTutorInfo";
-import { getAuth } from "../../../../utils/helpers";
 
 const StyledGeneralInfo = styled.section`
   .form-info {
@@ -119,20 +118,34 @@ const StyledGeneralInfo = styled.section`
 `;
 
 const GeneralInfo = () => {
-  const storeLogin = useSelector((store) => store.login);
-  const auth = storeLogin.data.user || getAuth();
-  useEffect(() => {
-    getTutorInfo();
-  }, []);
-
+  const storeTutor = useSelector((store) => store.getTutorInfo.data);
   const [form, setForm] = React.useState({
     fullName: "",
     phoneNumber: "",
     gender: "",
     birthday: "",
-    email: "vuthibichthu@gmail.com",
+    email: "",
     address: "",
   });
+
+  useEffect(() => {
+    getTutorInfo();
+  }, []);
+  useEffect(() => {
+    if (!storeTutor.tutor) {
+      return;
+    }
+    setForm({
+      ...form,
+      fullName: storeTutor.tutor.fullName,
+      phoneNumber: storeTutor.tutor.phone,
+      gender: "",
+      birthday: storeTutor.tutor.birthday,
+      email: storeTutor.tutor.email,
+      address: storeTutor.tutor.address,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storeTutor]);
 
   const handleSubmitForm = (event) => {
     event.preventDefault();

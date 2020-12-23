@@ -76,7 +76,7 @@ const DropdownUserMenu = ({ auth }) => {
 
       <DropdownMenu>
         <NavLink
-          to={auth && auth.role === "admin" ? "/login" : "/admin"}
+          to={auth && auth.role === "admin" ? "/admin" : "/login"}
           onClick={() => {
             localStorage.clear();
           }}

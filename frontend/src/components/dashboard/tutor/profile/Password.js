@@ -96,7 +96,6 @@ const Password = () => {
     console.log(formData);
 
     changePassword(formData, (data) => {
-      console.log("Hi")
       if (data.status === 200) {
         alert(data.msg);
       } else {
