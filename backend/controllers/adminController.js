@@ -161,6 +161,11 @@ const adminReject = async (req, res, next) => {
 
 const listTutor = async (req, res, next) => {
     try {
+        const listTutor = await Tutor.find();
+        res.status(200).json({
+            status: 200,
+            listTutor,
+        });
     } catch (error) {
         next(error);
     }
@@ -168,7 +173,17 @@ const listTutor = async (req, res, next) => {
 
 const removeTutor = async (req, res, next) => {};
 
-const listStudent = async (req, res, next) => {};
+const listStudent = async (req, res, next) => {
+    try {
+        const listStudent = await Student.find();
+        res.status(200).json({
+            status: 200,
+            listStudent,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
 
 const removeStudent = async () => {};
 
