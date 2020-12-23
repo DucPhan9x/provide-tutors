@@ -159,10 +159,22 @@ const adminReject = async (req, res, next) => {
     }
 };
 
+const listTutor = async (req, res, next) => {};
+
+const removeTutor = async (req, res, next) => {};
+
+const listStudent = async (req, res, next) => {};
+
+const removeStudent = async () => {};
+
 export const adminController = {
     register,
     login,
     listRequest,
     adminAccept,
     adminReject,
+    listTutor,
+    removeTutor,
+    listStudent,
+    removeStudent,
 };
