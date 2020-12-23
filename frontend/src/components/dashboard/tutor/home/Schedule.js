@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { addSchedule } from "../../../../redux/actions/addSchedule";
@@ -9,6 +9,8 @@ import ModalTitle from "react-bootstrap/ModalTitle";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalFooter from "react-bootstrap/ModalFooter";
 import { useSelector } from "react-redux";
+
+import { teachingSchedule } from "../../../../redux/actions/teachingSchedule";
 
 const StyledSchedule = styled.section`
   margin: 0 0 auto;
@@ -267,22 +269,12 @@ const Schedule = () => {
     },
   ];
 
-  const arrLessons = [
-    {
-      id: "1",
-      time: "7:00 - 9:00, Mon &  Wed",
-      price: "500.000VND",
-      subject: "English",
-      grade: "8",
-    },
-    {
-      id: "2",
-      time: "15:00 - 17:00, Mon &  Wed",
-      price: "600.000VND",
-      subject: "Math",
-      grade: "12",
-    },
-  ];
+  useEffect(() => {
+    teachingSchedule();
+  }, []);
+  const teachSchedules = useSelector(
+    (store) => store.teachingSchedule.data.teachSchedules
+  );
 
   const [timeday, setTimeDay] = useState([]);
 
@@ -350,22 +342,25 @@ const Schedule = () => {
                     <th>#</th>
                     <th>Subject</th>
                     <th>Grade</th>
+                    <th>Student Name</th>
                     <th>Time</th>
                     <th>Price</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {arrLessons.map((item, index) => {
-                    return (
-                      <tr>
-                        <th scope="row">{index + 1}</th>
-                        <td>{item.subject}</td>
-                        <td>{item.grade}</td>
-                        <td>{item.time}</td>
-                        <td>{item.price}</td>
-                      </tr>
-                    );
-                  })}
+                  {teachSchedules &&
+                    teachSchedules.map((item, index) => {
+                      return (
+                        <tr>
+                          <th scope="row">{index + 1}</th>
+                          <td>{item.subject}</td>
+                          <td>{item.grade}</td>
+                          <td>{item.studentName}</td>
+                          <td>{item.time}</td>
+                          <td>{item.price}</td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </Table>
             </div>

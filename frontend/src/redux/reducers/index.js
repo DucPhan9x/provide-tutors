@@ -9,6 +9,7 @@ import changePassword from "./changePassword";
 import schedules from "./schedules";
 import addSchedule from "./addSchedule";
 import getTutorInfo from "./getTutorInfo";
+import teachingSchedule from "./teachingSchedule";
 
 export default combineReducers({
   login,
@@ -21,4 +22,5 @@ export default combineReducers({
   loginAdmin,
   addSchedule,
   getTutorInfo,
+  teachingSchedule,
 });
