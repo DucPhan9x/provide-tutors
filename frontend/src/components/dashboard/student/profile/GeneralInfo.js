@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { FormGroup, Form, Label, Input } from "reactstrap";
 import { FGroup } from "../../../common";
 import save from "../../../../assets/images/save.svg";
+
+import { getStudentInfo } from "../../../../redux/actions/getStudentInfo";
 
 const StyledGeneralInfo = styled.section`
   .form-info {
@@ -115,6 +118,7 @@ const StyledGeneralInfo = styled.section`
 `;
 
 const GeneralInfo = () => {
+  const storeStudent = useSelector((store) => store.getStudentInfo.data);
   const [form, setForm] = React.useState({
     fullName: "",
     phoneNumber: "",
@@ -123,6 +127,25 @@ const GeneralInfo = () => {
     email: "vuthibichthu@gmail.com",
     address: "",
   });
+
+  useEffect(() => {
+    getStudentInfo();
+  }, []);
+  useEffect(() => {
+    if (!storeStudent.student) {
+      return;
+    }
+    setForm({
+      ...form,
+      fullName: storeStudent.student.fullName,
+      phoneNumber: storeStudent.student.phone,
+      gender: "",
+      birthday: storeStudent.student.birthday,
+      email: storeStudent.student.email,
+      address: storeStudent.student.address,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storeStudent]);
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
