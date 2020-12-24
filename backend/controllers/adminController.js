@@ -161,7 +161,7 @@ const adminReject = async (req, res, next) => {
 
 const listTutor = async (req, res, next) => {
     try {
-        const listTutor = await Tutor.find();
+        const listTutor = await Tutor.find({}, { password: 0, __v: 0, review: 0 });
         res.status(200).json({
             status: 200,
             listTutor,
@@ -189,7 +189,7 @@ const removeTutor = async (req, res, next) => {
 
 const listStudent = async (req, res, next) => {
     try {
-        const listStudent = await Student.find();
+        const listStudent = await Student.find({}, { password: 0, __v: 0 });
         res.status(200).json({
             status: 200,
             listStudent,
