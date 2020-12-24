@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Table } from "reactstrap";
+import { useSelector } from "react-redux";
+
+import { learningSchedule } from "../../../../redux/actions/learningSchedule";
 
 const StyledSchedule = styled.section`
   margin: 0 0 auto;
@@ -309,15 +312,15 @@ const StyledSchedule = styled.section`
 `;
 
 const Schedule = () => {
-  const arrSchedules = [
-    {
-      id: "1",
-      time: "7:00 - 9:00,Tue & Thur",
-      tutorName: "Thu Vu",
-      subject: "Physics",
-      grade: "8",
-    },
-  ];
+  useEffect(() => {
+    learningSchedule();
+  }, []);
+  const learnSchedules = useSelector(
+    (store) => store.learningSchedule.data.contracts
+  );
+
+  console.log(learnSchedules);
+
   return (
     <StyledSchedule>
       <div className="container">
@@ -340,17 +343,18 @@ const Schedule = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {arrSchedules.map((item, index) => {
-                    return (
-                      <tr>
-                        <th scope="row">{index}</th>
-                        <td>{item.subject}</td>
-                        <td>{item.grade}</td>
-                        <td>{item.time}</td>
-                        <td>{item.tutorName}</td>
-                      </tr>
-                    );
-                  })}
+                  {learnSchedules &&
+                    learnSchedules.map((item, index) => {
+                      return (
+                        <tr>
+                          <th scope="row">{index + 1}</th>
+                          <td>{item.subject}</td>
+                          <td>{item.grade}</td>
+                          <td>{item.time}</td>
+                          <td>{item.tutorName}</td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </Table>
             </div>
