@@ -5,9 +5,7 @@ const HomeStudent = () => {
   return (
     <div>
       <Schedule />;
-     
-      <ConfirmSchedule/>;
-   
+      <ConfirmSchedule />;
     </div>
   );
 };

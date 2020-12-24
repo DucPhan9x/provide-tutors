@@ -10,7 +10,6 @@ import classnames from "classnames";
 
 const ProfileTutor = () => {
   const [activeTab, setActiveTab] = useState("1");
-
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
@@ -62,7 +61,6 @@ const ProfileTutor = () => {
           </TabContent>
         </div>
       </DashboardProfileTutorLayout>
-        
     </div>
   );
 };

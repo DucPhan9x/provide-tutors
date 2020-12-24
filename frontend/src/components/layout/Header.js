@@ -1,95 +1,94 @@
 import React from "react";
 // import classNames from "classnames";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import { getAuth } from "../../utils/helpers";
 import DropdownUserMenu from "../common/DropdownUserMenu";
 
-function Header({ isDashboard, showHeader }) {
-  // const handleClick = () => {};
-  const location = useLocation();
-  const isDashboardAdmin = location.pathname.includes("/dashboard/admin");
-  const isDashboardStudent = location.pathname.includes("/dashboard/student");
-  const isDashboardTutor = location.pathname.includes("/dashboard/tutor");
+function Header() {
+  const auth = getAuth();
+  const isAdmin = auth && auth.role === "admin";
+  const isStudent = auth && auth.role === 0;
+  const isTutor = auth && auth.role === 1;
   const renderMenu = () => {
-    if (isDashboardAdmin) {
+    if (isAdmin) {
       return (
         <>
-          <NavLink activeClassName="--active" to="/dashboard/admin" exact>
-            <span>Managerment</span>
+          <NavLink activeClassName="--active" to="/admin/dashboard" exact>
+            <span>Management</span>
           </NavLink>
-
-          <DropdownUserMenu
-            isHasDashboardTutorLink={!isDashboard && isDashboardTutor}
-            isHasDashboardStudentLink={!isDashboard && isDashboardStudent}
-            isStudentAndTutor={isDashboardStudent && isDashboardTutor}
-          />
+          <DropdownUserMenu />
         </>
       );
-    }
-    if (isDashboardStudent) {
-      return (
-        <>
-          <NavLink activeClassName="--active" to="/dashboard/student" exact>
-            <span>Home</span>
-          </NavLink>
-          <NavLink activeClassName="--active" to="/dashboard/student/profile">
-            <span>Profile</span>
-          </NavLink>
-          <DropdownUserMenu
-            isHasDashboardTutorLink={!isDashboard && isDashboardTutor}
-            isHasDashboardStudentLink={!isDashboard && isDashboardStudent}
-            isStudentAndTutor={isDashboardStudent && isDashboardTutor}
-          />
-        </>
-      );
-    }
-    if (isDashboardTutor) {
-      return (
-        <>
-          <NavLink activeClassName="--active" to="/dashboard/tutor" exact>
-            <span>Home</span>
-          </NavLink>
-          <NavLink activeClassName="--active" to="/dashboard/tutor/profile">
-            <span>Profile</span>
-          </NavLink>
-          <NavLink activeClassName="--active" to="/dashboard/tutor/mystudent">
-            <span>My Student</span>
-          </NavLink>
-          <DropdownUserMenu
-            isHasDashboardTutorLink={!isDashboard && isDashboardTutor}
-            isHasDashboardStudentLink={!isDashboard && isDashboardStudent}
-            isStudentAndTutor={isDashboardStudent && isDashboardTutor}
-          />
-        </>
-      );
-    }
-    if (!isDashboardAdmin && !isDashboardStudent && !isDashboardTutor) {
-      return (
-        <>
-          <NavLink activeClassName="--active" to="/" exact>
-            <span>Home</span>
-          </NavLink>
-          <NavLink activeClassName="--active" to="/our-tutors">
-            <span>Our tutors</span>
-          </NavLink>
-          <NavLink activeClassName="--active" to="/about-us">
-            <span>About us</span>
-          </NavLink>
-          <NavLink to="/login" className="button button--primary button--login">
-            <span>Login</span>
-          </NavLink>
-        </>
-      );
+    } else {
+      if (isStudent) {
+        return (
+          <>
+            <NavLink activeClassName="--active" to="/student" exact>
+              <span>My home</span>
+            </NavLink>
+            <NavLink activeClassName="--active" to="/student/profile">
+              <span>Profile</span>
+            </NavLink>
+            <DropdownUserMenu />
+          </>
+        );
+      } else {
+        if (isTutor) {
+          return (
+            <>
+              <NavLink activeClassName="--active" to="/tutor" exact>
+                <span>My home</span>
+              </NavLink>
+              <NavLink activeClassName="--active" to="/tutor/profile">
+                <span>Profile</span>
+              </NavLink>
+              <NavLink activeClassName="--active" to="/tutor/mystudent">
+                <span>My Student</span>
+              </NavLink>
+              <DropdownUserMenu auth={auth} />
+            </>
+          );
+        }
+      }
     }
   };
   return (
     <div className="header">
       <div className="header__inner flex items-center space-between">
-        <NavLink to="/" className="header__inner__logo">
-          <img src={logo} alt="Logo" />
-        </NavLink>
+        {auth && auth.role !== "admin" && (
+          <NavLink to="/" className="header__inner__logo">
+            <img src={logo} alt="Logo" />
+          </NavLink>
+        )}
+
         <div className="header__inner__menu flex items-center">
-          {renderMenu()}
+          {auth && auth.role !== "admin" && (
+            <NavLink activeClassName="--active" to="/" exact>
+              <span>Home page</span>
+            </NavLink>
+          )}
+          {auth && auth.role !== "admin" && (
+            <NavLink activeClassName="--active" to="/our-tutors">
+              <span>Tutors available</span>
+            </NavLink>
+          )}
+          {auth && auth.role !== "admin" && (
+            <NavLink activeClassName="--active" to="/about-us">
+              <span>About</span>
+            </NavLink>
+          )}
+
+          {auth && auth.token ? (
+            renderMenu()
+          ) : (
+            <NavLink
+              to="/login"
+              className="button button--primary button--login"
+            >
+              <span>Login</span>
+            </NavLink>
+          )}
         </div>
       </div>
     </div>

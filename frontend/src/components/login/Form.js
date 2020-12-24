@@ -3,33 +3,34 @@ import { Link } from "react-router-dom";
 import { FormBox } from "../common";
 import { Form as ReForm } from "reactstrap";
 import { isEmpty } from "validator";
+import { useSelector } from "react-redux";
 
 const Form = ({ handleSubmit }) => {
   const [error, setError] = React.useState({});
   const [form, setForm] = React.useState({ email: "", password: "" });
   const [errorLogin, setErrorLogin] = React.useState();
-
+  const storeLogin = useSelector((store) => store.login);
+  const loading = storeLogin.loading;
   const validate = () => {
     const errorState = {};
     // check validate
-    // if (!isEmail(form.email)) {
-    //   errorState.email = "Wrong email";
-    // }
+    if (isEmpty(form.userName)) {
+      errorState.userName = "Please enter user name";
+    }
     if (isEmpty(form.password)) {
-      errorState.password = "Wrong password";
+      errorState.password = "Please enter password";
     }
     return errorState;
   };
   const handleSubmitForm = (event) => {
     event.preventDefault();
     const errorState = validate();
-
     if (Object.keys(errorState).length > 0) {
       return setError(errorState);
     }
 
     const formData = {
-      userName: form.email,
+      userName: form.userName,
       password: form.password,
     };
     handleSubmit(formData);
@@ -57,14 +58,14 @@ const Form = ({ handleSubmit }) => {
 
           <FormBox
             propsInput={{
-              name: "email",
-              placeholder: "Email",
+              name: "userName",
+              placeholder: "User Name",
               onChange: handleChange,
               onFocus: handleFocus,
-              value: form.email,
+              value: form.userName,
               disabled: false,
             }}
-            error={error.email}
+            error={error.userName}
           />
 
           <FormBox
@@ -79,7 +80,7 @@ const Form = ({ handleSubmit }) => {
             }}
             error={error.password}
           />
-          <button disabled={false} className="button button--secondary">
+          <button disabled={loading} className="button button--secondary">
             Login
           </button>
           <div className="flex space-between">

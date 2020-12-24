@@ -173,7 +173,6 @@
 
   &__inner {
     padding: 15px 0;
-    display: flex;
     align-items: center;
     justify-content: flex-end;
     max-width: 1400px;
@@ -213,6 +212,13 @@
 
       p {
         margin-bottom: 15px;
+      }
+
+      .members {
+        display: flex;
+        flex-direction: row;
+        margin-top: 30px;
+        justify-content: center;
       }
     }
 

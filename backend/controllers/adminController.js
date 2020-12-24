@@ -17,27 +17,22 @@ const { key_admin } = envVariables;
 
 const register = async (req, res, next) => {
     const { userName, password, keyAdmin } = req.body;
-
+    if (keyAdmin != key_admin) {
+        throw new HttpError("Failed", 401);
+    }
+    if (!userName || !password) {
+        throw new HttpError("userName or password is empty", 401);
+    }
+    const hash = await bcrypt.hash(password, 12);
+    if (!hash) {
+        throw new HttpError("hash password failed", 401);
+    }
+    await Admin.create({ userName, password: hash });
+    res.status(200).json({
+        status: 200,
+        userName,
+    });
     try {
-        if (keyAdmin != key_admin) {
-            throw new HttpError("Failed", 401);
-        }
-        if (!userName || !password) {
-            throw new HttpError("userName or password is empty", 401);
-        }
-        const admin = await Admin.findOne({ userName });
-        if (admin) {
-            throw new HttpError("username is exist", 401);
-        }
-        const hash = await bcrypt.hash(password, 12);
-        if (!hash) {
-            throw new HttpError("hash password failed", 401);
-        }
-        await Admin.create({ userName, password: hash });
-        res.status(200).json({
-            status: 200,
-            userName,
-        });
     } catch (error) {
         next(error);
     }
@@ -164,10 +159,70 @@ const adminReject = async (req, res, next) => {
     }
 };
 
+const listTutor = async (req, res, next) => {
+    try {
+        const listTutor = await Tutor.find({}, { password: 0, __v: 0, review: 0 });
+        res.status(200).json({
+            status: 200,
+            listTutor,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const removeTutor = async (req, res, next) => {
+    const { _id } = req.params;
+    try {
+        if (!mongo.Types.ObjectId.isValid(_id)) {
+            throw new HttpError("id incorrect", 401);
+        }
+        await Tutor.findByIdAndRemove({ _id });
+        res.status(200).json({
+            status: 200,
+            msg: "Success",
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const listStudent = async (req, res, next) => {
+    try {
+        const listStudent = await Student.find({}, { password: 0, __v: 0 });
+        res.status(200).json({
+            status: 200,
+            listStudent,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const removeStudent = async (req, res, next) => {
+    const { _id } = req.params;
+    try {
+        if (!mongo.Types.ObjectId.isValid(_id)) {
+            throw new HttpError("id incorrect", 401);
+        }
+        await Student.findByIdAndRemove({ _id });
+        res.status(200).json({
+            status: 200,
+            msg: "Success",
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const adminController = {
     register,
     login,
     listRequest,
     adminAccept,
     adminReject,
+    listTutor,
+    removeTutor,
+    listStudent,
+    removeStudent,
 };
