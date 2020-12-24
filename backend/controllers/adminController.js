@@ -171,7 +171,21 @@ const listTutor = async (req, res, next) => {
     }
 };
 
-const removeTutor = async (req, res, next) => {};
+const removeTutor = async (req, res, next) => {
+    const { _id } = req.params;
+    try {
+        if (!mongo.Types.ObjectId.isValid(_id)) {
+            throw new HttpError("id incorrect", 401);
+        }
+        await Tutor.findByIdAndRemove({ _id });
+        res.status(200).json({
+            status: 200,
+            msg: "Success",
+        });
+    } catch (error) {
+        next(error);
+    }
+};
 
 const listStudent = async (req, res, next) => {
     try {
@@ -185,7 +199,21 @@ const listStudent = async (req, res, next) => {
     }
 };
 
-const removeStudent = async () => {};
+const removeStudent = async (req, res, next) => {
+    const { _id } = req.params;
+    try {
+        if (!mongo.Types.ObjectId.isValid(_id)) {
+            throw new HttpError("id incorrect", 401);
+        }
+        await Student.findByIdAndRemove({ _id });
+        res.status(200).json({
+            status: 200,
+            msg: "Success",
+        });
+    } catch (error) {
+        next(error);
+    }
+};
 
 export const adminController = {
     register,
