@@ -7,6 +7,8 @@ import save from "../../../../assets/images/save.svg";
 
 import { getStudentInfo } from "../../../../redux/actions/getStudentInfo";
 
+import { updateStudentInfo } from "../../../../redux/actions/updateStudentInfo";
+
 const StyledGeneralInfo = styled.section`
   .form-info {
     padding: 30px 20px 10px;
@@ -131,6 +133,7 @@ const GeneralInfo = () => {
   useEffect(() => {
     getStudentInfo();
   }, []);
+
   useEffect(() => {
     if (!storeStudent.student) {
       return;
@@ -152,13 +155,20 @@ const GeneralInfo = () => {
 
     const formData = {
       fullName: form.fullName,
-      phoneNumber: form.phoneNumber,
+      phone: form.phoneNumber,
       gender: form.gender,
       birthday: form.birthday,
       email: form.email,
       address: form.address,
     };
-    console.log(formData);
+
+    updateStudentInfo(formData, (data) => {
+      if (data.status === 200) {
+        alert(data.msg);
+      } else {
+        alert(data.msg);
+      }
+    });
   };
   const handleChange = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });

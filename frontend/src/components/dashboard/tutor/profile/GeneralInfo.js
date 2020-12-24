@@ -6,6 +6,7 @@ import { FGroup } from "../../../common";
 import save from "../../../../assets/images/save.svg";
 
 import { getTutorInfo } from "../../../../redux/actions/getTutorInfo";
+import { updateTutorInfo } from "../../../../redux/actions/updateTutorInfo";
 
 const StyledGeneralInfo = styled.section`
   .form-info {
@@ -152,13 +153,20 @@ const GeneralInfo = () => {
 
     const formData = {
       fullName: form.fullName,
-      phoneNumber: form.phoneNumber,
+      phone: form.phoneNumber,
       gender: form.gender,
       birthday: form.birthday,
       email: form.email,
       address: form.address,
     };
-    console.log(formData);
+
+    updateTutorInfo(formData, (data) => {
+      if (data.status === 200) {
+        alert(data.msg);
+      } else {
+        alert(data.msg);
+      }
+    });
   };
   const handleChange = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });

@@ -13,6 +13,9 @@ import getStudentInfo from "./getStudentInfo";
 import teachingSchedule from "./teachingSchedule";
 import learningSchedule from "./learningSchedule";
 
+import updateTutorInfo from "./updateTutorInfo";
+import updateStudentInfo from "./updateStudentInfo";
+
 export default combineReducers({
   login,
   modalMessage,
@@ -27,4 +30,6 @@ export default combineReducers({
   getStudentInfo,
   teachingSchedule,
   learningSchedule,
+  updateTutorInfo,
+  updateStudentInfo,
 });
