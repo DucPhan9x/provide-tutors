@@ -15,7 +15,7 @@ const Statistic = () => {
   return (
     <StyledPassword>
       <div className="bg">
-        <div className="user_account">Comming soon ...</div>
+        <div className="user_account">Coming soon ...</div>
       </div>
     </StyledPassword>
   );
