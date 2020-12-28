@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
+import { studentRegisterSchedule } from "../../redux/actions/studentRegisterSchedule";
 
-function CardTeacher({ subject, grade, time, tutorName, prices, image, auth }) {
+function CardTeacher({
+  subject,
+  grade,
+  time,
+  tutorName,
+  prices,
+  image,
+  auth,
+  scheduleId,
+  status,
+}) {
   const history = useHistory();
-  const [timeDate, setTimeDate] = useState("");
-  useEffect(() => {
-    if (!time) {
-      return;
-    }
-    setTimeDate(time.join(" and "));
-  }, [time]);
   return (
     <div className="card__teacher">
       <div className="card__teacher__inner radius-l">
@@ -32,13 +36,11 @@ function CardTeacher({ subject, grade, time, tutorName, prices, image, auth }) {
           </div>
           <div className="card__teacher__inner__avatar__experiences">
             <p>
-              Time:<span className="primary">{timeDate}</span>{" "}
+              Time:<span className="primary">{time}</span>{" "}
             </p>
           </div>
           <div className="card__teacher__inner__avatar__info">
             <h4 className="h4">Tutor name: {tutorName}</h4>
-
-            <div className="card__teacher__inner__avatar__info-position"></div>
           </div>
         </div>
         <div className="card__teacher__inner__block">
@@ -47,9 +49,25 @@ function CardTeacher({ subject, grade, time, tutorName, prices, image, auth }) {
             <div className="card__teacher__inner__footer__money">
               <h4 className="h4 primary">{prices}VND /Lesson</h4>
               <Button
+                disabled={auth && auth.role === 1}
                 color="success"
                 onClick={() => {
-                  if (!auth.token) history.push("/login");
+                  if (!auth.token || status === 1) {
+                    history.push("/login");
+                  } else {
+                    if (auth.role === 0) {
+                      studentRegisterSchedule(
+                        { scheduleId: scheduleId },
+                        (data) => {
+                          if (data.status === 200) {
+                            alert("Register schedule success!");
+                          } else {
+                            alert("Register failed, " + data.msg);
+                          }
+                        }
+                      );
+                    }
+                  }
                 }}
               >
                 Register

@@ -10,6 +10,7 @@ import ModalFooter from "react-bootstrap/ModalFooter";
 
 import { useSelector } from "react-redux";
 import { getStudentUsers } from "../../../redux/actions/getStudentUsers";
+import { removeStudent } from "../../../redux/actions/removeStudent";
 
 const StyledStudentManagement = styled.section`
   .table-admin {
@@ -54,9 +55,6 @@ const StyledGeneralInfo = styled.section`
 `;
 
 const StudentManagement = () => {
-  const [btnStatus, setBtnStatus] = useState("false");
-  const [btnText, setBtnText] = useState("Block");
-
   const [show, setShow] = useState(false);
   const [studentSelected, setStudentSelected] = useState(null);
   useEffect(() => {
@@ -96,14 +94,19 @@ const StudentManagement = () => {
                     <td>{item.phone}</td>
                     <td>
                       <Button
-                        color={btnStatus === "false" ? "danger" : "success"}
+                        color={"danger"}
                         id="btn1"
                         onClick={() => {
-                          setBtnStatus("true");
-                          setBtnText("Blocked");
+                          removeStudent(item._id, (data) => {
+                            if (data.status === 200) {
+                              alert("Remove succeed!");
+                            } else {
+                              alert("Remove failed, " + data.msg);
+                            }
+                          });
                         }}
                       >
-                        {btnText}
+                        Remove
                       </Button>{" "}
                     </td>
                   </tr>

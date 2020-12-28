@@ -4,14 +4,12 @@ import CardTeacher from "../components/ourTutors/CardTeacher";
 import { getSchedule } from "../redux/actions/schedules";
 import { getAuth } from "../utils/helpers";
 
-const OurTutors = () => {
-  const storeLogin = useSelector((store) => store.login);
-  const auth = storeLogin.data.user || getAuth();
+const SchedulesAvailable = () => {
+  const auth = getAuth();
   useEffect(() => {
     getSchedule();
   }, []);
   const schedules = useSelector((store) => store.schedules.data).schedules;
-
   return (
     <div className="our-tutors">
       <h2 className="h2 text-center">
@@ -25,11 +23,13 @@ const OurTutors = () => {
                 key={index}
                 subject={item.subject}
                 grade={item.grade}
-                time={item.time}
+                time={item.time.join(" and ")}
                 tutorName={item.tutorName}
                 prices={item.price}
                 image={item.image}
                 auth={auth}
+                scheduleId={item._id}
+                status={item.status}
               />
             );
           })}
@@ -37,4 +37,4 @@ const OurTutors = () => {
     </div>
   );
 };
-export default OurTutors;
+export default SchedulesAvailable;

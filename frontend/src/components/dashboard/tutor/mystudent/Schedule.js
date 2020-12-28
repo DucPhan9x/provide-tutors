@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Button, Table } from "reactstrap";
 
@@ -309,9 +309,6 @@ const StyledSchedule = styled.section`
 `;
 
 const Schedule = () => {
-  useEffect(() => {
-    console.log("schedule");
-  }, []);
   const arrStudents = [
     {
       id: "1",
@@ -365,7 +362,7 @@ const Schedule = () => {
                         <td>{item.name}</td>
                         <td>{item.subject}</td>
                         <td>{item.grade}</td>
-                        <td>{item.time}</td>
+                        <td>{item.time.join(" and ")}</td>
                         <td>
                           <Button
                             style={{

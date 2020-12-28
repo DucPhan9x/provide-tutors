@@ -10,6 +10,7 @@ import ModalFooter from "react-bootstrap/ModalFooter";
 
 import { useSelector } from "react-redux";
 import { getTutorUsers } from "../../../redux/actions/getTutorUsers";
+import { removeTutor } from "../../../redux/actions/removeTutor";
 
 const StyledTutorManagement = styled.section`
   .table-admin {
@@ -54,9 +55,6 @@ const StyledGeneralInfo = styled.section`
 `;
 
 const TutorManagement = () => {
-  const [btnStatus, setBtnStatus] = useState("false");
-  const [btnText, setBtnText] = useState("Block");
-
   const [show, setShow] = useState(false);
   const [tutorSelected, setTutorSelected] = useState(null);
 
@@ -95,14 +93,18 @@ const TutorManagement = () => {
                     <td>{item.phone}</td>
                     <td>
                       <Button
-                        color={btnStatus === "false" ? "danger" : "success"}
-                        id="btn1"
+                        color={"danger"}
                         onClick={() => {
-                          setBtnStatus("true");
-                          setBtnText("Blocked");
+                          removeTutor(item._id, (data) => {
+                            if (data.status === 200) {
+                              alert("Remove succeed!");
+                            } else {
+                              alert("Remove failed, " + data.msg);
+                            }
+                          });
                         }}
                       >
-                        {btnText}
+                        Remove
                       </Button>{" "}
                     </td>
                   </tr>

@@ -283,19 +283,17 @@ const Schedule = () => {
   };
 
   const getGrade = (grade) => {
-    setGrade(grade);
+    setGrade(Number(grade));
   };
   const getPrice = (price) => {
-    setPrice(price);
+    setPrice(Number(price));
   };
 
   const getDay = (day) => {
     setDay(day);
-    console.log(day);
   };
   const getTime = (time) => {
     setTime(time);
-    console.log(time);
   };
 
   const handleSubmit = (event) => {
@@ -345,6 +343,7 @@ const Schedule = () => {
                     <th>Student Name</th>
                     <th>Time</th>
                     <th>Price</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -356,8 +355,9 @@ const Schedule = () => {
                           <td>{item.subject}</td>
                           <td>{item.grade}</td>
                           <td>{item.studentName}</td>
-                          <td>{item.time}</td>
+                          <td>{item.time.join(" and ")}</td>
                           <td>{item.price}</td>
+                          <td>{item.status}</td>
                         </tr>
                       );
                     })}

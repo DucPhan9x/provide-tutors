@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Table, Button } from "reactstrap";
+import { studentRemoveScheduleRegister } from "../../../../redux/actions/studentRemoveScheduleRegister";
 
 const StyledSchedule = styled.section`
   margin: 0 100px auto;
@@ -308,16 +309,7 @@ const StyledSchedule = styled.section`
 
 `;
 
-const ConfirmSchedule = () => {
-  const arrSchedules = [
-    {
-      id: "1",
-      time: "7:00 - 9:00,Tue & Thur",
-      tutorName: "Thu Vu",
-      subject: "Physics",
-      grade: "8",
-    },
-  ];
+const ConfirmSchedule = ({ arrRegister }) => {
   return (
     <StyledSchedule>
       <div className="container">
@@ -341,28 +333,41 @@ const ConfirmSchedule = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {arrSchedules.map((item, index) => {
-                    return (
-                      <tr>
-                        <th scope="row">{index}</th>
-                        <td>{item.subject}</td>
-                        <td>{item.grade}</td>
-                        <td>{item.time}</td>
-                        <td>{item.tutorName}</td>
-                        <td>
-                          <Button
-                            style={{
-                              color: "wheat",
-                              background: "red",
-                              marginLeft: 10,
-                            }}
-                          >
-                            Remove
-                          </Button>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {arrRegister &&
+                    arrRegister.map((item, index) => {
+                      return (
+                        <tr>
+                          <th scope="row">{index}</th>
+                          <td>{item.subject}</td>
+                          <td>{item.grade}</td>
+                          <td>{item.time.join(" and ")}</td>
+                          <td>{item.tutorName}</td>
+                          <td>
+                            <Button
+                              style={{
+                                color: "wheat",
+                                background: "red",
+                                marginLeft: 10,
+                              }}
+                              onClick={() => {
+                                studentRemoveScheduleRegister(
+                                  item._id,
+                                  (data) => {
+                                    if (data.status === 200) {
+                                      alert("Remove schedule succeed!");
+                                    } else {
+                                      alert("Remove failed, " + data.msg);
+                                    }
+                                  }
+                                );
+                              }}
+                            >
+                              Remove
+                            </Button>
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </Table>
             </div>

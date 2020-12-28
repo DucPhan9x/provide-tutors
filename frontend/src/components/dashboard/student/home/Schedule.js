@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Table } from "reactstrap";
+import { Button, Table } from "reactstrap";
 import { useSelector } from "react-redux";
 
 import { learningSchedule } from "../../../../redux/actions/learningSchedule";
@@ -319,8 +319,6 @@ const Schedule = () => {
     (store) => store.learningSchedule.data.contracts
   );
 
-  console.log(learnSchedules);
-
   return (
     <StyledSchedule>
       <div className="container">
@@ -340,6 +338,8 @@ const Schedule = () => {
                     <th>Grade</th>
                     <th>Time</th>
                     <th>Tutor Name</th>
+                    <th>Status</th>
+                    <th>Feedback</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -350,8 +350,13 @@ const Schedule = () => {
                           <th scope="row">{index + 1}</th>
                           <td>{item.subject}</td>
                           <td>{item.grade}</td>
-                          <td>{item.time}</td>
+                          <td>{item.time.join(" and ")}</td>
                           <td>{item.tutorName}</td>
+                          <td>{item.status}</td>
+                          <td>
+                            <Button>Feedback</Button>
+                            {/* onClick => show Modal to feedback, button Send Feedback */}
+                          </td>
                         </tr>
                       );
                     })}
