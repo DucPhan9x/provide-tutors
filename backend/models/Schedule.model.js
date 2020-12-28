@@ -32,6 +32,9 @@ const scheduleSchema = new Schema({
         type: Date,
         default: new Date(),
     },
+    image: {
+        type: String,
+    },
 });
 
 export const Schedule = model("schedule", scheduleSchema);
