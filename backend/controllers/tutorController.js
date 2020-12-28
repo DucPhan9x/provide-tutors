@@ -1,11 +1,16 @@
 import { Tutor, Schedule, ScheduleRegiste, Student, Contract, ScheduleAccept } from "../models";
-import { HttpError } from "../constants";
+import { HttpError, varConst } from "../constants";
 import { uploadSingle } from "../helpers";
+
+const { listSubjects } = varConst;
 
 const addSchedule = async (req, res, next) => {
     try {
         const { id } = req.user;
         const { grade, subject, time, price } = req.body;
+        if (!listSubjects.some((obj) => obj.hasOwnProperty(subject))) {
+            throw new HttpError("subject is incorrect", 400);
+        }
         if (!time || !grade || !subject || !price) {
             throw new HttpError("data is empty", 400);
         }
@@ -30,6 +35,15 @@ const addSchedule = async (req, res, next) => {
                 throw new HttpError("Duplicate this time", 400);
             }
         }
+        let image = "";
+        for (let object of listSubjects) {
+            for (const [key, value] of Object.entries(object)) {
+                if (key == subject) {
+                    image = value;
+                }
+            }
+        }
+        console.log(image);
         let schedule = {
             tutorId: id,
             grade,
@@ -37,6 +51,7 @@ const addSchedule = async (req, res, next) => {
             time,
             price,
             tutorName: tutor.fullName,
+            image,
         };
         await Schedule.create(schedule);
         res.status(200).json({

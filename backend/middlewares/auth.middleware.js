@@ -31,13 +31,13 @@ const registerMiddleware = async (req, res, next) => {
             role,
             email,
             phone,
-            male,
+            gender,
             fullName,
             birthday,
             address,
         } = req.body;
-        if (!male) {
-            throw new HttpError("Male is empty", 400);
+        if (!gender) {
+            throw new HttpError("gender is empty", 400);
         }
         if (!fullName) {
             throw new HttpError("fullname is empty", 400);
