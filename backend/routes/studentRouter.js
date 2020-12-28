@@ -11,6 +11,7 @@ const {
     listContract,
     listRegister,
     delRegister,
+    reviewTutor,
 } = studentController;
 
 export const studentRouter = Router();
@@ -26,3 +27,5 @@ studentRouter.route("/v1/api/student/learing-schedule").get(jwtMidleware, listCo
 studentRouter.route("/v1/api/student/list-register").get(jwtMidleware, listRegister);
 
 studentRouter.route("/v1/api/student/del-register/:_id").get(jwtMidleware, delRegister);
+
+studentRouter.route("/v1/api/student/review-tutor").post(jwtMidleware, reviewTutor);

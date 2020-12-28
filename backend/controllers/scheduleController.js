@@ -1,5 +1,5 @@
 import { HttpError } from "../constants";
-import { Tutor, Student, Schedule } from "../models";
+import { Tutor, Student, Schedule, Review } from "../models";
 
 // bo
 const listTutorAndSchedule = async (req, res, next) => {
@@ -76,8 +76,22 @@ const search = async (req, res, next) => {
     }
 };
 
+const getReviews = async (req, res, next) => {
+    try {
+        const { tutorId } = req.params;
+        const reviews = await Review.find({ tutorId });
+        res.status(200).json({
+            status: 200,
+            reviews,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const scheduleController = {
     listTutorAndSchedule,
     listSchedule,
     search,
+    getReviews,
 };

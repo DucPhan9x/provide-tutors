@@ -1,4 +1,4 @@
-import { Student, ScheduleRegiste, Schedule, Contract } from "../models";
+import { Student, ScheduleRegiste, Schedule, Contract, Review } from "../models";
 import { HttpError } from "../constants";
 import mongo from "mongoose";
 
@@ -168,6 +168,29 @@ const delRegister = async (req, res, next) => {
     }
 };
 
+const reviewTutor = async (req, res, next) => {
+    const { id } = req.user;
+    const { title, content, tutorId } = req.body;
+    try {
+        if (!title || !content) {
+            throw new HttpError("title or content is empty!", 401);
+        }
+        if (!tutorId) {
+            throw new HttpError("tutorId is empty!", 401);
+        }
+        const student = await Student.findById({ _id: id }, { fullName: 1 });
+        const fullName = student.fullName;
+        console.log(fullName);
+        await Review.create({ studentId: id, tutorId, title, content, fullName });
+        res.status(200).json({
+            status: 200,
+            msg: "Success",
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const studentController = {
     getInfo,
     updateInfo,
@@ -175,4 +198,5 @@ export const studentController = {
     listContract,
     listRegister,
     delRegister,
+    reviewTutor,
 };
