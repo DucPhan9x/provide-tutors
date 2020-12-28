@@ -168,6 +168,13 @@ const delRegister = async (req, res, next) => {
     }
 };
 
+const reviewTutor = async (req, res, next) => {
+    try {
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const studentController = {
     getInfo,
     updateInfo,
@@ -175,4 +182,5 @@ export const studentController = {
     listContract,
     listRegister,
     delRegister,
+    reviewTutor,
 };
