@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import {
   TutorStudent,
-  UserAccount,
+  TutorManagement,
+  StudentManagement,
   Statistic,
   Feedback,
 } from "../../../components/dashboard/admin";
@@ -37,7 +38,7 @@ const HomeAdmin = () => {
                 toggle("2");
               }}
             >
-              User account
+              Tutor management
             </NavLink>
           </NavItem>
           <NavItem>
@@ -47,7 +48,7 @@ const HomeAdmin = () => {
                 toggle("3");
               }}
             >
-              Statistic
+              Student management
             </NavLink>
           </NavItem>
           <NavItem>
@@ -55,6 +56,16 @@ const HomeAdmin = () => {
               className={classnames({ active: activeTab === "4" })}
               onClick={() => {
                 toggle("4");
+              }}
+            >
+              Statistic
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: activeTab === "5" })}
+              onClick={() => {
+                toggle("5");
               }}
             >
               Feedback
@@ -67,12 +78,15 @@ const HomeAdmin = () => {
             <TutorStudent />
           </TabPane>
           <TabPane tabId="2">
-            <UserAccount />
+            <TutorManagement />
           </TabPane>
           <TabPane tabId="3">
-            <Statistic />
+            <StudentManagement />
           </TabPane>
           <TabPane tabId="4">
+            <Statistic />
+          </TabPane>
+          <TabPane tabId="5">
             <Feedback />
           </TabPane>
         </TabContent>
