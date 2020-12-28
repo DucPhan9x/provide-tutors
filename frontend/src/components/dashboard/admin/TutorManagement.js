@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Table, Button, Form, Label } from "reactstrap";
 import { FGroup } from "../../common/";
@@ -7,6 +7,9 @@ import Modal from "react-bootstrap/Modal";
 import ModalTitle from "react-bootstrap/ModalTitle";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalFooter from "react-bootstrap/ModalFooter";
+
+import { useSelector } from "react-redux";
+import { getTutorUsers } from "../../../redux/actions/getTutorUsers";
 
 const StyledTutorManagement = styled.section`
   .table-admin {
@@ -57,34 +60,11 @@ const TutorManagement = () => {
   const [show, setShow] = useState(false);
   const [tutorSelected, setTutorSelected] = useState(null);
 
-  const tutors = [
-    {
-      tutorName: "Thu",
-      tutorAccount: "Thu",
-      phoneNumber: "0987654321",
-      info: {
-        fullName: "Vu Thi Bich Thu",
-        phoneNumber: "0987654321",
-        birthday: "01/01/2011",
-        gender: "Female",
-        email: "thu@gmail.com",
-        address: "Quang Nam",
-      },
-    },
-    {
-      tutorName: "An",
-      tutorAccount: "An",
-      phoneNumber: "1234567890",
-      info: {
-        fullName: "Nguyen Thi Duy An",
-        phoneNumber: "1234567890",
-        birthday: "01/01/2011",
-        gender: "Female",
-        email: "an@gmail.com",
-        address: "Quang Nam",
-      },
-    },
-  ];
+  useEffect(() => {
+    getTutorUsers();
+  }, []);
+
+  const tutors = useSelector((store) => store.getTutorUsers.data.listTutor);
 
   return (
     <StyledTutorManagement>
@@ -110,9 +90,9 @@ const TutorManagement = () => {
                     }}
                   >
                     <td>{index + 1}</td>
-                    <td>{item.tutorName}</td>
-                    <td>{item.tutorAccount}</td>
-                    <td>{item.phoneNumber}</td>
+                    <td>{item.fullName}</td>
+                    <td>{item.userName}</td>
+                    <td>{item.phone}</td>
                     <td>
                       <Button
                         color={btnStatus === "false" ? "danger" : "success"}

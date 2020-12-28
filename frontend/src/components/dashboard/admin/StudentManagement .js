@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Table, Button, Form, Label } from "reactstrap";
 import { FGroup } from "../../common/";
@@ -7,6 +7,9 @@ import Modal from "react-bootstrap/Modal";
 import ModalTitle from "react-bootstrap/ModalTitle";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalFooter from "react-bootstrap/ModalFooter";
+
+import { useSelector } from "react-redux";
+import { getStudentUsers } from "../../../redux/actions/getStudentUsers";
 
 const StyledStudentManagement = styled.section`
   .table-admin {
@@ -56,35 +59,13 @@ const StudentManagement = () => {
 
   const [show, setShow] = useState(false);
   const [studentSelected, setStudentSelected] = useState(null);
+  useEffect(() => {
+    getStudentUsers();
+  }, []);
 
-  const students = [
-    {
-      studentName: "Thu",
-      studentAccount: "Thu",
-      phoneNumber: "0987654321",
-      info: {
-        fullName: "Vu Thi Bich Thu",
-        phoneNumber: "0987654321",
-        birthday: "01/01/2011",
-        gender: "Female",
-        email: "thu@gmail.com",
-        address: "Quang Nam",
-      },
-    },
-    {
-      studentName: "An",
-      studentAccount: "An",
-      phoneNumber: "1234567890",
-      info: {
-        fullName: "Nguyen Thi Duy An",
-        phoneNumber: "1234567890",
-        birthday: "01/01/2011",
-        gender: "Female",
-        email: "an@gmail.com",
-        address: "Quang Nam",
-      },
-    },
-  ];
+  const students = useSelector(
+    (store) => store.getStudentUsers.data.listStudent
+  );
 
   return (
     <StyledStudentManagement>
@@ -110,9 +91,9 @@ const StudentManagement = () => {
                     }}
                   >
                     <td>{index + 1}</td>
-                    <td>{item.studentName}</td>
-                    <td>{item.studentAccount}</td>
-                    <td>{item.phoneNumber}</td>
+                    <td>{item.fullName}</td>
+                    <td>{item.userName}</td>
+                    <td>{item.phone}</td>
                     <td>
                       <Button
                         color={btnStatus === "false" ? "danger" : "success"}

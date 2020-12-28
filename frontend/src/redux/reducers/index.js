@@ -12,9 +12,10 @@ import getTutorInfo from "./getTutorInfo";
 import getStudentInfo from "./getStudentInfo";
 import teachingSchedule from "./teachingSchedule";
 import learningSchedule from "./learningSchedule";
-
 import updateTutorInfo from "./updateTutorInfo";
 import updateStudentInfo from "./updateStudentInfo";
+import getTutorUsers from "./getTutorUsers"
+import getStudentUsers from "./getStudentUsers"
 
 export default combineReducers({
   login,
@@ -32,4 +33,6 @@ export default combineReducers({
   learningSchedule,
   updateTutorInfo,
   updateStudentInfo,
+  getTutorUsers,
+  getStudentUsers,
 });
