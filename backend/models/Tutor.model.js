@@ -42,30 +42,6 @@ const tutorSchema = new Schema({
         type: Number,
         default: 0,
     },
-    review: [
-        {
-            studentId: {
-                type: Schema.Types.ObjectId,
-                ref: "student",
-            },
-            fullname: {
-                type: String,
-            },
-            rating: {
-                type: Number,
-            },
-            title: {
-                type: String,
-            },
-            content: {
-                type: String,
-            },
-            time: {
-                type: Date,
-                default: new Date(),
-            },
-        },
-    ],
 });
 
 export const Tutor = model("tutor", tutorSchema);
