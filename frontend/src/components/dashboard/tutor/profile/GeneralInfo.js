@@ -140,7 +140,7 @@ const GeneralInfo = () => {
       ...form,
       fullName: storeTutor.tutor.fullName,
       phoneNumber: storeTutor.tutor.phone,
-      gender: "",
+      gender: storeTutor.tutor.gender,
       birthday: storeTutor.tutor.birthday,
       email: storeTutor.tutor.email,
       address: storeTutor.tutor.address,
@@ -230,6 +230,7 @@ const GeneralInfo = () => {
                 type="select"
                 name="select"
                 id="gender"
+                value={form.gender}
                 onChange={handleChangeGender}
               >
                 <option value="None">Select gender</option>
