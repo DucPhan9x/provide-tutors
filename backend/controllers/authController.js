@@ -57,7 +57,17 @@ const login = async (req, res, next) => {
 };
 
 const register = async (req, res, next) => {
-    const { userName, password, role, email, fullName, male, phone, birthday, address } = req.body;
+    const {
+        userName,
+        password,
+        role,
+        email,
+        fullName,
+        gender,
+        phone,
+        birthday,
+        address,
+    } = req.body;
     try {
         const hash = await bcypt.hash(password, 12);
         if (role == 0) {
@@ -65,7 +75,7 @@ const register = async (req, res, next) => {
                 email,
                 userName,
                 fullName,
-                male,
+                gender,
                 phone,
                 birthday,
                 address,
@@ -77,7 +87,7 @@ const register = async (req, res, next) => {
                 email,
                 userName,
                 fullName,
-                male,
+                gender,
                 phone,
                 birthday,
                 address,
