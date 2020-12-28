@@ -48,7 +48,11 @@ const chooseSchedule = async (req, res, next) => {
     const scheduleId = req.body.scheduleId;
 
     try {
+        if (!scheduleId) {
+            throw new HttpError("scheduleID is empty!", 404);
+        }
         const schedule = await Schedule.findById({ _id: scheduleId });
+
         if (!schedule) {
             throw new HttpError("Schedule does not exist", 404);
         }

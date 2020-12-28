@@ -37,7 +37,7 @@ const registerMiddleware = async (req, res, next) => {
             address,
         } = req.body;
         if (!gender) {
-            throw new HttpError("Male is empty", 400);
+            throw new HttpError("gender is empty", 400);
         }
         if (!fullName) {
             throw new HttpError("fullname is empty", 400);
