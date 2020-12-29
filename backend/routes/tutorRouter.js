@@ -18,9 +18,9 @@ export const tutorRouter = Router();
 
 tutorRouter.route("/v1/api/tutor/add-schedule").post(jwtMidleware, addSchedule);
 
-tutorRouter.route("/v1/api/tutor/info").get(jwtMidleware, updateMiddleware, getInfor);
+tutorRouter.route("/v1/api/tutor/info").get(jwtMidleware, getInfor);
 
-tutorRouter.route("/v1/api/tutor/update-info").post(jwtMidleware, updateInfo);
+tutorRouter.route("/v1/api/tutor/update-info").post(jwtMidleware, updateMiddleware, updateInfo);
 
 tutorRouter
     .route("/v1/api/tutor/upload-image")
