@@ -178,6 +178,24 @@ const removeTutor = async (req, res, next) => {
             throw new HttpError("id incorrect", 401);
         }
         await Tutor.findByIdAndRemove({ _id });
+        // xoa dang dang  ky day
+        const [schedules, contracts] = Promise.all([
+            await Schedule.find({ tutorId: _id }),
+            await Contract.find({ tutorId: _id }),
+        ]);
+        const deleteSchedule = schedules.map((item) => {
+            let _id = item._id;
+            return Schedule.findByIdAndDelete({ _id });
+        });
+
+        const deleteContract = contracts.map((item) => {
+            let _id = item._id;
+            return Contract.findByIdAndDelete({ _id });
+        });
+        await Promise.all([...deleteSchedule, ...deleteContract]);
+
+        // xoa dang day
+
         res.status(200).json({
             status: 200,
             msg: "Success",
