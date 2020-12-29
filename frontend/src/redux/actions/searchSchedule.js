@@ -1,27 +1,11 @@
 import * as types from "../constants";
 import store from "../store";
 export function searchSchedule(type, resolve = () => {}) {
-  const renderAPI = () => {
-    const subject = type.subject;
-    const grade = type.grade;
-    if (!subject && !grade) {
-      return "";
-    }
-    if (subject && grade) {
-      return `?subject=${subject}&grade=${grade}`;
-    }
-    if (!subject && grade) {
-      return `?grade=${grade}`;
-    }
-    if (!grade && subject) {
-      return `?subject=${subject}`;
-    }
-  };
   store.dispatch({
     type: types.SEARCH_SCHEDULE,
   });
   return fetch(
-    `http://localhost:5000/v1/api/list-schedule/search${renderAPI}`,
+    `http://localhost:5000/v1/api/list-schedule/search?subject=${type.subject}&grade=${type.grade}`,
     {
       method: "GET",
       headers: {

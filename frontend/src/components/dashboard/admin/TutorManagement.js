@@ -57,12 +57,19 @@ const StyledGeneralInfo = styled.section`
 const TutorManagement = () => {
   const [show, setShow] = useState(false);
   const [tutorSelected, setTutorSelected] = useState(null);
+  const [tutors, setTutors] = useState([]);
+  const storeTutor = useSelector((store) => store.getTutorUsers);
 
   useEffect(() => {
     getTutorUsers();
   }, []);
 
-  const tutors = useSelector((store) => store.getTutorUsers.data.listTutor);
+  useEffect(() => {
+    if (!storeTutor.data) {
+      return;
+    }
+    setTutors(storeTutor.data.listTutor);
+  }, [storeTutor]);
 
   return (
     <StyledTutorManagement>
@@ -84,7 +91,7 @@ const TutorManagement = () => {
                   <tr
                     onClick={() => {
                       setShow(true);
-                      setTutorSelected(item.info);
+                      setTutorSelected(item);
                     }}
                   >
                     <td>{index + 1}</td>
@@ -95,6 +102,10 @@ const TutorManagement = () => {
                       <Button
                         color={"danger"}
                         onClick={() => {
+                          const arrTutor = tutors.filter((tutor) => {
+                            return tutor._id !== item._id;
+                          });
+                          setTutors(arrTutor);
                           removeTutor(item._id, (data) => {
                             if (data.status === 200) {
                               alert("Remove succeed!");
@@ -143,7 +154,7 @@ const TutorManagement = () => {
                   <FGroup
                     propsInput={{
                       name: "phoneNumber",
-                      value: tutorSelected && tutorSelected.phoneNumber,
+                      value: tutorSelected && tutorSelected.phone,
                       disabled: true,
                     }}
                   />

@@ -57,13 +57,20 @@ const StyledGeneralInfo = styled.section`
 const StudentManagement = () => {
   const [show, setShow] = useState(false);
   const [studentSelected, setStudentSelected] = useState(null);
+  const [students, setStudents] = useState([]);
+
+  const storeStudent = useSelector((store) => store.getStudentUsers);
+
   useEffect(() => {
     getStudentUsers();
   }, []);
 
-  const students = useSelector(
-    (store) => store.getStudentUsers.data.listStudent
-  );
+  useEffect(() => {
+    if (!storeStudent.data) {
+      return;
+    }
+    setStudents(storeStudent.data.listStudent);
+  }, [storeStudent]);
 
   return (
     <StyledStudentManagement>
@@ -85,7 +92,7 @@ const StudentManagement = () => {
                   <tr
                     onClick={() => {
                       setShow(true);
-                      setStudentSelected(item.info);
+                      setStudentSelected(item);
                     }}
                   >
                     <td>{index + 1}</td>
@@ -97,6 +104,10 @@ const StudentManagement = () => {
                         color={"danger"}
                         id="btn1"
                         onClick={() => {
+                          const arrStudents = students.filter((student) => {
+                            return student._id !== item._id;
+                          });
+                          setStudents(arrStudents);
                           removeStudent(item._id, (data) => {
                             if (data.status === 200) {
                               alert("Remove succeed!");
@@ -145,7 +156,7 @@ const StudentManagement = () => {
                   <FGroup
                     propsInput={{
                       name: "phoneNumber",
-                      value: studentSelected && studentSelected.phoneNumber,
+                      value: studentSelected && studentSelected.phone,
                       disabled: true,
                     }}
                   />
