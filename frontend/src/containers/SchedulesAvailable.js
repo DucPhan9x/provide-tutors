@@ -16,12 +16,14 @@ const SchedulesAvailable = () => {
   useEffect(() => {
     getSchedule();
   }, []);
+
   useEffect(() => {
     if (!storeSchedules.data) {
       return;
     }
     setSchedules(storeSchedules.data.schedules);
   }, [storeSchedules]);
+
   return (
     <div className="our-tutors">
       <h2 className="h2 text-center">
@@ -76,6 +78,7 @@ const SchedulesAvailable = () => {
                 auth={auth}
                 scheduleId={item._id}
                 status={item.status}
+                tutorId={item.tutorId}
               />
             );
           })}

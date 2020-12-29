@@ -1,5 +1,5 @@
 export const OPTIONS_ROLE = [
-  { value: 0, label: "Tutors" },
+  { value: 0, label: "Tutor" },
   { value: 1, label: "Student" },
 ];
 export const OPTIONS_GENDER = [

@@ -1,9 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Button, Table } from "reactstrap";
+
 import { useSelector } from "react-redux";
 
+import { Table, Button, Form, Label, FormGroup, Input } from "reactstrap";
+import Modal from "react-bootstrap/Modal";
+import ModalTitle from "react-bootstrap/ModalTitle";
+import ModalBody from "react-bootstrap/ModalBody";
+import ModalFooter from "react-bootstrap/ModalFooter";
+
 import { learningSchedule } from "../../../../redux/actions/learningSchedule";
+import { reviewTutor } from "../../../../redux/actions/reviewTutor";
 
 const StyledSchedule = styled.section`
   margin: 0 0 auto;
@@ -311,7 +318,44 @@ const StyledSchedule = styled.section`
 
 `;
 
+const StyledReviewPopup = styled.section`
+
+  .form-info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+    .form__item {
+      float: left;
+      width: 100%;
+      height:100%
+      margin-bottom: 10px;
+      margin-bottom: -20px; 
+    }
+    label {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .form-group {
+      margin: 0 10px 20px 10px;
+      input {
+        min-height: 36px;
+        border-radius: 4px;
+        font-size: 12px;
+        padding: 8px;
+      }
+    }
+ 
+
+`;
 const Schedule = () => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+
+  const [selectedTutor, setSelectedTutor] = useState("");
+
   useEffect(() => {
     learningSchedule();
   }, []);
@@ -319,6 +363,28 @@ const Schedule = () => {
     (store) => store.learningSchedule.data.contracts
   );
 
+  const [content, setContent] = React.useState("");
+
+  const handleSubmitReviewForm = (event) => {
+    event.preventDefault();
+
+    const reviewFormData = {
+      tutorId: selectedTutor.tutorId,
+      content: content,
+    };
+
+    reviewTutor(reviewFormData, (data) => {
+      if (data.status === 200) {
+        setShow(false);
+        alert(data.msg);
+      } else {
+        alert(data.msg);
+      }
+    });
+  };
+  const handleChange = (event) => {
+    setContent(event.target.value);
+  };
   return (
     <StyledSchedule>
       <div className="container">
@@ -339,7 +405,7 @@ const Schedule = () => {
                     <th>Time</th>
                     <th>Tutor Name</th>
                     <th>Status</th>
-                    <th>Feedback</th>
+                    <th>Review</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -354,14 +420,57 @@ const Schedule = () => {
                           <td>{item.tutorName}</td>
                           <td>{item.status}</td>
                           <td>
-                            <Button>Feedback</Button>
-                            {/* onClick => show Modal to feedback, button Send Feedback */}
+                            <Button
+                              color="warning"
+                              onClick={() => {
+                                setShow(true);
+                                setSelectedTutor(item);
+                              }}
+                            >
+                              Review
+                            </Button>
                           </td>
                         </tr>
                       );
                     })}
                 </tbody>
               </Table>
+              <Modal
+                className="fade_popup centered_addpopup "
+                show={show}
+                onHide={handleClose}
+              >
+                <ModalTitle className="lb">REVIEW</ModalTitle>
+                <ModalBody>
+                  {" "}
+                  <StyledReviewPopup>
+                    <Form className="form-info">
+                      <div className="form__item">
+                        <div className="form__item__inner">
+                          <FormGroup>
+                            <Label>Tutor Name: {selectedTutor.tutorName}</Label>
+                            <Input
+                              type="textarea"
+                              name="text"
+                              value={content}
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </div>
+                      </div>
+                    </Form>
+                  </StyledReviewPopup>
+                </ModalBody>
+
+                <ModalFooter>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button color="primary" onClick={handleSubmitReviewForm}>
+                    Send
+                  </Button>
+                </ModalFooter>
+              </Modal>
             </div>
           </div>
         </div>

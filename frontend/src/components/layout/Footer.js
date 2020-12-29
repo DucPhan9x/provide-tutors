@@ -26,8 +26,8 @@ const Footer = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink activeClassName="--active" to="/our-tutors">
-                  Our tutors
+                <NavLink activeClassName="--active" to="/schedule-available">
+                  Schedule available
                 </NavLink>
               </li>
             </ul>

@@ -102,7 +102,7 @@ function App() {
           component={withLayout(ChangePassword)}
         />
         <Route
-          path="/our-tutors"
+          path="/schedule-available"
           exact
           component={withLayout(SchedulesAvailable)}
         />

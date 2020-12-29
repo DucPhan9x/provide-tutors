@@ -18,9 +18,10 @@ const HomeStudent = () => {
     setListRegister(storeListRegisterStudent.data.listRegister);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storeListRegisterStudent]);
+
   return (
     <div>
-      <Schedule />;
+      <Schedule/>;
       <ConfirmSchedule arrRegister={listRegister} />;
     </div>
   );

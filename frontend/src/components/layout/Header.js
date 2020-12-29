@@ -69,7 +69,7 @@ function Header() {
             </NavLink>
           )}
           {auth && auth.role !== "admin" && (
-            <NavLink activeClassName="--active" to="/our-tutors">
+            <NavLink activeClassName="--active" to="/schedule-available">
               <span>Schedule available</span>
             </NavLink>
           )}

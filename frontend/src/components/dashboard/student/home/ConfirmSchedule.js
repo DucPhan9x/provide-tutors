@@ -337,7 +337,7 @@ const ConfirmSchedule = ({ arrRegister }) => {
                     arrRegister.map((item, index) => {
                       return (
                         <tr>
-                          <th scope="row">{index}</th>
+                          <th scope="row">{index + 1}</th>
                           <td>{item.subject}</td>
                           <td>{item.grade}</td>
                           <td>{item.time.join(" and ")}</td>

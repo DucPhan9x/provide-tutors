@@ -124,7 +124,10 @@ const StyledAddPopup = styled.section`
 const Schedule = () => {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setTimeDay([]);
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
 
   const [subject, setSubject] = useState("");
@@ -422,7 +425,7 @@ const Schedule = () => {
                     min="50000"
                     max="200000"
                     step="50000"
-                    placeholder="Price (VNĐ)"
+                    placeholder="Price ($)"
                     onChange={(event) => getPrice(event.target.value)}
                   ></input>
                 </div>
