@@ -73,7 +73,6 @@ const DropdownUserMenu = ({ auth }) => {
         <img src={defaultAvatar} alt="Avatar" className="avatar" />
         <ChevronDown />
       </DropdownToggle>
-
       <DropdownMenu>
         <NavLink
           to={auth && auth.role === "admin" ? "/admin" : "/login"}

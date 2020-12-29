@@ -88,7 +88,7 @@ const Form = ({ handleSubmit }) => {
     handleSubmit(formData);
   };
   const handleChange = (event) => {
-    setForm({ ...form, [event.target.name]: event.target.value.trim() });
+    setForm({ ...form, [event.target.name]: event.target.value });
   };
 
   const handleFocus = (event) => {
