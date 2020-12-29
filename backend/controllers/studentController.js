@@ -174,10 +174,10 @@ const delRegister = async (req, res, next) => {
 
 const reviewTutor = async (req, res, next) => {
     const { id } = req.user;
-    const { title, content, tutorId } = req.body;
+    const { content, tutorId } = req.body;
     try {
-        if (!title || !content) {
-            throw new HttpError("title or content is empty!", 401);
+        if (!content) {
+            throw new HttpError("Content is empty!", 401);
         }
         if (!tutorId) {
             throw new HttpError("tutorId is empty!", 401);
@@ -185,7 +185,7 @@ const reviewTutor = async (req, res, next) => {
         const student = await Student.findById({ _id: id }, { fullName: 1 });
         const fullName = student.fullName;
         console.log(fullName);
-        await Review.create({ studentId: id, tutorId, title, content, fullName });
+        await Review.create({ studentId: id, tutorId, content, fullName });
         res.status(200).json({
             status: 200,
             msg: "Success",
