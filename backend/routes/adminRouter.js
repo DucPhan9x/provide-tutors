@@ -35,7 +35,3 @@ adminRouter.route("/v1/api/admin/list-tutor/remove/:_id").get(jwtAdminMiddleware
 adminRouter.route("/v1/api/admin/list-student").get(jwtAdminMiddleware, listStudent);
 
 adminRouter.route("/v1/api/admin/list-student/remove/:_id").get(jwtAdminMiddleware, removeStudent);
-
-adminRouter.route("/", (req, res, next) => {
-    res.send("welcome to web");
-});
