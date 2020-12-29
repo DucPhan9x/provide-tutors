@@ -124,9 +124,67 @@ const jwtAdminMiddleware = async (req, res, next) => {
     }
 };
 
+const updateMiddleware = async (req, res, next) => {
+    const { id, role } = req.user;
+    const { fullName, phone, email, address, birthday, gender } = req.body;
+    try {
+        if (!gender) {
+            throw new HttpError("gender is empty", 400);
+        }
+        if (!fullName) {
+            throw new HttpError("fullname is empty", 400);
+        }
+        if (!phone || !phoneRegex.test(phone)) {
+            throw new HttpError("Phone is not in the correct format", 400);
+        }
+        if (!birthday) {
+            throw new HttpError("Birthday is empty", 400);
+        }
+        if (!address) {
+            throw new HttpError("Address is empty", 400);
+        }
+        if (!emailRegexp.test(email)) {
+            throw new HttpError("Email is invalidate", 400);
+        }
+        const userS = await Student.findOne({ email }, { email: 1 });
+        const userT = await Tutor.findOne({ email }, { email: 1 });
+        let mailE = "";
+        if (role == 0) {
+            const user = await Student.findById({ _id: id }, { email: 1 });
+            mailE = user.email;
+        }
+        if (role == 1) {
+            const user = await Tutor.findById({ _id: id }, { email: 1 });
+            mailE = user.email;
+        }
+
+        if ((userS || userT) && email != mailE) {
+            throw new HttpError("Email has been used in another account", 400);
+        }
+        const newInfo = {
+            phone,
+            fullName,
+            email,
+            gender,
+            birthday,
+            address,
+        };
+        if (role == 0) {
+            await Student.findByIdAndUpdate({ _id: id }, newInfo);
+        }
+        if (role == 1) {
+            await Tutor.findByIdAndUpdate({ _id: id }, newInfo);
+        }
+        next();
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+};
 export const authMiddleware = {
     registerMiddleware,
     loginMiddleware,
     jwtMidleware,
     jwtAdminMiddleware,
+    updateMiddleware,
 };
