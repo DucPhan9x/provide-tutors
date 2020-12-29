@@ -15,9 +15,7 @@ const reviewSchema = new Schema({
     rating: {
         type: Number,
     },
-    title: {
-        type: String,
-    },
+
     content: {
         type: String,
     },
