@@ -49,7 +49,7 @@ const search = async (req, res, next) => {
     let { grade, subject } = req.query;
     let schedules;
     try {
-        if (grade && subject) {
+        if (grade != "" && subject != "") {
             if (!isNaN(grade)) {
                 grade = parseInt(grade);
             }
@@ -64,7 +64,7 @@ const search = async (req, res, next) => {
             schedules = await Schedule.find({ grade }, { __v: 0, students: 0 });
         } else if (grade == "" && subject) {
             schedules = await Schedule.find({ subject }, { __v: 0, students: 0 });
-        } else if (grade == "" && !subject == "") {
+        } else if (grade == "" && subject == "") {
             schedules = await Schedule.find({}, { __v: 0, students: 0 });
         }
         res.status(200).json({

@@ -108,12 +108,21 @@ const register = async (req, res, next) => {
 const forgotPassword = async (req, res, next) => {
     try {
         const { email } = req.body;
+        console.log(email);
         const [student, tutor] = await Promise.all([
             Student.findOne({ email }),
             Tutor.findOne({ email }),
         ]);
+        console.log(student, tutor);
         if (!student && !tutor) {
             throw new HttpError("Email does not match any account", 401);
+        }
+        let userId;
+        if (student) {
+            userId = student._id;
+        }
+        if (tutor) {
+            userId = tutor._id;
         }
         const code = generate();
         const enCode = await bcypt.hash(code, 12);
@@ -121,7 +130,7 @@ const forgotPassword = async (req, res, next) => {
         if (codeReset) {
             await CodeReset.findOneAndUpdate({ email }, { enCode, time: new Date() });
         } else {
-            await CodeReset.create({ email, enCode, userId: student._id });
+            await CodeReset.create({ email, enCode, userId });
         }
         sendEmail(email, code);
         res.status(200).json({
