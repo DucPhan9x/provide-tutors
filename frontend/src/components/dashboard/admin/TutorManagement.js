@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Table, Button, Form, Label } from "reactstrap";
-import { FGroup } from "../../common/";
+import { Table, Button, Form } from "reactstrap";
 
 import Modal from "react-bootstrap/Modal";
 import ModalTitle from "react-bootstrap/ModalTitle";
@@ -71,6 +70,8 @@ const TutorManagement = () => {
     setTutors(storeTutor.data.listTutor);
   }, [storeTutor]);
 
+  const [tutorId, setTutorId] = useState("");
+
   return (
     <StyledTutorManagement>
       <div className="table-admin">
@@ -102,17 +103,9 @@ const TutorManagement = () => {
                       <Button
                         color={"danger"}
                         onClick={() => {
-                          const arrTutor = tutors.filter((tutor) => {
-                            return tutor._id !== item._id;
-                          });
-                          setTutors(arrTutor);
-                          removeTutor(item._id, (data) => {
-                            if (data.status === 200) {
-                              alert("Remove succeed!");
-                            } else {
-                              alert("Remove failed, " + data.msg);
-                            }
-                          });
+                          setTutorId(item._id);
+                          setShow(true);
+                          
                         }}
                       >
                         Remove
@@ -125,97 +118,40 @@ const TutorManagement = () => {
         </Table>
       </div>
       <Modal
-        className="fade_popup centered "
+        className="fade_popup confirm-centered "
         show={show}
         onHide={() => setShow(false)}
         data={tutorSelected}
       >
-        <ModalTitle className="lb">INFORMATION</ModalTitle>
+        <ModalTitle className="lb">CONFIRM</ModalTitle>
         <ModalBody>
           {" "}
           <StyledGeneralInfo>
             <Form className="form-info">
-              <div className="form__item">
-                <div className="form__item__inner">
-                  <Label>Full name</Label>
-                  <FGroup
-                    propsInput={{
-                      name: "fullName",
-                      value: tutorSelected && tutorSelected.fullName,
-                      disabled: true,
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div className="form__item">
-                <div className="form__item__inner">
-                  <Label>Phone Number</Label>
-                  <FGroup
-                    propsInput={{
-                      name: "phoneNumber",
-                      value: tutorSelected && tutorSelected.phone,
-                      disabled: true,
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="form__item">
-                <div className="form__item__inner">
-                  <Label>Birthday</Label>
-                  <FGroup
-                    propsInput={{
-                      name: "birthday",
-                      value: tutorSelected && tutorSelected.birthday,
-                      disabled: true,
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div className="form__item">
-                <div className="form__item__inner">
-                  <Label>Gender</Label>
-                  <FGroup
-                    propsInput={{
-                      name: "gender",
-                      value: tutorSelected && tutorSelected.gender,
-                      disabled: true,
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="form__item">
-                <div className="form__item__inner">
-                  <Label>Email</Label>
-                  <FGroup
-                    propsInput={{
-                      name: "email",
-                      value: tutorSelected && tutorSelected.email,
-                      disabled: true,
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div className="form__item">
-                <div className="form__item__inner">
-                  <Label>Address</Label>
-                  <FGroup
-                    propsInput={{
-                      name: "address",
-                      value: tutorSelected && tutorSelected.address,
-                      disabled: true,
-                    }}
-                  />
-                </div>
-              </div>
+              <label>Are you sure? </label>
             </Form>
           </StyledGeneralInfo>
         </ModalBody>
         <ModalFooter>
           <Button variant="secondary" onClick={() => setShow(false)}>
-            Close
+            No
+          </Button>
+          <Button
+            color="primary"
+            onClick={() => {
+              const arrTutor = tutors.filter((tutor) => {
+                return tutor._id !== tutorId;
+              });
+              setTutors(arrTutor);
+              removeTutor(tutorId, (data) => {
+                if (data.status === 200) {
+                  alert("Remove succeed!");
+                }
+              });
+              setShow(false);
+            }}
+          >
+            Yes
           </Button>
         </ModalFooter>
       </Modal>

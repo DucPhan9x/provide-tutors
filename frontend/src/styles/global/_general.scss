@@ -86,6 +86,20 @@ a {
   align-items: center;
 }
 
+.confirm-centered {
+  
+  
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .modal-content{
+    width: 300px;
+    justify-content: center;
+    margin-left: 150px;
+  }
+}
+
 .centered_addpopup {
   margin-top: 0;
   display: flex;

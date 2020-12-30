@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Table, Button, Form, Label } from "reactstrap";
-import { FGroup } from "../../common/";
+import { Table, Button, Form } from "reactstrap";
 
 import Modal from "react-bootstrap/Modal";
 import ModalTitle from "react-bootstrap/ModalTitle";
@@ -72,6 +71,8 @@ const StudentManagement = () => {
     setStudents(storeStudent.data.listStudent);
   }, [storeStudent]);
 
+  const [studentId, setStudentId] = useState("");
+
   return (
     <StyledStudentManagement>
       <div className="table-admin">
@@ -102,19 +103,9 @@ const StudentManagement = () => {
                     <td>
                       <Button
                         color={"danger"}
-                        id="btn1"
                         onClick={() => {
-                          const arrStudents = students.filter((student) => {
-                            return student._id !== item._id;
-                          });
-                          setStudents(arrStudents);
-                          removeStudent(item._id, (data) => {
-                            if (data.status === 200) {
-                              alert("Remove succeed!");
-                            } else {
-                              alert("Remove failed, " + data.msg);
-                            }
-                          });
+                          setStudentId(item._id);
+                          setShow(true);
                         }}
                       >
                         Remove
@@ -127,97 +118,40 @@ const StudentManagement = () => {
         </Table>
       </div>
       <Modal
-        className="fade_popup centered "
+        className="fade_popup confirm-centered "
         show={show}
         onHide={() => setShow(false)}
         data={studentSelected}
       >
-        <ModalTitle className="lb">INFORMATION</ModalTitle>
+        <ModalTitle className="lb">CONFIRM</ModalTitle>
         <ModalBody>
           {" "}
           <StyledGeneralInfo>
             <Form className="form-info">
-              <div className="form__item">
-                <div className="form__item__inner">
-                  <Label>Full name</Label>
-                  <FGroup
-                    propsInput={{
-                      name: "fullName",
-                      value: studentSelected && studentSelected.fullName,
-                      disabled: true,
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div className="form__item">
-                <div className="form__item__inner">
-                  <Label>Phone Number</Label>
-                  <FGroup
-                    propsInput={{
-                      name: "phoneNumber",
-                      value: studentSelected && studentSelected.phone,
-                      disabled: true,
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="form__item">
-                <div className="form__item__inner">
-                  <Label>Birthday</Label>
-                  <FGroup
-                    propsInput={{
-                      name: "birthday",
-                      value: studentSelected && studentSelected.birthday,
-                      disabled: true,
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div className="form__item">
-                <div className="form__item__inner">
-                  <Label>Gender</Label>
-                  <FGroup
-                    propsInput={{
-                      name: "gender",
-                      value: studentSelected && studentSelected.gender,
-                      disabled: true,
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="form__item">
-                <div className="form__item__inner">
-                  <Label>Email</Label>
-                  <FGroup
-                    propsInput={{
-                      name: "email",
-                      value: studentSelected && studentSelected.email,
-                      disabled: true,
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div className="form__item">
-                <div className="form__item__inner">
-                  <Label>Address</Label>
-                  <FGroup
-                    propsInput={{
-                      name: "address",
-                      value: studentSelected && studentSelected.address,
-                      disabled: true,
-                    }}
-                  />
-                </div>
-              </div>
+              <label>Are you sure? </label>
             </Form>
           </StyledGeneralInfo>
         </ModalBody>
         <ModalFooter>
           <Button variant="secondary" onClick={() => setShow(false)}>
-            Close
+            No
+          </Button>
+          <Button
+            color="primary"
+            onClick={() => {
+              const arrStudent = students.filter((student) => {
+                return student._id !== studentId;
+              });
+              setStudents(arrStudent);
+              removeStudent(studentId, (data) => {
+                if (data.status === 200) {
+                  alert("Remove succeed!");
+                }
+              });
+              setShow(false);
+            }}
+          >
+            Yes
           </Button>
         </ModalFooter>
       </Modal>

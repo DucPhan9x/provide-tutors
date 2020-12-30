@@ -380,9 +380,9 @@ const ConfirmSchedule = ({ arrStudents }) => {
                               <Button
                                 color="info"
                                 style={{
-                                  width: "50%",
+                                  width: "40%",
                                   outline: "none",
-                                  margin: 20,
+                                  marginLeft: 10,
                                 }}
                                 onClick={() => {
                                   setShow(true);

@@ -1,7 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Table, Button } from "reactstrap";
+import { Table, Button, Form } from "reactstrap";
 import { studentRemoveScheduleRegister } from "../../../../redux/actions/studentRemoveScheduleRegister";
+
+import Modal from "react-bootstrap/Modal";
+import ModalTitle from "react-bootstrap/ModalTitle";
+import ModalBody from "react-bootstrap/ModalBody";
+import ModalFooter from "react-bootstrap/ModalFooter";
+
+const StyledGeneralInfo = styled.section`
+
+  .form-info {
+   
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .form__item {
+      float: left;
+      width: 50%;
+      text-align: left;
+      margin-bottom: 10px;
+      margin-top: 10px;
+
+    }
+    label {
+      margin-left: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .form-group {
+      margin: 0 10px 20px 10px;
+      input {
+        min-height: 36px;
+        border-radius: 4px;
+        font-size: 12px;
+        padding: 8px;
+      }
+    }
+`;
 
 const StyledSchedule = styled.section`
   margin: 0 100px auto;
@@ -314,6 +351,9 @@ const ConfirmSchedule = ({ arrRegister }) => {
   useEffect(() => {
     setSchedules(arrRegister);
   }, [arrRegister]);
+  const [show, setShow] = useState(false);
+
+  const [selectedSchedule, setSelectedSchedule] = useState("");
   return (
     <StyledSchedule>
       <div className="container">
@@ -355,21 +395,8 @@ const ConfirmSchedule = ({ arrRegister }) => {
                                 marginLeft: 10,
                               }}
                               onClick={() => {
-                                studentRemoveScheduleRegister(
-                                  item._id,
-                                  (data) => {
-                                    if (data.status === 200) {
-                                      const arrSchedule = schedules.filter(
-                                        (schedule) => {
-                                          return schedule._id !== item._id;
-                                        }
-                                      );
-                                      setSchedules(arrSchedule);
-                                    } else {
-                                      alert("Remove failed, " + data.msg);
-                                    }
-                                  }
-                                );
+                                setSelectedSchedule(item._id);
+                                setShow(true);
                               }}
                             >
                               Remove
@@ -380,6 +407,45 @@ const ConfirmSchedule = ({ arrRegister }) => {
                     })}
                 </tbody>
               </Table>
+              <Modal
+                className="fade_popup confirm-centered "
+                show={show}
+                onHide={() => setShow(false)}
+              >
+                <ModalTitle className="lb">CONFIRM</ModalTitle>
+                <ModalBody>
+                  {" "}
+                  <StyledGeneralInfo>
+                    <Form className="form-info">
+                      <label>Are you sure? </label>
+                    </Form>
+                  </StyledGeneralInfo>
+                </ModalBody>
+                <ModalFooter>
+                  <Button variant="secondary" onClick={() => setShow(false)}>
+                    No
+                  </Button>
+                  <Button
+                    color="primary"
+                    onClick={() => {
+                      const arrSchedule = schedules.filter((schedule) => {
+                        return schedule._id !== selectedSchedule;
+                      });
+                      setSchedules(arrSchedule);
+                      studentRemoveScheduleRegister(selectedSchedule, (data) => {
+                        if (data.status === 200) {
+                          alert("Remove successfully!!!");
+                        } else {
+                          alert("Remove failed, " + data.msg);
+                        }
+                      });
+                      setShow(false);
+                    }}
+                  >
+                    Yes
+                  </Button>
+                </ModalFooter>
+              </Modal>
             </div>
           </div>
         </div>
