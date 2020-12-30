@@ -7,6 +7,7 @@ import { Contract } from "./Contract.model";
 import { Admin } from "./Admin.model";
 import { ScheduleAccept } from "./ScheduleAccept.model";
 import { Review } from "./Review.model";
+import { Feedback } from "./Feedback.model";
 export {
     Student,
     Tutor,
@@ -17,4 +18,5 @@ export {
     Admin,
     ScheduleAccept,
     Review,
+    Feedback,
 };

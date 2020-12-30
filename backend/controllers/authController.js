@@ -38,6 +38,7 @@ const login = async (req, res, next) => {
                 userName: tutor.userName,
                 id: tutor._id,
                 role: tutor.role,
+                fullName: tutor.fullName,
             };
         }
         const token = tokenEncode(data);
@@ -48,6 +49,7 @@ const login = async (req, res, next) => {
                 userName: data.userName,
                 role: data.role,
                 id: data.id,
+                fullname: data.fullName,
                 token,
             },
         });
