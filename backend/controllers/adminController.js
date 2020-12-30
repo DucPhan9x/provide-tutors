@@ -254,7 +254,7 @@ const removeStudent = async (req, res, next) => {
 
 const getFeedbacks = async (req, res, next) => {
     try {
-        const feedbacks = await Feedback.find();
+        const feedbacks = await Feedback.find().sort({ _id: -1 });
         res.status(200).json({
             status: 200,
             feedbacks,
