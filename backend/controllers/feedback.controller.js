@@ -8,6 +8,10 @@ const postFeedback = async (req, res, next) => {
             throw new HttpError("Content is empty!", 401);
         }
         await Feedback.create({ content, userId: id });
+        res.status(200).json({
+            status: 200,
+            msg: "Success",
+        });
     } catch (error) {
         next(error);
     }
