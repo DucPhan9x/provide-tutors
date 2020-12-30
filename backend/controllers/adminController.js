@@ -179,9 +179,11 @@ const removeTutor = async (req, res, next) => {
         }
         await Tutor.findByIdAndRemove({ _id });
         // xoa dang dang  ky day
-        const [schedules, contracts] = Promise.all([
+        const [schedules, contracts, register, apcept] = Promise.all([
             await Schedule.find({ tutorId: _id }),
             await Contract.find({ tutorId: _id }),
+            await ScheduleRegiste.find({ tutorId: _id }),
+            await ScheduleAccept.find({ tutorId: _id }),
         ]);
         const deleteSchedule = schedules.map((item) => {
             let _id = item._id;
@@ -192,7 +194,23 @@ const removeTutor = async (req, res, next) => {
             let _id = item._id;
             return Contract.findByIdAndDelete({ _id });
         });
-        await Promise.all([...deleteSchedule, ...deleteContract]);
+
+        const deleteRegister = register.map((item) => {
+            let _id = item._id;
+            return ScheduleRegiste.findByIdAndDelete({ _id });
+        });
+
+        const deleteAccept = apcept.map((item) => {
+            let _id = item._id;
+            return ScheduleAccept.findByIdAndDelete({ _id });
+        });
+
+        await Promise.all([
+            ...deleteSchedule,
+            ...deleteContract,
+            ...deleteRegister,
+            ...deleteAccept,
+        ]);
 
         // xoa dang day
 
