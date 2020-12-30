@@ -4,7 +4,14 @@ const { port, mongoURI } = envVariables;
 
 import { defaultMiddleware, errorHandle } from "./middlewares";
 
-import { authRouter, studentRouter, tutorRouter, scheduleRouter, adminRouter } from "./routes";
+import {
+    authRouter,
+    studentRouter,
+    tutorRouter,
+    scheduleRouter,
+    adminRouter,
+    feedbackRouter,
+} from "./routes";
 
 const main = async () => {
     const server = new HttpServer(port);
@@ -18,7 +25,7 @@ const main = async () => {
     server.registerRouter(tutorRouter);
     server.registerRouter(scheduleRouter);
     server.registerRouter(adminRouter);
-
+    server.registerRouter(feedbackRouter);
     server.registerMiddleware(errorHandle);
 };
 main();

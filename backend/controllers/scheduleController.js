@@ -49,7 +49,7 @@ const search = async (req, res, next) => {
     let { grade, subject } = req.query;
     let schedules;
     try {
-        if (grade && subject) {
+        if (grade != "" && subject != "") {
             if (!isNaN(grade)) {
                 grade = parseInt(grade);
             }
