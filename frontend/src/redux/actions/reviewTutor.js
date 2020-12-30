@@ -5,15 +5,18 @@ export function reviewTutor(content, resolve = () => {}) {
   store.dispatch({
     type: types.REVIEW_TUTOR,
   });
-  return fetch(`http://localhost:5000/v1/api/student/review-tutor`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      token: getAuth().token,
-    },
-    body: JSON.stringify(content),
-  })
+  return fetch(
+    `http://thuctapcongnhan.australiacentral.cloudapp.azure.com/v1/api/student/review-tutor`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        token: getAuth().token,
+      },
+      body: JSON.stringify(content),
+    }
+  )
     .then((response) => response.json())
     .then((data) => {
       resolve(data);

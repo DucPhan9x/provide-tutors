@@ -4,14 +4,17 @@ export function getSchedule(data, resolve = () => {}) {
   store.dispatch({
     type: types.GET_SCHEDULE_API,
   });
-  return fetch("http://localhost:5000/v1/api/list-schedule", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify(data),
-  })
+  return fetch(
+    "http://thuctapcongnhan.australiacentral.cloudapp.azure.com/v1/api/list-schedule",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  )
     .then((response) => response.json())
     .then((data) => {
       resolve(data);

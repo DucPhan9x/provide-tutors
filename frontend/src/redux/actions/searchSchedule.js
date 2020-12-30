@@ -5,7 +5,7 @@ export function searchSchedule(type, resolve = () => {}) {
     type: types.SEARCH_SCHEDULE,
   });
   return fetch(
-    `http://localhost:5000/v1/api/list-schedule/search?subject=${type.subject}&grade=${type.grade}`,
+    `http://thuctapcongnhan.australiacentral.cloudapp.azure.com/v1/api/list-schedule/search?subject=${type.subject}&grade=${type.grade}`,
     {
       method: "GET",
       headers: {

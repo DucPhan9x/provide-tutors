@@ -5,15 +5,18 @@ export function teachingSchedule(data, resolve = () => {}) {
   store.dispatch({
     type: types.GET_TEACHINGSCHEDULE_API,
   });
-  return fetch("http://localhost:5000/v1/api/tutor/teaching-schedule", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      token: getAuth().token,
-    },
-    body: JSON.stringify(data),
-  })
+  return fetch(
+    "http://thuctapcongnhan.australiacentral.cloudapp.azure.com/v1/api/tutor/teaching-schedule",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        token: getAuth().token,
+      },
+      body: JSON.stringify(data),
+    }
+  )
     .then((response) => response.json())
     .then((data) => {
       resolve(data);

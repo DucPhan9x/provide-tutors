@@ -5,14 +5,17 @@ export function uploadAvatar(data, resolve = () => {}) {
   store.dispatch({
     type: types.UPLOAD_AVATAR,
   });
-  return fetch("http://localhost:5000/v1/api/tutor/upload-image", {
-    method: "POST",
-    headers: {
-      "Content-type": "multipart/form-data",
-      token: getAuth().token,
-    },
-    body: data,
-  })
+  return fetch(
+    "http://thuctapcongnhan.australiacentral.cloudapp.azure.com/v1/api/tutor/upload-image",
+    {
+      method: "POST",
+      headers: {
+        "Content-type": "multipart/form-data",
+        token: getAuth().token,
+      },
+      body: data,
+    }
+  )
     .then((response) => response.json())
     .then((data) => {
       resolve(data);
