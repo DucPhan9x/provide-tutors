@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const Form = ({ handleSubmit }) => {
   const [error, setError] = React.useState({});
-  const [form, setForm] = React.useState({ email: "", password: "" });
+  const [form, setForm] = React.useState({ userName: "", password: "" });
   const [errorLogin, setErrorLogin] = React.useState();
   const storeLogin = useSelector((store) => store.login);
   const loading = storeLogin.loading;

@@ -1,0 +1,23 @@
+.schedule-available {
+  .form--search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    form {
+      display: flex;
+      justify-content: center;
+      & > input,
+      select {
+        width: 50%;
+        margin: 15px;
+      }
+    }
+    .btn--search:hover {
+      background: rgb(218, 160, 53) !important;
+    }
+    .btn--clear:hover {
+      background: rgb(15, 179, 15) !important;
+      color: black !important;
+    }
+  }
+}

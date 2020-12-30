@@ -269,7 +269,7 @@ const GeneralInfo = () => {
         </div>
 
         <div className="wrap-button">
-          <button className="find">
+          <button className="find" style={{ outline: "none" }}>
             Save my changes
             <span>
               <img src={save} alt="save" />

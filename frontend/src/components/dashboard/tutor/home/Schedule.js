@@ -352,7 +352,6 @@ const Schedule = () => {
   };
 
   const handleFocus = (event) => {
-    console.log("tyhjkl");
     setError({
       error: "",
     });

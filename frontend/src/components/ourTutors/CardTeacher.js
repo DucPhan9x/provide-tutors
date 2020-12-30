@@ -80,7 +80,7 @@ function CardTeacher({
           </div>
           <div className="card__teacher__inner__avatar__experiences">
             <p>
-              Time:<span className="primary">{time}</span>{" "}
+              Time:<span className="primary">{" " + time}</span>{" "}
             </p>
           </div>
           <div className="card__teacher__inner__avatar__info">
@@ -94,6 +94,7 @@ function CardTeacher({
               <h4 className="h4 primary">{prices}$ /Lesson</h4>
               <div>
                 <Button
+                  style={{ outline: "none" }}
                   disabled={auth && auth.role === 1}
                   color="success"
                   onClick={() => {
@@ -120,7 +121,7 @@ function CardTeacher({
 
                 <Button
                   className="review-btn"
-                  disabled={auth && auth.role === 1}
+                  style={{ outline: "none" }}
                   color="info"
                   onClick={() => {
                     getReviews(tutorId, (data) => {

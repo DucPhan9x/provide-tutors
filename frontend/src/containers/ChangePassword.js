@@ -1,12 +1,12 @@
 import React from "react";
 import { Form } from "../components/changePassword";
-import { changePassword } from "../redux/actions/changePassword";
 import { useHistory } from "react-router-dom";
+import { resetPassword } from "../redux/actions/resetPassword";
 
 function ChangePassword() {
   const history = useHistory();
   const handleChangePassword = (formData) => {
-    changePassword(formData, (data) => {
+    resetPassword(formData, (data) => {
       if (data.status === 200) {
         alert("Change password successfully");
         history.push("/login");

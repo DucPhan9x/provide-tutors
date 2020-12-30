@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import { getAuth } from "../../utils/helpers";
 const Footer = () => {
   return (
     <footer className="footer">
@@ -42,11 +43,14 @@ const Footer = () => {
                   FAQ
                 </NavLink>
               </li>
-              <li>
-                <NavLink activeClassName="--active" to="/contact-us">
-                  Contact us
-                </NavLink>
-              </li>
+              {getAuth().token && (
+                <li>
+                  <NavLink activeClassName="--active" to="/feedback">
+                    Feedback
+                  </NavLink>
+                </li>
+              )}
+
               <li>
                 <NavLink activeClassName="--active" to="/articles">
                   Articles

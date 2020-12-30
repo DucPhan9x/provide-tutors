@@ -30,7 +30,8 @@ const Form = ({ handleSubmit, email, code }) => {
 
     handleSubmit(formData);
   };
-  const loading = useSelector((store) => store.changePassword.loading);
+  const storeResetPass = useSelector((store) => store.resetPassword);
+  const loading = storeResetPass;
 
   const validate = () => {
     const errorState = {};

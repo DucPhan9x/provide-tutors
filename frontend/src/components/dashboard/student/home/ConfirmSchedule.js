@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Table, Button } from "reactstrap";
 import { studentRemoveScheduleRegister } from "../../../../redux/actions/studentRemoveScheduleRegister";
@@ -310,6 +310,10 @@ const StyledSchedule = styled.section`
 `;
 
 const ConfirmSchedule = ({ arrRegister }) => {
+  const [schedules, setSchedules] = useState();
+  useEffect(() => {
+    setSchedules(arrRegister);
+  }, [arrRegister]);
   return (
     <StyledSchedule>
       <div className="container">
@@ -333,8 +337,8 @@ const ConfirmSchedule = ({ arrRegister }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {arrRegister &&
-                    arrRegister.map((item, index) => {
+                  {schedules &&
+                    schedules.map((item, index) => {
                       return (
                         <tr>
                           <th scope="row">{index + 1}</th>
@@ -345,6 +349,7 @@ const ConfirmSchedule = ({ arrRegister }) => {
                           <td>
                             <Button
                               style={{
+                                outline: "none",
                                 color: "wheat",
                                 background: "red",
                                 marginLeft: 10,
@@ -354,7 +359,12 @@ const ConfirmSchedule = ({ arrRegister }) => {
                                   item._id,
                                   (data) => {
                                     if (data.status === 200) {
-                                      alert("Remove schedule succeed!");
+                                      const arrSchedule = schedules.filter(
+                                        (schedule) => {
+                                          return schedule._id !== item._id;
+                                        }
+                                      );
+                                      setSchedules(arrSchedule);
                                     } else {
                                       alert("Remove failed, " + data.msg);
                                     }

@@ -422,6 +422,7 @@ const Schedule = () => {
                           <td>
                             <Button
                               color="warning"
+                              style={{ outline: "none" }}
                               onClick={() => {
                                 setShow(true);
                                 setSelectedTutor(item);
@@ -463,10 +464,18 @@ const Schedule = () => {
                 </ModalBody>
 
                 <ModalFooter>
-                  <Button variant="secondary" onClick={handleClose}>
+                  <Button
+                    variant="secondary"
+                    onClick={handleClose}
+                    style={{ outline: "none" }}
+                  >
                     Close
                   </Button>
-                  <Button color="primary" onClick={handleSubmitReviewForm}>
+                  <Button
+                    color="primary"
+                    onClick={handleSubmitReviewForm}
+                    style={{ outline: "none" }}
+                  >
                     Send
                   </Button>
                 </ModalFooter>

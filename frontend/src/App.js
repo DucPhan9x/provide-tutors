@@ -109,7 +109,7 @@ function App() {
         <Route path="/about-us" exact component={withLayout(AboutUs)} />
         <Route path="/register" exact component={withLayout(Register)} />
         <Route path="/faq" exact component={withLayout(Faq)} />
-        <Route path="/contact-us" exact component={withLayout(ContactUs)} />
+        <Route path="/feedback" exact component={withLayout(ContactUs)} />
         <Route path="/articles" exact component={withLayout(Articles)} />
         {/* Homepage */}
         <Route path="/" component={withLayout(HomePage)} />

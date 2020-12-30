@@ -21,8 +21,8 @@ const HomeStudent = () => {
 
   return (
     <div>
-      <Schedule/>;
-      <ConfirmSchedule arrRegister={listRegister} />;
+      <Schedule />;
+      <ConfirmSchedule arrRegister={listRegister} />
     </div>
   );
 };

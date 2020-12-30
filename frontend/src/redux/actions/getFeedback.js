@@ -1,29 +1,30 @@
+import { getAuth } from "../../utils/helpers";
 import * as types from "../constants";
 import store from "../store";
-export function resetPassword(data, resolve = () => {}) {
+export function getFeedback(tutorId, resolve = () => {}) {
   store.dispatch({
-    type: types.RESETPASSWORD_API,
+    type: types.GET_FEEDBACK,
   });
-  return fetch("http://localhost:5000/v1/api/auth/change-password", {
-    method: "POST",
+  return fetch(`http://localhost:5000/v1/api/admin/feedbacks`, {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      token: getAuth().token,
     },
-    body: JSON.stringify(data),
   })
     .then((response) => response.json())
     .then((data) => {
       resolve(data);
       store.dispatch({
         payload: data,
-        type: types.RESETPASSWORD_API_SUCCEED,
+        type: types.GET_FEEDBACK_SUCCEED,
       });
     })
     .catch((error) => {
       store.dispatch({
         payload: error,
-        type: types.RESETPASSWORD_API_FAIL,
+        type: types.GET_FEEDBACK_FAILED,
       });
     });
 }

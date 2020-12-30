@@ -23,6 +23,9 @@ import listAdminNeedAccept from "./listAdminNeedAccept";
 import adminAccept from "./adminAccept";
 import listScheduleStudentRegister from "./listScheduleStudentRegister";
 import getReviews from "./getReviews";
+import searchSchedule from "./searchSchedule";
+import uploadAvatar from "./uploadAvatar";
+import getFeedback from "./getFeedback";
 
 export default combineReducers({
   login,
@@ -49,4 +52,7 @@ export default combineReducers({
   adminAccept,
   listScheduleStudentRegister,
   getReviews,
+  searchSchedule,
+  uploadAvatar,
+  getFeedback,
 });

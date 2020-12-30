@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Form, Label } from "reactstrap";
 import { FGroup } from "../../../common";
 import save from "../../../../assets/images/save.svg";
+import { isEmpty } from "validator";
 
 import { changePassword } from "../../../../redux/actions/changePassword";
 
@@ -88,12 +89,27 @@ const Password = () => {
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
-
+    if (isEmpty(form.currentPassword)) {
+      alert("Current password empty");
+      return;
+    }
+    if (isEmpty(form.newPassword)) {
+      alert("New password empty");
+      return;
+    }
+    if (isEmpty(form.newPasswordConfirm)) {
+      alert("New password confirm empty");
+      return;
+    } else {
+      if (form.newPasswordConfirm !== form.newPassword) {
+        alert("New password confirm is not matching!!!");
+        return;
+      }
+    }
     const formData = {
       password: form.currentPassword,
       newPassword: form.newPassword,
     };
-    console.log(formData);
 
     changePassword(formData, (data) => {
       if (data.status === 200) {
@@ -155,7 +171,7 @@ const Password = () => {
             />
           </div>
         </div>
-        <button className="find">
+        <button className="find" style={{ outline: "none" }}>
           Save
           <span>
             <img src={save} alt="save" />
