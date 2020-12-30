@@ -27,6 +27,7 @@ const login = async (req, res, next) => {
                 userName: student.userName,
                 id: student._id,
                 role: student.role,
+                fullName: student.fullName,
             };
         }
         if (tutor) {
