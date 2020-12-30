@@ -12,6 +12,7 @@ import {
     Student,
     ScheduleAccept,
     Contract,
+    Feedback,
 } from "../models";
 const { key_admin } = envVariables;
 
@@ -251,6 +252,18 @@ const removeStudent = async (req, res, next) => {
     }
 };
 
+const getFeedbacks = async (req, res, next) => {
+    try {
+        const feedbacks = await Feedback.find();
+        res.status(200).json({
+            status: 200,
+            feedbacks,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const adminController = {
     register,
     login,
@@ -261,4 +274,5 @@ export const adminController = {
     removeTutor,
     listStudent,
     removeStudent,
+    getFeedbacks,
 };
