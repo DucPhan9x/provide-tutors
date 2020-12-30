@@ -6,4 +6,4 @@ const { postFeedback } = feebackController;
 
 export const feedbackRouter = Router();
 
-feedbackRouter.route("/v1/api/feedback").get(jwtMidleware, postFeedback);
+feedbackRouter.route("/v1/api/feedback").post(jwtMidleware, postFeedback);
