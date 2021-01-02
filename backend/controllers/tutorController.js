@@ -55,6 +55,7 @@ const addSchedule = async (req, res, next) => {
                 }
             }
         }
+
         console.log(image);
         let schedule = {
             tutorId: id,
@@ -106,6 +107,7 @@ const uploadImageTutor = async (req, res, next) => {
             msg: "success",
         });
     } catch (error) {
+        console.log(error);
         next(error);
     }
 };
@@ -154,7 +156,9 @@ const tutorAccept = async (req, res, next) => {
     const scheduleRegistedId = req.params.id;
     try {
         const contracts = await Contract.find({ tutorId });
-        const scheduleRegiste = await ScheduleRegiste.findById({ _id: scheduleRegistedId });
+        const scheduleRegiste = await ScheduleRegiste.findById({
+            _id: scheduleRegistedId,
+        });
         if (!scheduleRegiste) {
             throw new HttpError("schedule does not exist", 400);
         }

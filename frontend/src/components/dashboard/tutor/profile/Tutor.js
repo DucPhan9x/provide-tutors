@@ -277,12 +277,10 @@ const Tutor = () => {
           <p className="arrow">
             <ChevronRight />
           </p>
-
-         
         </div>
         <div className="Student__inner">
           <div className="card">
-            <div className="avatar" >
+            <div className="avatar">
               <img src="https://picsum.photos/200" alt="avatar" />
               <div className="--bg"></div>
               <div className="avatar__update">
@@ -290,7 +288,6 @@ const Tutor = () => {
                 <p>Update</p>
               </div>
             </div>
-          
           </div>
 
           <div className="profile-userInfo">
@@ -307,25 +304,21 @@ const Tutor = () => {
               </div>
             </div>
             <div>
-              <Form className="form-info" >
+              <Form className="form-info">
                 <div className="form__item">
                   <div className="form__item__inner">
                     <Label>First name</Label>
-                    <FGroup
-                    
-                    />
+                    <FGroup />
                   </div>
                 </div>
                 <div className="form__item">
                   <div className="form__item__inner">
                     <Label>Last name</Label>
-                    <FGroup
-                    
-                    />
+                    <FGroup />
                   </div>
                 </div>
                 <div className="wrap-button">
-                  <button className="find" >
+                  <button className="find" style={{ outline: "none" }}>
                     Save my changes
                     <span>
                       <img src={save} alt="save" />

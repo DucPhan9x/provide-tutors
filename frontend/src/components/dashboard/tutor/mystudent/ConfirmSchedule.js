@@ -7,6 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import ModalTitle from "react-bootstrap/ModalTitle";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalFooter from "react-bootstrap/ModalFooter";
+import { tutorAccept } from "../../../../redux/actions/tutorAccept";
 
 const StyledSchedule = styled.section`
 
@@ -342,59 +343,16 @@ const StyledGeneralInfo = styled.section`
     }
 `;
 
-const ConfirmSchedule = () => {
+const ConfirmSchedule = ({ arrStudents }) => {
   const [show, setShow] = useState(false);
   const [studentSelected, setStudentSelected] = useState(null);
-
-  const arrStudents = [
-    {
-      id: "1",
-      time: "7:00 - 9:00, Tue & Thur",
-      name: "Thu Vu",
-      subject: "Physics",
-      grade: "8",
-      inf: {
-        fullName: "Vu Thi Bich Thu",
-        birthday: "01/01/2011",
-        gender: "Female",
-        address: "Quang Nam",
-      },
-    },
-    {
-      id: "2",
-      time: "13:00 - 15:00, Mon & Fri",
-      name: "Trong Duc",
-      subject: "English",
-      grade: "9",
-      inf: {
-        fullName: "Phan Trong Duc",
-        birthday: "03/03/2033",
-        gender: "Male",
-        address: "Quang Nam",
-      },
-    },
-    {
-      id: "3",
-      time: "20:00 - 21:00, Wed & Sun",
-      name: "Trung Nam",
-      subject: "Biology",
-      grade: "7",
-      inf: {
-        fullName: "Nguyen Trung Nam",
-        birthday: "01/01/2011",
-        gender: "Female",
-        address: "Quang Nam",
-      },
-    },
-  ];
-
   return (
     <StyledSchedule>
       <div className="container">
         <div className="schedule__inner">
           <div className="class-schedule schedule-item">
             <div className="class-schedule__header">
-              <p className="title">My student registered</p>
+              <p className="title">List students waiting</p>
             </div>
             <div>
               <br></br>
@@ -411,50 +369,76 @@ const ConfirmSchedule = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {arrStudents.map((item, index) => {
-                    return (
-                      <tr>
-                        <th scope="row">{index + 1}</th>
-                        <td>
-                          <div>
-                            {item.name}
+                  {arrStudents &&
+                    arrStudents.map((item, index) => {
+                      return (
+                        <tr>
+                          <th scope="row">{index + 1}</th>
+                          <td>
+                            <div>
+                              {item.studentName}
+                              <Button
+                                color="info"
+                                style={{
+                                  width: "40%",
+                                  outline: "none",
+                                  marginLeft: 10,
+                                }}
+                                onClick={() => {
+                                  setShow(true);
+                                  setStudentSelected(item);
+                                }}
+                              >
+                                See detail
+                              </Button>
+                            </div>
+                          </td>
+                          <td>{item.subject}</td>
+                          <td>{item.grade}</td>
+                          <td>{item.time.join(" and ")}</td>
+                          <td>
+                            {item.status === 1 ? (
+                              <Button
+                                style={{ outline: "none", background: "gray" }}
+                                disabled={true}
+                              >
+                                Waiting
+                              </Button>
+                            ) : (
+                              <Button
+                                style={{ outline: "none", background: "green" }}
+                                onClick={() => {
+                                  tutorAccept(item._id, (data) => {
+                                    console.log(data);
+                                    if (data.status === 200) {
+                                      alert(
+                                        "Accept succeed student " +
+                                          item.studentName
+                                      );
+                                    } else {
+                                      alert("Accept failed, " + data.msg);
+                                    }
+                                  });
+                                }}
+                              >
+                                Accept
+                              </Button>
+                            )}
+
                             <Button
-                              color="info"
+                              color="warning"
                               style={{
-                                width: "50%",
                                 outline: "none",
-                                margin: 20,
-                              }}
-                              onClick={() => {
-                                setShow(true);
-                                setStudentSelected(item.inf);
+                                background: "red",
+                                marginLeft: 10,
                               }}
                             >
-                              See detail
+                              Remove
                             </Button>
-                          </div>
-                        </td>
-                        <td>{item.subject}</td>
-                        <td>{item.grade}</td>
-                        <td>{item.time}</td>
-                        <td>
-                          <Button color="warning" style={{ outline: "none" }}>
-                            Accept
-                          </Button>
-                          <Button
-                            color="warning"
-                            style={{
-                              outline: "none",
-                              background: "red",
-                              marginLeft: 10,
-                            }}
-                          >
-                            Remove
-                          </Button>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </Table>
             </div>
@@ -478,7 +462,7 @@ const ConfirmSchedule = () => {
                   <FGroup
                     propsInput={{
                       name: "fullName",
-                      value: studentSelected && studentSelected.fullName,
+                      value: studentSelected && studentSelected.studentName,
                       disabled: true,
                     }}
                   />

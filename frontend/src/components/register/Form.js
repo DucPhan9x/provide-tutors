@@ -1,7 +1,7 @@
 import React from "react";
 import { FormBox } from "../common";
 import { Form as ReForm } from "reactstrap";
-import { isEmpty, isEmail } from "validator";
+import { isEmpty, isEmail, isMobilePhone } from "validator";
 import { OPTIONS_ROLE, OPTIONS_GENDER } from "../../utils/constants";
 import SingleSelect from "../common/SingleSelect";
 import { useSelector } from "react-redux";
@@ -15,20 +15,20 @@ const Form = ({ handleSubmit }) => {
     confirmPass: "",
     role: null,
     fullName: "",
-    male: null,
+    gender: null,
     phone: "",
     birthday: "",
     address: "",
   });
   const [role, setRole] = React.useState(null);
-  const [male, setMale] = React.useState(null);
+  const [gender, setGender] = React.useState(null);
 
   const [errorRegister, setErrorRegister] = React.useState();
   const onChangeRole = (data) => {
     data.label === "Student" ? setRole("0") : setRole("1");
   };
   const onChangeGender = (data) => {
-    setMale(data.label);
+    setGender(data.label);
   };
   const loading = useSelector((store) => store.register.loading);
 
@@ -44,8 +44,8 @@ const Form = ({ handleSubmit }) => {
     if (isEmpty(form.address)) {
       errorState.address = "Please enter address";
     }
-    if (isEmpty(form.phone)) {
-      errorState.phone = "Please enter number phone";
+    if (!isMobilePhone(form.phone)) {
+      errorState.phone = "Number phone is not valid!";
     }
     if (isEmpty(form.birthday)) {
       errorState.birthday = "Please enter birthday";
@@ -62,8 +62,8 @@ const Form = ({ handleSubmit }) => {
     if (!role) {
       errorState.role = "Please select role";
     }
-    if (!male) {
-      errorState.male = "Please select gender";
+    if (!gender) {
+      errorState.gender = "Please select gender";
     }
     return errorState;
   };
@@ -78,17 +78,17 @@ const Form = ({ handleSubmit }) => {
       email: form.email,
       password: form.password,
       role: role,
-      male: male,
+      gender: gender,
       fullName: form.fullName,
       birthday: form.birthday,
       phone: form.phone,
       address: form.address,
     };
-    console.log(form.birthday);
+    console.log(formData);
     handleSubmit(formData);
   };
   const handleChange = (event) => {
-    setForm({ ...form, [event.target.name]: event.target.value.trim() });
+    setForm({ ...form, [event.target.name]: event.target.value });
   };
 
   const handleFocus = (event) => {
@@ -136,6 +136,7 @@ const Form = ({ handleSubmit }) => {
               placeholder: "Birthday",
               value: form.birthday,
               onChange: handleChange,
+              onFocus: handleFocus,
               disabled: false,
             }}
             error={error.birthday}
@@ -153,14 +154,14 @@ const Form = ({ handleSubmit }) => {
           />
           <div style={{ marginBottom: 15 }}>
             <SingleSelect
-              name="male"
+              name="gender"
               placeholder="Gender"
               onChange={onChangeGender}
               options={OPTIONS_GENDER}
               isDisabled={false}
             />
-            {!male && (
-              <span style={{ color: "red", fontSize: 13 }}>{error.male}</span>
+            {!gender && (
+              <span style={{ color: "red", fontSize: 13 }}>{error.gender}</span>
             )}
           </div>
 
@@ -214,7 +215,6 @@ const Form = ({ handleSubmit }) => {
             name="role"
             placeholder="Type user"
             onChange={onChangeRole}
-            // value={form.role}
             options={OPTIONS_ROLE}
             isDisabled={false}
           />

@@ -6,7 +6,7 @@ import LogIn from "./containers/LogIn";
 import ForgotPassword from "./containers/ForgotPassword";
 import ResetPassword from "./containers/ResetPassword";
 import Register from "./containers/Register";
-import OurTutors from "./containers/OurTutors";
+import SchedulesAvailable from "./containers/SchedulesAvailable";
 import AboutUs from "./containers/AboutUs";
 import {
   HomeTutor,
@@ -101,11 +101,15 @@ function App() {
           exact
           component={withLayout(ChangePassword)}
         />
-        <Route path="/our-tutors" exact component={withLayout(OurTutors)} />
+        <Route
+          path="/schedule-available"
+          exact
+          component={withLayout(SchedulesAvailable)}
+        />
         <Route path="/about-us" exact component={withLayout(AboutUs)} />
         <Route path="/register" exact component={withLayout(Register)} />
         <Route path="/faq" exact component={withLayout(Faq)} />
-        <Route path="/contact-us" exact component={withLayout(ContactUs)} />
+        <Route path="/feedback" exact component={withLayout(ContactUs)} />
         <Route path="/articles" exact component={withLayout(Articles)} />
         {/* Homepage */}
         <Route path="/" component={withLayout(HomePage)} />

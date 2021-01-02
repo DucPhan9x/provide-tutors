@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { addSchedule } from "../../../../redux/actions/addSchedule";
@@ -9,6 +9,10 @@ import ModalTitle from "react-bootstrap/ModalTitle";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalFooter from "react-bootstrap/ModalFooter";
 import { useSelector } from "react-redux";
+
+import { teachingSchedule } from "../../../../redux/actions/teachingSchedule";
+
+import { isEmpty } from "validator";
 
 const StyledSchedule = styled.section`
   margin: 0 0 auto;
@@ -69,11 +73,18 @@ const StyledAddPopup = styled.section`
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    .error-add{
+      color:red;
+    }
     .price-input{
       width:100%;
       display: flex;
       justify-content: center;
       margin-top: 20px;
+      .error-add{
+        color:red;
+        margin-left:10px;
+      }
       .money-input{
         display: block;
         margin-left: 20px;
@@ -89,6 +100,10 @@ const StyledAddPopup = styled.section`
         border-radius: 4px;
       }
     }
+    .span-btn{
+      display: flex;
+      flex-direction: column;
+    }
     .form__item {
       float: left;
       width: 50%;
@@ -96,6 +111,9 @@ const StyledAddPopup = styled.section`
       margin-bottom: 10px;
       margin-top: 10px;
       padding-right: 10px;
+      .error-add{
+        color:red;
+      }
     }
     label {
       margin-left: 10px;
@@ -122,7 +140,10 @@ const StyledAddPopup = styled.section`
 const Schedule = () => {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setTimeDay([]);
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
 
   const [subject, setSubject] = useState("");
@@ -267,48 +288,21 @@ const Schedule = () => {
     },
   ];
 
-  const arrLessons = [
-    {
-      id: "1",
-      time: "7:00 - 9:00, Mon &  Wed",
-      price: "500.000VND",
-      subject: "English",
-      grade: "8",
-    },
-    {
-      id: "2",
-      time: "15:00 - 17:00, Mon &  Wed",
-      price: "600.000VND",
-      subject: "Math",
-      grade: "12",
-    },
-  ];
+  useEffect(() => {
+    teachingSchedule();
+  }, []);
+  const teachSchedules = useSelector(
+    (store) => store.teachingSchedule.data.teachSchedules
+  );
 
   const [timeday, setTimeDay] = useState([]);
 
-  const getSubject = (subject) => {
-    setSubject(subject);
-  };
-
-  const getGrade = (grade) => {
-    setGrade(grade);
-  };
-  const getPrice = (price) => {
-    setPrice(price);
-  };
-
-  const getDay = (day) => {
-    setDay(day);
-    console.log(day);
-  };
-  const getTime = (time) => {
-    setTime(time);
-    console.log(time);
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    const errorState = validate();
+    if (Object.keys(errorState).length > 0) {
+      return setError(errorState);
+    }
     let time = [];
     timeday.forEach((item) => {
       time.push(item.selectedDay + ", " + item.selectedTime);
@@ -331,8 +325,36 @@ const Schedule = () => {
   };
 
   const handleAddTimeDay = (time, day) => {
-    let newTimeDay = { selectedTime: time, selectedDay: day };
-    setTimeDay((timeday) => [...timeday, newTimeDay]);
+    if (!isEmpty(time) && !isEmpty(day)) {
+      let newTimeDay = { selectedTime: time, selectedDay: day };
+      setTimeDay((timeday) => [...timeday, newTimeDay]);
+    }
+  };
+
+  const [error, setError] = React.useState({});
+
+  const validate = () => {
+    const errorState = {};
+    // check validate
+    if (isEmpty(subject)) {
+      errorState.subject = "Please select a subject!";
+    }
+    if (isEmpty(grade + "")) {
+      errorState.grade = "Please select a grade!";
+    }
+    if (isEmpty(price + "")) {
+      errorState.price = "Please input price!";
+    }
+    if (isEmpty(time) || isEmpty(day)) {
+      errorState.timeday = "Please select learning schedules!";
+    }
+    return errorState;
+  };
+
+  const handleFocus = (event) => {
+    setError({
+      error: "",
+    });
   };
   return (
     <StyledSchedule>
@@ -350,22 +372,27 @@ const Schedule = () => {
                     <th>#</th>
                     <th>Subject</th>
                     <th>Grade</th>
+                    <th>Student Name</th>
                     <th>Time</th>
                     <th>Price</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {arrLessons.map((item, index) => {
-                    return (
-                      <tr>
-                        <th scope="row">{index + 1}</th>
-                        <td>{item.subject}</td>
-                        <td>{item.grade}</td>
-                        <td>{item.time}</td>
-                        <td>{item.price}</td>
-                      </tr>
-                    );
-                  })}
+                  {teachSchedules &&
+                    teachSchedules.map((item, index) => {
+                      return (
+                        <tr>
+                          <th scope="row">{index + 1}</th>
+                          <td>{item.subject}</td>
+                          <td>{item.grade}</td>
+                          <td>{item.studentName}</td>
+                          <td>{item.time.join(" and ")}</td>
+                          <td>{item.price}</td>
+                          <td>{item.status}</td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </Table>
             </div>
@@ -393,13 +420,15 @@ const Schedule = () => {
                     <Input
                       type="select"
                       name="selectSubject"
-                      onChange={(event) => getSubject(event.target.value)}
+                      onChange={(event) => setSubject(event.target.value)}
+                      onFocus={handleFocus}
                     >
                       <option>Select a subject</option>
                       {subjectOptions.map((option) => (
                         <option value={option.value}>{option.label}</option>
                       ))}
                     </Input>
+                    <span className="error-add">{error.subject}</span>
                   </div>
                 </div>
                 <div className="form__item">
@@ -408,13 +437,15 @@ const Schedule = () => {
                     <Input
                       type="select"
                       name="selectGrade"
-                      onChange={(event) => getGrade(event.target.value)}
+                      onChange={(event) => setGrade(Number(event.target.value))}
+                      onFocus={handleFocus}
                     >
                       <option>Select grade</option>
                       {gradeOptions.map((option) => (
                         <option value={option.value}>{option.label}</option>
                       ))}
                     </Input>
+                    <span className="error-add"> {error.grade}</span>
                   </div>
                 </div>
                 <div className="price-input">
@@ -424,12 +455,14 @@ const Schedule = () => {
                     type="number"
                     id="quantity"
                     name="quantity"
-                    min="50000"
-                    max="200000"
-                    step="50000"
-                    placeholder="Price (VNĐ)"
-                    onChange={(event) => getPrice(event.target.value)}
+                    min="5"
+                    max="50"
+                    step="5"
+                    placeholder="Price ($)"
+                    onChange={(event) => setPrice(Number(event.target.value))}
+                    onFocus={handleFocus}
                   ></input>
+                  <span className="error-add"> {error.price}</span>
                 </div>
                 <div className="form__item">
                   <div className="form__item__inner">
@@ -437,7 +470,8 @@ const Schedule = () => {
                     <Input
                       type="select"
                       name="selectSubject"
-                      onChange={(event) => getDay(event.target.value)}
+                      onChange={(event) => setDay(event.target.value)}
+                      onFocus={handleFocus}
                     >
                       <option>Select day</option>
                       {dayOptions.map((option) => (
@@ -452,7 +486,8 @@ const Schedule = () => {
                     <Input
                       type="select"
                       name="selectGrade"
-                      onChange={(event) => getTime(event.target.value)}
+                      onChange={(event) => setTime(event.target.value)}
+                      onFocus={handleFocus}
                     >
                       <option>Select time</option>
                       {timeOptions.map((option) => (
@@ -461,12 +496,16 @@ const Schedule = () => {
                     </Input>
                   </div>
                 </div>
-                <Button
-                  color="secondary"
-                  onClick={() => handleAddTimeDay(day, time)}
-                >
-                  Add day & time
-                </Button>
+                <div className="span-btn">
+                  <span className="error-add"> {error.timeday}</span>
+
+                  <Button
+                    color="warning"
+                    onClick={() => handleAddTimeDay(day, time)}
+                  >
+                    Add day & time
+                  </Button>
+                </div>
               </Form>
 
               <Table hover>

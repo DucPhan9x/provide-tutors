@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { FormGroup, Form, Label, Input } from "reactstrap";
 import { FGroup } from "../../../common";
 import save from "../../../../assets/images/save.svg";
+
+import { getStudentInfo } from "../../../../redux/actions/getStudentInfo";
+
+import { updateStudentInfo } from "../../../../redux/actions/updateStudentInfo";
 
 const StyledGeneralInfo = styled.section`
   .form-info {
@@ -115,6 +120,7 @@ const StyledGeneralInfo = styled.section`
 `;
 
 const GeneralInfo = () => {
+  const storeStudent = useSelector((store) => store.getStudentInfo.data);
   const [form, setForm] = React.useState({
     fullName: "",
     phoneNumber: "",
@@ -124,18 +130,45 @@ const GeneralInfo = () => {
     address: "",
   });
 
+  useEffect(() => {
+    getStudentInfo();
+  }, []);
+
+  useEffect(() => {
+    if (!storeStudent.student) {
+      return;
+    }
+    setForm({
+      ...form,
+      fullName: storeStudent.student.fullName,
+      phoneNumber: storeStudent.student.phone,
+      gender: storeStudent.student.gender,
+      birthday: storeStudent.student.birthday,
+      email: storeStudent.student.email,
+      address: storeStudent.student.address,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storeStudent]);
+
   const handleSubmitForm = (event) => {
     event.preventDefault();
 
     const formData = {
       fullName: form.fullName,
-      phoneNumber: form.phoneNumber,
+      phone: form.phoneNumber,
       gender: form.gender,
       birthday: form.birthday,
       email: form.email,
       address: form.address,
     };
-    console.log(formData);
+
+    updateStudentInfo(formData, (data) => {
+      if (data.status === 200) {
+        alert(data.msg);
+      } else {
+        alert(data.msg);
+      }
+    });
   };
   const handleChange = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -199,6 +232,7 @@ const GeneralInfo = () => {
                 type="select"
                 name="select"
                 id="gender"
+                value={form.gender}
                 onChange={handleChangeGender}
               >
                 <option value="None">Select gender</option>
@@ -235,7 +269,7 @@ const GeneralInfo = () => {
         </div>
 
         <div className="wrap-button">
-          <button className="find">
+          <button className="find" style={{ outline: "none" }}>
             Save my changes
             <span>
               <img src={save} alt="save" />

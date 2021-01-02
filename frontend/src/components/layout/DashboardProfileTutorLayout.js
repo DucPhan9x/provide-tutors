@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { getAuth } from "../../utils/helpers";
 import { Avatar } from "../common";
 
 const StyledDashboardProfileLayout = styled.section`
@@ -154,10 +155,7 @@ const StyledDashboardProfileLayout = styled.section`
   }
 `;
 
-const DashboardProfileTutorLayout = ({
-  children,
-  onOpenModalUpdateAvatar,
-}) => {
+const DashboardProfileTutorLayout = ({ children, onOpenModalUpdateAvatar }) => {
   return (
     <StyledDashboardProfileLayout>
       <div className="container">
@@ -166,7 +164,7 @@ const DashboardProfileTutorLayout = ({
             <div className="avatar">
               <Avatar />
             </div>
-            <h4>Thu Vu</h4>
+            <h4>{getAuth().fullName}</h4>
           </div>
           {children}
         </div>

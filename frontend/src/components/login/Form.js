@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const Form = ({ handleSubmit }) => {
   const [error, setError] = React.useState({});
-  const [form, setForm] = React.useState({ email: "", password: "" });
+  const [form, setForm] = React.useState({ userName: "", password: "" });
   const [errorLogin, setErrorLogin] = React.useState();
   const storeLogin = useSelector((store) => store.login);
   const loading = storeLogin.loading;
@@ -52,7 +52,7 @@ const Form = ({ handleSubmit }) => {
       <div className="login__inner">
         <ReForm className="radius-l login__inner__form">
           <div className="login__inner__form__text">
-            <p>Log in to your account</p>
+            <p>Login to your account</p>
             <div className="error">{errorLogin}</div>
           </div>
 

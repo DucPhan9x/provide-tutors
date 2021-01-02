@@ -1,15 +1,27 @@
-import React, { useEffect } from "react";
-import { Schedule } from "../../../components/dashboard/tutor/mystudent";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { ConfirmSchedule } from "../../../components/dashboard/tutor/mystudent";
+import { listStudentRegister } from "../../../redux/actions/listStudentRegister";
 
 const MyStudent = () => {
+  const [studentsRegister, setStudentsRegister] = useState([]);
+  const storeGetStudentRegister = useSelector(
+    (store) => store.listStudentRegister
+  );
   useEffect(() => {
-    console.log("my student");
+    listStudentRegister();
   }, []);
+  useEffect(() => {
+    if (!storeGetStudentRegister) {
+      return;
+    }
+    console.log(storeGetStudentRegister.data);
+    setStudentsRegister(storeGetStudentRegister.data.listRegiste);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storeGetStudentRegister]);
   return (
     <div>
-      <Schedule />;
-      <ConfirmSchedule />
+      <ConfirmSchedule arrStudents={studentsRegister} />
     </div>
   );
 };
