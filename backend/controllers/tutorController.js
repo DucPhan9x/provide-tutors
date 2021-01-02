@@ -72,6 +72,7 @@ const addSchedule = async (req, res, next) => {
             msg: "success",
         });
     } catch (error) {
+        console.log(error);
         next(error);
     }
 };
