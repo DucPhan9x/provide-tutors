@@ -35,6 +35,18 @@ const addSchedule = async (req, res, next) => {
                 throw new HttpError("Duplicate this time", 400);
             }
         }
+        // lay may lich contact
+
+        const contacts = await Contract.find({ tutorId: id });
+        let time_contact = [];
+        for (let i = 0; contacts.length; i++) {
+            time_contact = [...time_contact, ...contacts[i].time];
+        }
+        for (let i = 0; i < time.length; i++) {
+            if (time_contact.includes(time[i])) {
+                throw new HttpError("Duplicate this time", 400);
+            }
+        }
         let image = "";
         for (let object of listSubjects) {
             for (const [key, value] of Object.entries(object)) {
