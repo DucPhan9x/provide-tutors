@@ -2,8 +2,10 @@ import React from "react";
 import { FormBox } from "../common";
 import { Form as ReForm } from "reactstrap";
 import { isEmail } from "validator";
+import { useSelector } from "react-redux";
 
 const Form = ({ handleSubmit }) => {
+  const loading = useSelector((store) => store.forgotPassword.loading);
   const [error, setError] = React.useState({});
   const [form, setForm] = React.useState({ email: "" });
   const [errorForgotPassword, setErrorForgotPassword] = React.useState();
@@ -17,7 +19,7 @@ const Form = ({ handleSubmit }) => {
     }
 
     const formData = {
-      login: form.email,
+      email: form.email,
     };
 
     handleSubmit(formData);
@@ -66,7 +68,7 @@ const Form = ({ handleSubmit }) => {
             }}
             error={error.email}
           />
-          <button disabled={false} className="button button--secondary">
+          <button disabled={loading} className="button button--secondary">
             Send Email
           </button>
         </ReForm>

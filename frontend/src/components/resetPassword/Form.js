@@ -2,12 +2,13 @@ import React from "react";
 import { FormBox } from "../common";
 import { Form as ReForm } from "reactstrap";
 import { isEmpty } from "validator";
+import { useSelector } from "react-redux";
 
 const Form = ({ handleSubmit }) => {
   const [error, setError] = React.useState({});
   const [form, setForm] = React.useState({
+    password: "",
     newPassword: "",
-    confirmNewPassword: "",
   });
 
   const handleSubmitForm = (event) => {
@@ -19,24 +20,23 @@ const Form = ({ handleSubmit }) => {
     }
 
     const formData = {
-      code: "",
-      login: "",
-      new_password: form.newPassword,
+      password: form.password,
+      newPassword: form.newPassword,
     };
 
     handleSubmit(formData);
   };
+  const storeResetPassword = useSelector((store) => store.resetPassword);
+  const loading = storeResetPassword.loading;
 
   const validate = () => {
     const errorState = {};
     // check validate
+    if (isEmpty(form.password)) {
+      errorState.password = "Password is required";
+    }
     if (isEmpty(form.newPassword)) {
       errorState.newPassword = "New password is required";
-    }
-    if (isEmpty(form.confirmNewPassword)) {
-      errorState.confirmNewPassword = "Confirm password is required";
-    } else if (form.confirmNewPassword !== form.newPassword) {
-      errorState.confirmNewPassword = "Confirm password is wrong";
     }
     return errorState;
   };
@@ -62,6 +62,18 @@ const Form = ({ handleSubmit }) => {
           <FormBox
             propsInput={{
               type: "password",
+              name: "password",
+              placeholder: "Password",
+              onChange: handleChange,
+              onFocus: handleFocus,
+              value: form.password,
+              disabled: false,
+            }}
+            error={error.password}
+          />
+          <FormBox
+            propsInput={{
+              type: "password",
               name: "newPassword",
               placeholder: "New password",
               onChange: handleChange,
@@ -71,19 +83,7 @@ const Form = ({ handleSubmit }) => {
             }}
             error={error.newPassword}
           />
-          <FormBox
-            propsInput={{
-              type: "password",
-              name: "confirmNewPassword",
-              placeholder: "Confirm new password",
-              onChange: handleChange,
-              onFocus: handleFocus,
-              value: form.confirmNewPassword,
-              disabled: false,
-            }}
-            error={error.confirmNewPassword}
-          />
-          <button disabled={false} className="button button--secondary">
+          <button disabled={loading} className="button button--secondary">
             Reset password
           </button>
         </ReForm>

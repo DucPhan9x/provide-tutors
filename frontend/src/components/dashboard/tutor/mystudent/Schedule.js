@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Button, Table } from "reactstrap";
 
@@ -309,6 +309,9 @@ const StyledSchedule = styled.section`
 `;
 
 const Schedule = () => {
+  useEffect(() => {
+    console.log("schedule");
+  }, []);
   const arrStudents = [
     {
       id: "1",

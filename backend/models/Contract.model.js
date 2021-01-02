@@ -33,8 +33,8 @@ const contractSchema = new Schema({
         type: Number,
     },
     status: {
-        type: String,
-        default: "Đang học",
+        type: Number,
+        default: 1,
     },
     time_created: {
         type: Date,

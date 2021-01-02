@@ -9,13 +9,17 @@ const LogIn = () => {
   const history = useHistory();
   const handleLogin = (formData) => {
     login(formData, (data) => {
-      setAuth(data.user.token);
-      if (data.user.role === ROLE_TUTOR) {
-        history.push("/dashboard/tutor");
-      } else if (data.user.role === ROLE_STUDENT) {
-        history.push("/dashboard/student");
+      if (data.status === 200) {
+        setAuth(data.user);
+        if (data.user.role === ROLE_TUTOR) {
+          history.push("/tutor");
+        } else if (data.user.role === ROLE_STUDENT) {
+          history.push("/student");
+        } else {
+          history.push("/");
+        }
       } else {
-        history.push("/");
+        alert(data.msg);
       }
     });
   };

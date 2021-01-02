@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ButtonDropdown, DropdownToggle, DropdownMenu } from "reactstrap";
-import { NavLink, useLocation } from "react-router-dom";
-import { SignInAlt, ChevronDown, User } from "../common/icons";
+import { NavLink } from "react-router-dom";
+import { SignInAlt, ChevronDown } from "../common/icons";
 import defaultAvatar from "../../assets/images/avatar-picture.svg";
 
 const StyledDropdownUserMenu = styled(ButtonDropdown)`
@@ -63,58 +63,9 @@ const StyledDropdownUserMenu = styled(ButtonDropdown)`
   }
 `;
 
-const DropdownUserMenu = ({
-  isHasDashboardTutorLink,
-  isHasDashboardStudentLink,
-  isStudentAndTutor,
-}) => {
-  const location = useLocation();
+const DropdownUserMenu = ({ auth }) => {
   const [dropdownOpen, setOpen] = useState(false);
-
-  const isInDashboardTutor = location.pathname.includes("/dashboard/tutor");
-  const isInDashboardStudent = location.pathname.includes("/dashboard/student");
-
   const toggle = () => setOpen(!dropdownOpen);
-
-  const renderNavLinks = () => {
-    if (isStudentAndTutor) {
-      return (
-        <>
-          {!isInDashboardStudent && (
-            <NavLink to="/dashboard/student" activeClassName="--active">
-              <User />
-              <p>Dashboard Student</p>
-            </NavLink>
-          )}
-          {!isInDashboardTutor && (
-            <NavLink to="/dashboard/tutor" activeClassName="--active">
-              <User />
-              <p>Dashboard Tutor</p>
-            </NavLink>
-          )}
-        </>
-      );
-    } else if (isHasDashboardTutorLink) {
-      return (
-        <>
-          <NavLink to="/dashboard/tutor" activeClassName="--active">
-            <User />
-            <p>Dashboard</p>
-          </NavLink>
-        </>
-      );
-    } else if (isHasDashboardStudentLink) {
-      return (
-        <>
-          <NavLink to="/dashboard/tutor" activeClassName="--active">
-            <User />
-            <p>Dashboard</p>
-          </NavLink>
-        </>
-      );
-    }
-  };
-
   return (
     <StyledDropdownUserMenu isOpen={dropdownOpen} toggle={toggle}>
       <DropdownToggle>
@@ -124,11 +75,12 @@ const DropdownUserMenu = ({
       </DropdownToggle>
 
       <DropdownMenu>
-        {renderNavLinks()}
-        <NavLink to="/dashboard">
-          <p>Dashboard</p>
-        </NavLink>
-        <NavLink to="/logout">
+        <NavLink
+          to={auth && auth.role === "admin" ? "/admin" : "/login"}
+          onClick={() => {
+            localStorage.clear();
+          }}
+        >
           <SignInAlt />
           <p>Logout</p>
         </NavLink>

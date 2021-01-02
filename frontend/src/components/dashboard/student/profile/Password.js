@@ -4,6 +4,8 @@ import { Form, Label } from "reactstrap";
 import { FGroup } from "../../../common";
 import save from "../../../../assets/images/save.svg";
 
+import { changePassword } from "../../../../redux/actions/changePassword";
+
 const StyledPassword = styled.section`
   .form-info {
     padding: 30px 20px 10px;
@@ -78,29 +80,81 @@ const StyledPassword = styled.section`
 `;
 
 const Password = () => {
+  const [form, setForm] = React.useState({
+    currentPassword: "",
+    newPassword: "",
+    newPasswordConfirm: "",
+  });
+
+  const handleSubmitForm = (event) => {
+    event.preventDefault();
+
+    const formData = {
+      password: form.currentPassword,
+      newPassword: form.newPassword,
+    };
+
+    changePassword(formData, (data) => {
+      if (data.status === 200) {
+        alert(data.msg);
+      } else {
+        alert(data.msg);
+      }
+    });
+  };
+  const handleChange = (event) => {
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
   return (
     <StyledPassword>
-      <Form className="form-info  flex items-center flex-col">
+      <Form
+        className="form-info  flex items-center flex-col"
+        onSubmit={handleSubmitForm}
+      >
         <div className="form__item">
           <div className="form__item__inner">
             <Label>Current password</Label>
-            <FGroup />
+            <FGroup
+              propsInput={{
+                name: "currentPassword",
+                type: "password",
+                placeholder: "Enter your current password here…",
+                value: form.currentPassword,
+                onChange: handleChange,
+              }}
+            />
           </div>
         </div>
         <div className="form__item">
           <div className="form__item__inner">
             <Label>New password</Label>
-            <FGroup />
+            <FGroup
+              propsInput={{
+                name: "newPassword",
+                type: "password",
+                placeholder: "Enter your new password here…",
+                value: form.newPassword,
+                onChange: handleChange,
+              }}
+            />
           </div>
         </div>
         <div className="form__item">
           <div className="form__item__inner">
             <Label>New password (confirm)</Label>
-            <FGroup />
+            <FGroup
+              propsInput={{
+                name: "newPasswordConfirm",
+                type: "password",
+                placeholder: "Confirm your new password here…",
+                value: form.newPasswordConfirm,
+                onChange: handleChange,
+              }}
+            />
           </div>
         </div>
         <button className="find">
-          Save my changes
+          Save
           <span>
             <img src={save} alt="save" />
           </span>

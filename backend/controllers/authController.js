@@ -14,7 +14,6 @@ const login = async (req, res, next) => {
             Student.findOne({ userName }),
             Tutor.findOne({ userName }),
         ]);
-        console.log(student, tutor);
         if (!student && !tutor) {
             throw new HttpError("Username does not exist", 401);
         }
@@ -28,6 +27,7 @@ const login = async (req, res, next) => {
                 userName: student.userName,
                 id: student._id,
                 role: student.role,
+                fullName: student.fullName,
             };
         }
         if (tutor) {
@@ -39,6 +39,7 @@ const login = async (req, res, next) => {
                 userName: tutor.userName,
                 id: tutor._id,
                 role: tutor.role,
+                fullName: tutor.fullName,
             };
         }
         const token = tokenEncode(data);
@@ -49,6 +50,7 @@ const login = async (req, res, next) => {
                 userName: data.userName,
                 role: data.role,
                 id: data.id,
+                fullname: data.fullName,
                 token,
             },
         });
@@ -58,15 +60,42 @@ const login = async (req, res, next) => {
 };
 
 const register = async (req, res, next) => {
-    const { userName, password, role, email } = req.body;
-    console.log(req.body);
+    const {
+        userName,
+        password,
+        role,
+        email,
+        fullName,
+        gender,
+        phone,
+        birthday,
+        address,
+    } = req.body;
     try {
         const hash = await bcypt.hash(password, 12);
         if (role == 0) {
-            await Student.create({ email, userName, password: hash });
+            await Student.create({
+                email,
+                userName,
+                fullName,
+                gender,
+                phone,
+                birthday,
+                address,
+                password: hash,
+            });
         }
         if (role == 1) {
-            await Tutor.create({ email, userName, password: hash });
+            await Tutor.create({
+                email,
+                userName,
+                fullName,
+                gender,
+                phone,
+                birthday,
+                address,
+                password: hash,
+            });
         }
         res.status(200).json({
             status: 200,
@@ -82,12 +111,21 @@ const register = async (req, res, next) => {
 const forgotPassword = async (req, res, next) => {
     try {
         const { email } = req.body;
+        console.log(email);
         const [student, tutor] = await Promise.all([
             Student.findOne({ email }),
             Tutor.findOne({ email }),
         ]);
+        console.log(student, tutor);
         if (!student && !tutor) {
             throw new HttpError("Email does not match any account", 401);
+        }
+        let userId;
+        if (student) {
+            userId = student._id;
+        }
+        if (tutor) {
+            userId = tutor._id;
         }
         const code = generate();
         const enCode = await bcypt.hash(code, 12);
@@ -95,7 +133,7 @@ const forgotPassword = async (req, res, next) => {
         if (codeReset) {
             await CodeReset.findOneAndUpdate({ email }, { enCode, time: new Date() });
         } else {
-            await CodeReset.create({ email, enCode, userId: student._id });
+            await CodeReset.create({ email, enCode, userId });
         }
         sendEmail(email, code);
         res.status(200).json({
@@ -124,6 +162,9 @@ const confirmCode = async (req, res, next) => {
 };
 const changePassword = async (req, res, next) => {
     let { email, code, password } = req.body;
+    if (!email || !code || !password) {
+        throw new HttpError("data password incorrect");
+    }
     password = password.trim();
     try {
         if (!passRegex.test(password)) {
@@ -159,6 +200,9 @@ const changePassword = async (req, res, next) => {
 const changeNewPassword = async (req, res, next) => {
     const { id, role } = req.user;
     let { password, newPassword } = req.body;
+    if (!password || !newPassword) {
+        throw new HttpError("old password or password is empty");
+    }
     password = password.trim();
     newPassword = newPassword.trim();
     try {

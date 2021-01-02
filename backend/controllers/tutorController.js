@@ -1,13 +1,27 @@
 import { Tutor, Schedule, ScheduleRegiste, Student, Contract, ScheduleAccept } from "../models";
-import { HttpError } from "../constants";
+import { HttpError, varConst } from "../constants";
 import { uploadSingle } from "../helpers";
+
+const { listSubjects } = varConst;
 
 const addSchedule = async (req, res, next) => {
     try {
         const { id } = req.user;
         const { grade, subject, time, price } = req.body;
+        if (!listSubjects.some((obj) => obj.hasOwnProperty(subject))) {
+            throw new HttpError("subject is incorrect", 400);
+        }
         if (!time || !grade || !subject || !price) {
             throw new HttpError("data is empty", 400);
+        }
+        if (typeof price != "number") {
+            throw new HttpError("price must be number", 401);
+        }
+        if (typeof grade != "number") {
+            throw new HttpError("grade must be number", 401);
+        }
+        if (!Array.isArray(time) || time.length == 0) {
+            throw new HttpError("time is empty", 400);
         }
         const tutor = await Tutor.findById({ _id: id });
         // lay may cai lich hoc dang dang ky
@@ -21,6 +35,27 @@ const addSchedule = async (req, res, next) => {
                 throw new HttpError("Duplicate this time", 400);
             }
         }
+        // lay may lich contact
+
+        const contacts = await Contract.find({ tutorId: id });
+        let time_contact = [];
+        for (let i = 0; contacts.length; i++) {
+            time_contact = [...time_contact, ...contacts[i].time];
+        }
+        for (let i = 0; i < time.length; i++) {
+            if (time_contact.includes(time[i])) {
+                throw new HttpError("Duplicate this time", 400);
+            }
+        }
+        let image = "";
+        for (let object of listSubjects) {
+            for (const [key, value] of Object.entries(object)) {
+                if (key == subject) {
+                    image = value;
+                }
+            }
+        }
+        console.log(image);
         let schedule = {
             tutorId: id,
             grade,
@@ -28,6 +63,7 @@ const addSchedule = async (req, res, next) => {
             time,
             price,
             tutorName: tutor.fullName,
+            image,
         };
         await Schedule.create(schedule);
         res.status(200).json({
@@ -101,7 +137,9 @@ const updateInfo = async (req, res, next) => {
 const listScheduleRegisted = async (req, res, next) => {
     const tutorId = req.user.id;
     try {
-        const listRegiste = await ScheduleRegiste.find({ tutorId }, { __v: 0 }).sort({ _id: -1 });
+        const listRegiste = await ScheduleRegiste.find({ tutorId }, { __v: 0, tutorName: 0 }).sort({
+            _id: -1,
+        });
         res.status(200).json({
             status: 200,
             listRegiste,
@@ -117,6 +155,9 @@ const tutorAccept = async (req, res, next) => {
     try {
         const contracts = await Contract.find({ tutorId });
         const scheduleRegiste = await ScheduleRegiste.findById({ _id: scheduleRegistedId });
+        if (!scheduleRegiste) {
+            throw new HttpError("schedule does not exist", 400);
+        }
         const scheduleAccepts = await ScheduleAccept.find({ tutorId });
 
         const time = scheduleRegiste.time;
@@ -139,6 +180,7 @@ const tutorAccept = async (req, res, next) => {
         await ScheduleAccept.create({
             tutorId,
             scheduleId: scheduleRegiste.scheduleId,
+            scheduleRegisterId: scheduleRegistedId,
             studentId: scheduleRegiste.studentId,
             time,
         });

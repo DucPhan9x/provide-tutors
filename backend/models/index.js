@@ -6,5 +6,17 @@ import { ScheduleRegiste } from "./ScheduleRegiste.model";
 import { Contract } from "./Contract.model";
 import { Admin } from "./Admin.model";
 import { ScheduleAccept } from "./ScheduleAccept.model";
-
-export { Student, Tutor, CodeReset, Schedule, ScheduleRegiste, Contract, Admin, ScheduleAccept };
+import { Review } from "./Review.model";
+import { Feedback } from "./Feedback.model";
+export {
+    Student,
+    Tutor,
+    CodeReset,
+    Schedule,
+    ScheduleRegiste,
+    Contract,
+    Admin,
+    ScheduleAccept,
+    Review,
+    Feedback,
+};

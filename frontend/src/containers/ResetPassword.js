@@ -2,7 +2,9 @@ import React from "react";
 import { Form } from "../components/resetPassword";
 
 function ResetPassword() {
-  const handleResetPassword = () => {};
+  const handleResetPassword = (formData) => {
+    console.log(formData);
+  };
   return <Form handleSubmit={handleResetPassword} />;
 }
 

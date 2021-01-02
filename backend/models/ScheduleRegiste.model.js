@@ -16,6 +16,9 @@ const scheduleRegisteSchema = new Schema({
     studentName: {
         type: String,
     },
+    tutorName: {
+        type: String,
+    },
     grade: {
         type: Number,
     },

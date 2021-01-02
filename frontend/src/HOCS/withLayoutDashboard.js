@@ -4,7 +4,7 @@ import { Header } from "../components/layout";
 const withLayoutDashboard = (Component) => (props) => {
   return (
     <div className="app">
-      <Header isDashboard />
+      <Header />
       <Component {...props} />
     </div>
   );

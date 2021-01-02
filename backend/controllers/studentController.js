@@ -1,5 +1,6 @@
-import { Student, ScheduleRegiste, Schedule, Contract } from "../models";
+import { Student, ScheduleRegiste, Schedule, Contract, Review } from "../models";
 import { HttpError } from "../constants";
+import mongo from "mongoose";
 
 const getInfo = async (req, res, next) => {
     const { id } = req.user;
@@ -44,11 +45,14 @@ const updateInfo = async (req, res, next) => {
 
 const chooseSchedule = async (req, res, next) => {
     const studentId = req.user.id;
-    console.log(studentId);
     const scheduleId = req.body.scheduleId;
 
     try {
+        if (!scheduleId) {
+            throw new HttpError("scheduleID is empty!", 404);
+        }
         const schedule = await Schedule.findById({ _id: scheduleId });
+
         if (!schedule) {
             throw new HttpError("Schedule does not exist", 404);
         }
@@ -83,13 +87,13 @@ const chooseSchedule = async (req, res, next) => {
         }
         let students = schedule.students;
         students.push(studentId);
-        console.log(student);
         await Schedule.findByIdAndUpdate({ _id: scheduleId }, { students });
         await ScheduleRegiste.create({
             scheduleId,
             studentId,
             tutorId: schedule.tutorId,
             studentName: student.fullName,
+            tutorName: schedule.tutorName,
             grade: schedule.grade,
             subject: schedule.subject,
             time: schedule.time,
@@ -121,9 +125,82 @@ const listContract = async (req, res, next) => {
     }
 };
 
+const listRegister = async (req, res, next) => {
+    const { id } = req.user;
+    try {
+        const listRegister = await ScheduleRegiste.find(
+            { studentId: id },
+            { studentName: 0, __v: 0, studentId: 0, scheduleId: 0, tutorId: 0 }
+        );
+        res.status(200).json({
+            status: 200,
+            listRegister,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const delRegister = async (req, res, next) => {
+    const { _id } = req.params;
+    const { id } = req.user;
+    try {
+        if (!_id) {
+            throw new HttpError("schedule register does not exist", 400);
+        }
+        if (!mongo.Types.ObjectId.isValid(_id)) {
+            throw new HttpError("id schedule register does not exist", 400);
+        }
+        const scheduleRegister = await ScheduleRegiste.findById({ _id });
+        const scheduleId = scheduleRegister.scheduleId;
+        const schedule = await Schedule.findById({ _id: scheduleId });
+        const students = schedule.students;
+        let newstudents = [];
+        for (let i = 0; i < students.length; i++) {
+            if (JSON.stringify(students[i]) != JSON.stringify(id)) {
+                newstudents.push(students[i]);
+            }
+        }
+        await Schedule.findByIdAndUpdate({ _id: scheduleId }, { students: newstudents });
+        await ScheduleRegiste.findByIdAndRemove({ _id });
+        res.status(200).json({
+            status: 200,
+            msg: "Success",
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const reviewTutor = async (req, res, next) => {
+    const { id } = req.user;
+    const { content, tutorId } = req.body;
+    try {
+        if (!content) {
+            throw new HttpError("Content is empty!", 401);
+        }
+        if (!tutorId) {
+            throw new HttpError("tutorId is empty!", 401);
+        }
+        const student = await Student.findById({ _id: id }, { fullName: 1 });
+        const fullName = student.fullName;
+        console.log(fullName);
+        await Review.create({ studentId: id, tutorId, content, fullName });
+        res.status(200).json({
+            status: 200,
+            msg: "Success",
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const studentController = {
     getInfo,
     updateInfo,
     chooseSchedule,
     listContract,
+    listRegister,
+    delRegister,
+    reviewTutor,
 };

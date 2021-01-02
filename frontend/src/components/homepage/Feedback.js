@@ -13,38 +13,14 @@ function Feedback() {
           Feedbacks of <span className="text--primary">students</span>
         </h2>
       </div>
-      <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li
-            data-target="#myCarousel"
-            data-slide-to="0"
-            class="active"
-            style={{ background: "blue", fontSize: 60 }}
-          ></li>
-          <li
-            data-target="#myCarousel"
-            data-slide-to="1"
-            style={{ background: "blue", fontSize: 60 }}
-          ></li>
-          <li
-            data-target="#myCarousel"
-            data-slide-to="2"
-            style={{ background: "blue", fontSize: 60 }}
-          ></li>
-          <li
-            data-target="#myCarousel"
-            data-slide-to="3"
-            style={{ background: "blue", fontSize: 60 }}
-          ></li>
-          <li
-            data-target="#myCarousel"
-            data-slide-to="4"
-            style={{ background: "blue", fontSize: 60 }}
-          ></li>
-        </ol>
-
-        <div class="carousel-inner">
-          <div class="item active">
+      <div
+        id="myCarousel"
+        className="carousel slide"
+        data-ride="carousel"
+        style={{ marginLeft: 20 }}
+      >
+        <div className="carousel-inner">
+          <div className="item active">
             <article className="slide">
               <div className="slide__content">
                 <h4 className="h4">About Phan Trong Duc</h4>
@@ -59,7 +35,7 @@ function Feedback() {
             </article>
           </div>
 
-          <div class="item">
+          <div className="item">
             <article className="slide">
               <div className="slide__content">
                 <h4 className="h4">About Le Trung Nam</h4>
@@ -73,7 +49,7 @@ function Feedback() {
             </article>
           </div>
 
-          <div class="item">
+          <div className="item">
             <article className="slide">
               <div className="slide__content">
                 <h4 className="h4">About Vu Thi Bich Thu</h4>
@@ -86,7 +62,7 @@ function Feedback() {
               </div>
             </article>
           </div>
-          <div class="item">
+          <div className="item">
             <article className="slide">
               <div className="slide__content">
                 <h4 className="h4">About Nguyen Thi Duy An</h4>
@@ -99,7 +75,7 @@ function Feedback() {
               </div>
             </article>
           </div>
-          <div class="item">
+          <div className="item">
             <article className="slide">
               <div className="slide__content">
                 <h4 className="h4">About Nguyen Quang Phieu</h4>
@@ -116,28 +92,28 @@ function Feedback() {
         </div>
 
         <a
-          class="left carousel-control"
+          className="left carousel-control"
           href="#myCarousel"
           data-slide="prev"
           style={{ background: "none" }}
         >
           <span
-            class="glyphicon glyphicon-chevron-left"
+            className="glyphicon glyphicon-chevron-left"
             style={{ fontSize: 50, color: "blue" }}
           ></span>
-          <span class="sr-only">Previous</span>
+          <span className="sr-only">Previous</span>
         </a>
         <a
-          class="right carousel-control"
+          className="right carousel-control"
           href="#myCarousel"
           data-slide="next"
           style={{ background: "none" }}
         >
           <span
-            class="glyphicon glyphicon-chevron-right"
+            className="glyphicon glyphicon-chevron-right"
             style={{ fontSize: 50, color: "blue" }}
           ></span>
-          <span class="sr-only">Next</span>
+          <span className="sr-only">Next</span>
         </a>
       </div>
     </section>
