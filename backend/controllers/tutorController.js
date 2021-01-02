@@ -39,7 +39,7 @@ const addSchedule = async (req, res, next) => {
 
         const contacts = await Contract.find({ tutorId: id });
         let time_contact = [];
-        for (let i = 0; contacts.length; i++) {
+        for (let i = 0; i < contacts.length; i++) {
             time_contact = [...time_contact, ...contacts[i].time];
         }
         for (let i = 0; i < time.length; i++) {
